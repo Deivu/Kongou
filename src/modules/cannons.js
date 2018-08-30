@@ -8,4 +8,6 @@ class ErrorHandler {
 		console.error(this.errored);
 		// Some More Handler in future
 	};
-}
+};
+
+module.exports = ErrorHandler;

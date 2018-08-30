@@ -32,11 +32,14 @@ class BattleCruiser extends Client {
 		this.on('error', (error) => this.cannons(this, error).fire());
 		this.on('connect', (id) => console.log(`Admiral, My Shard #${id} Initialized Freely !`);
 		this.on('messageCreate', (msg) => {
-			CommandHandler(this, msg).run()
-			.catch(error => {
-				this.cannons(this, error).fire();
-				msg.channel.createMessage(`Admiral, I encountered an Unexpected Error, Here is the report.\`\`\`${error.stack}\`\`\``);
-			});
+			if (msg.author.bot || !msg.content.startsWith(Config.prefix)) return;
+			if (msg.channel.guild.members.get(this.user.id).permission.has('sendMessages')) {
+			    CommandHandler(this, msg).run()
+			    .catch(error => {
+				    this.cannons(this, error).fire();
+				    msg.channel.createMessage(`Admiral, I encountered an Unexpected Error, Here is the report.\`\`\`${error.stack}\`\`\``);
+			    });
+		    };
 		});
 		this.on('guildCreate', (guild) => {
 			console.log(`New Guild Admiral, ${guild.name}`);
