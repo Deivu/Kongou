@@ -19,6 +19,13 @@ class CommandHandler {
     		case 1:
     		    return this.msg.member.permission.has('manageMessages');
     		    break;
+    		case 2:
+    		    return (this.msg.member.permission.has('kickMembers') || this.msg.member.permission.has('banMembers'));
+    		    break;
+    		case 3:
+    		    return this.msg.member.permission.has('manageGuild');
+    		case 4:
+    		    return this.misc.owners.includes(this.msg.author.id);
     		default:
     		    return true;
     	};
