@@ -1,8 +1,8 @@
 const Handler = require('../modules/commandHandler.js');
 
 class Ping extends Handler {
-    constructor(...args) {
-    	super(...args, {
+    constructor(Kongou) {
+    	super(Kongou, {
     		name: 'ping',
     		usage: 'Shows the Ping to Discord, Duh',
     		category: 'Misc',
@@ -10,7 +10,7 @@ class Ping extends Handler {
     	});
     };
 
-    async run(Kongou, msg) {
+    async run(msg) {
     	await msg.channel.createMessage(`Admiral, The Current Ping is **${Math.round(msg.channel.guild.shard.latency)} ms**`)
     };
 };

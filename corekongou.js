@@ -4,41 +4,44 @@ const YoutubeAPI = require('simple-youtube-api');
 const Fs = require('fs'); 
 const Config = require('./config.json');
 const CommandHandler = require('./src/modules/commandHandler.js');
+const ErrorHandler = require('./modules/cannons.js');
 
 class BattleCruiser extends Client {
 	constructor(token, settings) {
 		super(token, settings);
 		this.misc = require('./misc.json');
-		this.cannons = require('./modules/cannons.js');
 		this.ytdl = require('ytdl-core');
+		this.cannons = new ErrorHandler(this);
+		this.handler = new CommandHandler(this);
 		this.youtube = new YoutubeAPI(Config.ytkey);
-		this.persistence = new Enmap({ name: 'config', autoFetch: 'true', fetchAll: false });
 		this.unavailable = new Set();
+		this.persistence = new Enmap({ name: 'config', autoFetch: 'true', fetchAll: false });
 		this.commands = new Map();
 		this.queue = new Map();
 	};
 
-	LoadCommands() {
+    CacheCommand(name, path) {
+    	const cache = new (require(path))(this);
+    	this.commands.set(name, cache);
+    };
+
+	GetCommands() {
 		for (const file of fs.readdirSync('./src/commands')) {
-			this.commands.set(file.split('.')[0], require(`./src/commands/${file}`));
+			this.CacheCommand(file.split('.')[0], `./src/commands/${file}`);
 		};
 	};
 
 	Sortie() {
-		this.LoadCommands();
+		this.GetCommands();
 		this.connect();
 
 		this.on('ready', () => console.log('Admiral, 1st of the Kongou Class Battle Cruisers, Kongou is now Ready to Go !'));
 		this.on('error', (error) => this.cannons(this, error).fire());
 		this.on('connect', (id) => console.log(`Admiral, My Shard #${id} Initialized Freely !`);
 		this.on('messageCreate', (msg) => {
-			if (msg.author.bot || !msg.content.startsWith(Config.prefix)) return;
+			if (msg.author.bot || !msg.content.startsWith(this.misc.prefix)) return;
 			if (msg.channel.guild.members.get(this.user.id).permission.has('sendMessages')) {
-			    CommandHandler(this, msg).run()
-			    .catch(error => {
-				    this.cannons(this, error).fire();
-				    msg.channel.createMessage(`Admiral, I encountered an Unexpected Error, Here is the report.\`\`\`${error.stack}\`\`\``);
-			    });
+				this.handler.run(msg);
 		    };
 		});
 		this.on('guildCreate', (guild) => {

@@ -1,31 +1,40 @@
 class CommandHandler {
-    constructor(Kongou, msg) {
+    constructor(Kongou) {
         this.Kongou = Kongou;
-        this.msg = msg;
-        this.args = msg.content.split(/+ /);
-        this.command = Kongou.commands.get(msg.content.split(/+ /)[0].toLowerCase);
     };
 
-    async run() {
-    	if (this.command) {
-    	    if (this.validate()) {
-    	    	await this.commands.run(this.Kongou, this.msg, this.args);
-    	    } else await this.msg.channel.createMessage('Admiral, it appears like **You dont have Permissions** to Perform this Operation.');
-        };
+    async run(msg) {
+    	const command = args[0].slice(this.kongou.misc.prefix).toLowerCase();
+    	try {
+    	    const args = msg.content.split(\+ \);
+    	    if (this.Kongou.commands.has(command)) {
+    		    const cached = this.Kongou.commands.get(command);
+    		    if (this.validate(msg, cached)) {
+    			    await cached.run(msg, args);
+    		    } else 
+    		        await msg.channel.createMessage('Admiral, it appears like **You dont have Permissions** to Perform this Operation.');
+    	    };
+    	} catch (error) {
+    		this.cannons.fire(error);
+    		await msg.channel.createMessage(`Admiral, There is slight malfunction in the Command Module ${command}. Additional Report\`\`\`${error.stack}\`\`\``);
+    	};
     };
 
-    validate() {
-    	switch (this.command.level) {
+    validate(msg, command) {
+    	switch (command.level) {
     		case 1:
-    		    return this.msg.member.permission.has('manageMessages');
+    		    return msg.member.permission.has('manageMessages');
     		    break;
     		case 2:
-    		    return (this.msg.member.permission.has('kickMembers') || this.msg.member.permission.has('banMembers'));
+    		    return msg.member.permission.has('kickMembers');
     		    break;
     		case 3:
-    		    return this.msg.member.permission.has('manageGuild');
+    		    return msg.member.permission.has('banMembers')
+    		    break;
     		case 4:
-    		    return this.misc.owners.includes(this.msg.author.id);
+    		    return msg.member.permission.has('manageGuild');
+    		case 5:
+    		    return this.Kongou.misc.owners.includes(msg.author.id);
     		default:
     		    return true;
     	};
