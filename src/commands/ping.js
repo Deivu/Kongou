@@ -10,8 +10,8 @@ class Ping extends Handler {
     	});
     };
 
-    async run() {
-    	await this.msg.channel.createMessage(`Admiral, The Current Ping is **${Math.round(this.msg.channel.guild.shard.latency)} ms**`)
+    async run(Kongou, msg) {
+    	await msg.channel.createMessage(`Admiral, The Current Ping is **${Math.round(msg.channel.guild.shard.latency)} ms**`)
     };
 };
 

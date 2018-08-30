@@ -9,7 +9,7 @@ class CommandHandler {
     async run() {
     	if (this.command) {
     	    if (this.validate()) {
-    	    	await this.commands.run();
+    	    	await this.commands.run(this.Kongou, this.msg, this.args);
     	    } else await this.msg.channel.createMessage('Admiral, it appears like **You dont have Permissions** to Perform this Operation.');
         };
     };
