@@ -4,9 +4,9 @@ class CommandHandler {
     };
 
     async run(msg) {
-    	const command = args[0].slice(this.kongou.misc.prefix).toLowerCase();
+        const args = msg.content.split(/ +/);
+    	const command = args[0].toLowerCase().slice(this.Kongou.misc.prefix.length);
     	try {
-    	    const args = msg.content.split(\+ \);
     	    if (this.Kongou.commands.has(command)) {
     		    const cached = this.Kongou.commands.get(command);
     		    if (this.validate(msg, cached)) {
@@ -29,7 +29,7 @@ class CommandHandler {
     		    return msg.member.permission.has('kickMembers');
     		    break;
     		case 3:
-    		    return msg.member.permission.has('banMembers')
+    		    return msg.member.permission.has('banMembers');
     		    break;
     		case 4:
     		    return msg.member.permission.has('manageGuild');

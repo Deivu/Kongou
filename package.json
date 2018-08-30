@@ -29,6 +29,6 @@
     "erlpack": "abalabahaha/erlpack",
     "node-opus": "^0.3.0",
     "pako": "1.0.6",
-    "sodium-native": "^2.2.1",
+    "sodium-native": "^2.2.1"
   }
 }
