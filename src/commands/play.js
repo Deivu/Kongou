@@ -34,7 +34,7 @@ class Play extends Handler {
 				    await ManageQueue(this.Kongou, msg, data);
 			    };
 			};
-			await msg.channel.createMessage(`Admiral, I added the Playlist ${playlist.title} on the Queue.`);
+			await msg.channel.createMessage(`Admiral, I added the Playlist \`${playlist.title}\` on the Queue.`);
 		} else {
 			let data;
 			try {
@@ -48,7 +48,7 @@ class Play extends Handler {
 			if (data.thumbnails === undefined) 
 		        return await msg.channel.send('Admiral, This is a Private Property. Have some respect to the Owner');
 		    await ManageQueue(this.Kongou, msg, data);
-		    await msg.channel.createMessage(`Admiral, I added ${data.title} on the Queue.`);
+		    await msg.channel.createMessage(`Admiral, I added \`${data.title}\` on the Queue.`);
 		};
 	};
 };

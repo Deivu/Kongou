@@ -5,8 +5,8 @@ class Skip extends Handler {
     	super(Kongou, {
     		name: 'skip',
     		usage: 'Skips the Current Track.',
-    		category: 'Misc',
-    		level: 0
+    		category: 'Moosik',
+    		level: 1
     	});
         this.Kongou = Kongou; 
     };

@@ -35,9 +35,10 @@ class BattleCruiser extends Client {
 	Sortie() {
 		this.on('ready', () => {
 			this.editStatus('online', { name: 'with Admiral Saya'});
-			console.log('Admiral, 1st of the Kongou Class Battle Cruisers, Kongou is now Ready to Go !')
+			console.log(`Admiral, Kongou is now Operational with ${this.guilds.size} Port(s) Accessible.`)
 		});
-		this.on('connect', (id) => console.log(`Admiral, My Shard #${id} Initialized Freely !`));
+		this.on('connect', (id) => console.log(`Admiral, Module Shard #${id} is now Operational.`));
+		this.on('shardDisconnect', (id) => console.log(`Admiral, I lost in touch with Module Shard #${id}.`));
 		this.on('error', (error) => this.cannons.fire(error));
 		this.on('guildUnavailable', (guild) => this.unavailable.add(guild.id));
 		this.on('guildAvailable', (guild) => this.unavailable.delete(guild.id));

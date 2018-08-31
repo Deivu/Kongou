@@ -5,8 +5,8 @@ class Stop extends Handler {
     	super(Kongou, {
     		name: 'stop',
     		usage: 'Stops the Music Player.',
-    		category: 'Misc',
-    		level: 0
+    		category: 'Moosik',
+    		level: 1
     	});
         this.Kongou = Kongou; 
     };

@@ -15,8 +15,8 @@ class Player {
 
 		const stream = this.Kongou.ytdl(this.queue.songs[0].url, { quality: 'highestaudio' });
 		this.voiceConnection.play(stream, { inlineVolume: true, sampleRate: 96000 });
-		this.voiceConnection.setVolume(Math.pow(0.80, 1.660964));
-		this.guild.channels.get(this.queue.textChannel).createMessage(`Admiral, The Current Song is **${this.queue.songs[0].title}**`)
+		this.voiceConnection.setVolume(Math.pow(0.60, 1.660964));
+		this.guild.channels.get(this.queue.textChannel).createMessage(`Admiral, The Current Song is \`\`\`diff\n- ${this.queue.songs[0].title}\`\`\``)
 		.catch(err => {
 			this.Kongou.cannons.fire(err);
 		});
