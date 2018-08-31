@@ -37,12 +37,12 @@ class Play extends Handler {
 		} else {
 			let data;
 			try {
-				data = await client.YouTube.getVideo(parse);
+				data = await this.Kongou.youtube.getVideo(parse);
 			} catch (error) {
-				const searched = await client.YouTube.searchVideos(args.slice(1).join(' '), 1);
+				const searched = await this.Kongou.youtube.searchVideos(args.slice(1).join(' '), 1);
 				if (!videos.length)
-					return await msg.channel.createMessage('Admiral, You are so dumb. You cannot even search properly ?.');
-				data = await client.YouTube.getVideoByID(searched[0].id);
+					return await msg.channel.createMessage('Admiral, You are so dumb. You cannot even search properly ?');
+				data = await this.Kongou.youtube.getVideoByID(searched[0].id);
 			};
 			if (video.thumbnails === undefined) 
 		        return await msg.channel.send('Admiral, This is a Private Property. Have some respect to the Owner');

@@ -1,3 +1,5 @@
+const manager = require('../modules/moosikplayer.js');
+
 function manageQueue(msg, data) {
 	switch(this.queue.has(msg.channel.guild.id)) {
 		case false:
@@ -11,7 +13,8 @@ function manageQueue(msg, data) {
 		    	url: `https://www.youtube.com/watch?v=${data.id}`
 		    });
 		    this.queue.set(msg.channel.guild.id, object);
-
+		    const player = new manager(this, msg.channel.guild.id);
+		    player.start();
 		case true:
 		    const serverQueue = this.queue.get(msg.channel.guild.id);
 		    const song = 
