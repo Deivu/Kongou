@@ -22,6 +22,7 @@ class Player {
 		});
 
 		this.voiceConnection.on('end', () => {
+			this.voiceConnection.removeAllListeners();
 			stream.destroy();
 			this.queue.songs.splice(0, 1);
 			this.start();
