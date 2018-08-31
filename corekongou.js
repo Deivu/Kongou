@@ -5,6 +5,7 @@ const Fs = require('fs');
 const Config = require('./config.json');
 const CommandHandler = require('./src/modules/commandhandler.js');
 const ErrorHandler = require('./src/modules/cannons.js');
+const MoosikManager = require('./src/modules/moosikplayer.js');
 
 class BattleCruiser extends Client {
 	constructor(token, settings) {
@@ -50,7 +51,10 @@ class BattleCruiser extends Client {
 		this.on('messageCreate', (msg) => {
 			if (msg.author.bot || msg.channel.type !== 0 || !msg.content.startsWith(this.misc.prefix)) return;
 			if (msg.channel.guild.members.get(this.user.id).permission.has('sendMessages')) {
-				this.handler.run(msg);
+				this.handler.run(msg)
+				.catch(err => {
+			        this.Kongou.cannons.fire(err);
+		        });
 		    };
 		});
 

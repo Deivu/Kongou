@@ -15,8 +15,8 @@ class CommandHandler {
     		        await msg.channel.createMessage('Admiral, it appears like **You dont have Permissions** to Perform this Operation.');
     	    };
     	} catch (error) {
-    		this.cannons.fire(error);
-    		await msg.channel.createMessage(`Admiral, There is slight malfunction in the Command Module ${command}. Additional Report\`\`\`${error.stack}\`\`\``);
+    		this.Kongou.cannons.fire(error);
+    		await msg.channel.createMessage(`Admiral, There is slight malfunction in the Command Module \`${command}\`. Additional Report\`\`\`${error.stack}\`\`\``);
     	};
     };
 
