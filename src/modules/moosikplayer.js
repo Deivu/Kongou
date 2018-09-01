@@ -7,7 +7,7 @@ class Player {
 	};
 
 	start() {
-		if (!this.queue.songs[0]) {
+		if (this.queue.songs.length === 0) {
 			this.Kongou.queue.delete(this.guild.id);
 			this.guild.channels.get(this.voiceConnection.channelID).leave();
 			return;
@@ -24,7 +24,7 @@ class Player {
 		this.voiceConnection.on('end', () => {
 			this.voiceConnection.removeAllListeners();
 			stream.destroy();
-			this.queue.songs.splice(0, 1);
+			this.queue.songs.shift();
 			this.start();
 		});
 
