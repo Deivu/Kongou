@@ -13,7 +13,7 @@ async function manageQueue(Kongou, msg, data) {
 		});
 		Kongou.queue.set(msg.channel.guild.id, object);
 		const manager = new MoosikManager(Kongou, msg.channel.guild.id);
-		manager.start();
+		await manager.start();
     } else {
         const serverQueue = Kongou.queue.get(msg.channel.guild.id);
 		serverQueue.songs.push({

@@ -1,13 +1,14 @@
 class Player {
 	constructor(Kongou, guildID) {
 		this.Kongou = Kongou;
-		this.queue = Kongou.queue.get(guildID);
-		this.guild = Kongou.guilds.get(guildID);
-		this.voiceConnection = Kongou.voiceConnections.get(guildID);
+		this.queue = this.Kongou.queue.get(guildID);
+		this.guild = this.Kongou.guilds.get(guildID);
+		this.voiceConnection = this.Kongou.voiceConnections.get(guildID);
+		this.textChannel = this.guild.channels.get(this.queue.textChannel);
 	};
 
-	start() {
-		if (!this.queue.songs.length) {
+	async start() {
+		if (!this.queue.songs) {
 			this.Kongou.queue.delete(this.guild.id);
 			this.guild.channels.get(this.voiceConnection.channelID).leave();
 			return;
@@ -16,16 +17,17 @@ class Player {
 		const stream = this.Kongou.ytdl(this.queue.songs[0].url, { quality: 'highestaudio' });
 		this.voiceConnection.play(stream, { inlineVolume: true, sampleRate: 96000 });
 		this.voiceConnection.setVolume(Math.pow(0.60, 1.660964));
-		this.guild.channels.get(this.queue.textChannel).createMessage(`Admiral, The Current Song is \`\`\`diff\n- ${this.queue.songs[0].title}\`\`\``)
-		.catch(err => {
-			this.Kongou.cannons.fire(err);
-		});
+		await this.textChannel.createMessage(`Admiral, The Current Song is \`\`\`diff\n- ${this.queue.songs[0].title}\`\`\``)
+
 
 		this.voiceConnection.on('end', () => {
 			this.voiceConnection.removeAllListeners();
 			stream.destroy();
 			this.queue.songs.shift();
-			this.start();
+			this.start()
+			.catch(err => {
+			    this.Kongou.cannons.fire(err);
+		    });
 		});
 
 		this.voiceConnection.on('error', (error) => {

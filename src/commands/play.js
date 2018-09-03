@@ -13,6 +13,9 @@ class Play extends Handler {
 	};
 
 	async run(msg, args) {
+		if (!args.slice(1).join(' '))
+			return await msg.channel.createMessage('Admiral, I cannot Play an Invinsible Text.');
+
 		if (!this.Kongou.voiceConnections.has(msg.channel.guild.id)) {
 			if (!msg.member.voiceState.channelID)
 				return await msg.channel.createMessage('Admiral, You need to Join the Voice Channel first.');

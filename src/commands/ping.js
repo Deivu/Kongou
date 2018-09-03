@@ -11,7 +11,7 @@ class Ping extends Handler {
     };
 
     async run(msg) {
-    	await msg.channel.createMessage(`Admiral, The Current Ping to Discord's API is **${Math.round(msg.channel.guild.shard.latency)} ms**`)
+    	await msg.channel.createMessage(`Admiral, The Current Ping to Discord's API is **${Math.round(msg.channel.guild.shard.latency)} ms**`);
     };
 };
 
