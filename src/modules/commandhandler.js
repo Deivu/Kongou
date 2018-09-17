@@ -1,6 +1,12 @@
 class CommandHandler {
-    constructor(Kongou) {
+    constructor(Kongou, {
+    		name = 'none',
+    		usage = 'none',
+    		category = 'Misc',
+    		level = 0
+    	} = {}) {
         this.Kongou = Kongou;
+		this.help = { name, usage, category, level };
     };
 
     async run(msg) {

@@ -20,15 +20,10 @@ class BattleCruiser extends Client {
 		this.commands = new Map();
 		this.queue = new Map();
 	};
-
-    CacheCommand(name, path) {
-    	const cache = new (require(path))(this);
-    	this.commands.set(name, cache);
-    };
-
+	
 	GetCommands() {
 		for (const file of Fs.readdirSync('./src/commands')) {
-			this.CacheCommand(file.split('.')[0], `./src/commands/${file}`);
+			this.commands.set(file.split('.')[0], (new (require(`./src/commands/${file}`))(this)));
 		};
 	};
 
@@ -38,7 +33,7 @@ class BattleCruiser extends Client {
 			console.log(`Admiral, Kongou is now Operational with ${this.guilds.size} Port(s) Accessible.`)
 		});
 		this.on('connect', (id) => console.log(`Admiral, Module Shard #${id} is now Operational.`));
-		this.on('shardDisconnect', (id) => console.log(`Admiral, I lost in touch with Module Shard #${id}.`));
+		this.on('shardDisconnect', (error) => console.log(`Admiral, a shard disconnected due to ${error}`));
 		this.on('error', (error) => this.cannons.fire(error));
 		this.on('guildUnavailable', (guild) => this.unavailable.add(guild.id));
 		this.on('guildAvailable', (guild) => this.unavailable.delete(guild.id));

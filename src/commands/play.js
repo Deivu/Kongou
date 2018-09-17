@@ -9,7 +9,6 @@ class Play extends Handler {
     		category: 'Moosik',
     		level: 1
     	});
-    	this.Kongou = Kongou;
 	};
 
 	async run(msg, args) {

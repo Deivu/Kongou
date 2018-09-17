@@ -17,11 +17,11 @@ class Player {
 		const stream = this.Kongou.ytdl(this.queue.songs[0].url, { quality: 'highestaudio' });
 		this.voiceConnection.play(stream, { inlineVolume: true, sampleRate: 96000 });
 		this.voiceConnection.setVolume(Math.pow(0.60, 1.660964));
-		await this.textChannel.createMessage(`Admiral, The Current Song is \`\`\`diff\n- ${this.queue.songs[0].title}\`\`\``)
+		await this.textChannel.createMessage(`Admiral, The Current Song is \`\`\`diff\n- ${this.queue.songs[0].title}\`\`\``);
 
-
-		this.voiceConnection.on('end', () => {
-			this.voiceConnection.removeAllListeners();
+		let error;
+		this.voiceConnection.once('end', () => {
+			if (!error) this.voiceConnection.removeListener('error', () => {});
 			stream.destroy();
 			this.queue.songs.shift();
 			this.start()
@@ -29,8 +29,8 @@ class Player {
 			    this.Kongou.cannons.fire(err);
 		    });
 		});
-
-		this.voiceConnection.on('error', (error) => {
+		this.voiceConnection.once('error', (error) => {
+			error = true;
 			this.voiceConnection.stopPlaying();
 			this.Kongou.cannons.fire(error);
 		});

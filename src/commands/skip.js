@@ -8,7 +8,6 @@ class Skip extends Handler {
     		category: 'Moosik',
     		level: 1
     	});
-        this.Kongou = Kongou; 
     };
 
     async run(msg) {

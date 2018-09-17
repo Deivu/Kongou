@@ -8,7 +8,6 @@ class Status extends Handler {
     		category: 'Misc',
     		level: 0
     	});
-        this.Kongou = Kongou; 
     };
 
     async run(msg) {
@@ -24,7 +23,7 @@ class Status extends Handler {
                     inline: true
                 }, {
                     name: '\:pushpin: Current Uptime',
-                    value: `• Format(HH:SS): **${await this.convert(Math.floor(process.uptime()))}**`
+                    value: `• Ready For:**${await this.convert(Math.floor(process.uptime()))}**`
                 }],
                 timestamp: new Date(),
                 footer: {
@@ -36,7 +35,14 @@ class Status extends Handler {
     };
 
     async convert(seconds) {
-        return ( seconds - (seconds %= 60) ) / 60 + (9 < seconds ? ':' : ':0') + seconds;
+        const d = Number(seconds);
+        const h = Math.floor(d / 3600);
+        const m = Math.floor(d % 3600 / 60);
+        const s = Math.floor(d % 3600 % 60);
+        const hDisplay = h > 0 ? h + (h == 1 ? " hr, " : " hrs, ") : "";
+        const mDisplay = m > 0 ? m + (m == 1 ? " min, " : " mins, ") : "";
+        const sDisplay = s > 0 ? s + (s == 1 ? " sec" : " secs") : "";
+        return hDisplay + mDisplay + sDisplay; 
     };
 };
 
