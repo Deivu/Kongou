@@ -5,7 +5,6 @@ const Fs = require('fs');
 const Config = require('./config.json');
 const CommandHandler = require('./src/modules/commandhandler.js');
 const ErrorHandler = require('./src/modules/cannons.js');
-const MoosikManager = require('./src/modules/moosikplayer.js');
 
 class BattleCruiser extends Client {
 	constructor(token, settings) {
