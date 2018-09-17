@@ -43,7 +43,7 @@ class Play extends Handler {
 				data = await this.Kongou.youtube.getVideo(parse);
 			} catch (error) {
 				const searched = await this.Kongou.youtube.searchVideos(args.slice(1).join(' '), 1);
-				if (!videos.length)
+				if (!searched.length)
 					return await msg.channel.createMessage('Admiral, You are so dumb. You cannot even search properly ?');
 				data = await this.Kongou.youtube.getVideoByID(searched[0].id);
 			};

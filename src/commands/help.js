@@ -52,10 +52,10 @@ class Help extends Handler {
                     },
                     fields: [{
                         name: 'Command',
-                        value: x.help.name
+                        value: command.help.name
                     }, {
                         name: 'Description',
-                        value: x.help.usage
+                        value: command.help.usage
                     }],
                     timestamp: new Date(),
                     footer: {
