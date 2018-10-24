@@ -28,8 +28,8 @@ class BattleCruiser extends Client {
 
 	Sortie() {
 		this.on('ready', () => {
-			this.editStatus('online', { name: 'with Admiral Saya'});
-			console.log(`Admiral, Kongou is now Operational with ${this.guilds.size} Port(s) Accessible.`)
+			this.editStatus('online', { name: 'with the Admiral.'});
+			console.log(`Admiral, Kongou is now Operational with ${this.guilds.size} Port(s) Accessible.`);
 		});
 		this.on('connect', (id) => console.log(`Admiral, Module Shard #${id} is now Operational.`));
 		this.on('shardDisconnect', (error) => console.log(`Admiral, a shard disconnected due to ${error}`));
