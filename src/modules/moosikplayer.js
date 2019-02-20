@@ -26,7 +26,7 @@ class Player {
 			return;
 		};
 		const stream = await this.Kongou.ytdl(this.queue.songs[0].url);
-		this.voiceConnection.play(stream, { inlineVolume: true, sampleRate: 128000, format: 'ogg' });
+		this.voiceConnection.play(stream, { inlineVolume: true, sampleRate: 128000 });
 		this.voiceConnection.setVolume(Math.pow(0.60, 1.660964));
 		const onError = (error) => {
 			this.Kongou.cannons.fire(error);
