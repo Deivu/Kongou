@@ -4,7 +4,17 @@ My Personal Project, Mostly for my new Waifu in Azur Lane which is Kongou. No st
 
 `(c) AzurLane for Kongou`
 
-## Still In Alpha / Beta
-This thing is still far from being done, and I just chose to publish it here so I can see my progress as I work on it. I do accept Pull Requests and Recommendation, but at least make them easy to understand I hope ;-;
+## About this Bot
+Kongou is an open source Discord Bot, using the library Eris. I purely maintain this code as a hobby when I want to rest on working with Kashima. 
 
-## This bot is self-hosted. You can host it yourself
+Can be used as framework or extend it on your own, your choice. Right now, she is online in Kashima's home (refer to Kashima's repo for server invite links if you want to see it for yourself).
+
+## Selfhosting?
+All you need is
+
+1. You need a Bot Application from Discord
+
+2. Google API key.
+
+3. A server where you can put this bot.
+

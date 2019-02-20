@@ -13,9 +13,11 @@ class Stop extends Handler {
     async run(msg) {
     	if (this.Kongou.queue.has(msg.channel.guild.id)) {
             if (this.Kongou.voiceConnections.has(msg.channel.guild.id)) {
-                if (this.Kongou.queue.has(msg.channel.guild.id)) 
-					this.Kongou.queue.get(msg.channel.guild.id).songs.length = 0;
-                this.Kongou.voiceConnections.get(msg.channel.guild.id).stopPlaying();
+                const queue = this.Kongou.queue.get(msg.channel.guild.id);
+                if (msg.channel.id !== queue.textChannel.id)
+                    return msg.channel.createMessage(`Admiral, the music player is currently binded in <#${queue.textChannel.id}>`)
+                queue.songs.length = 0;
+                queue.stopPlaying();
             };
         };
     };
