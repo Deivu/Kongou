@@ -5,15 +5,16 @@ async function manageQueue(Kongou, msg, data) {
     	const object = {
 		    textChannel: msg.channel.id,
 		    guild: msg.channel.guild.id,
-		    songs: []
+			songs: [],
+			player: null
 		};
 		object.songs.push({
 		    title: data.title,
 		    url: `https://www.youtube.com/watch?v=${data.id}`
 		});
 		Kongou.queue.set(msg.channel.guild.id, object);
-		const manager = new MoosikManager(Kongou, msg.channel.guild.id);
-		await manager.start();
+		object.player = new MoosikManager(Kongou, object);
+		await object.player.start();
     } else {
         const serverQueue = Kongou.queue.get(msg.channel.guild.id);
 		serverQueue.songs.push({
