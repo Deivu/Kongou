@@ -5,6 +5,18 @@ class Player {
 		this.guild = this.Kongou.guilds.get(guildID);
 		this.voiceConnection = this.Kongou.voiceConnections.get(guildID);
 		this.textChannel = this.guild.channels.get(this.queue.textChannel);
+		this.stream = null;
+
+		this.voiceConnection.on('end', () => {
+			this.drain(this.stream).then(() => {
+				this.stream.removeListener('error', this.Kongou.cannons.fire);
+				this.stream.destroy();
+				this.queue.songs.shift();
+				this.stream = null;
+				this.start().catch(this.Kongou.cannons.fire);
+			}).catch(this.Kongou.cannons.fire);
+		});
+		this.voiceConnection.on('error', this.Kongou.cannons.fire);
 	};
 
 	drain(readable) {
@@ -15,7 +27,7 @@ class Player {
 				  readable.destroy();
 				  res();
 				};
-			}, 2);
+			}, 1);
 		});
 	};
 
@@ -25,23 +37,10 @@ class Player {
 			this.guild.channels.get(this.voiceConnection.channelID).leave();
 			return;
 		};
-		const stream = await this.Kongou.ytdl(this.queue.songs[0].url);
-		this.voiceConnection.play(stream, { inlineVolume: true, sampleRate: 128000 });
+		this.stream = this.Kongou.ytdl(this.queue.songs[0].url);
+		this.stream.on('error', this.Kongou.cannons.fire);
+		this.voiceConnection.play(this.stream, { inlineVolume: true, sampleRate: 128000 });
 		this.voiceConnection.setVolume(Math.pow(0.60, 1.660964));
-		const onError = (error) => {
-			this.Kongou.cannons.fire(error);
-		};
-		this.voiceConnection.once('end', () => {
-			this.drain(stream).then(() => {
-				stream.removeListener('error', onError);
-				stream.destroy();
-			}).catch(this.Kongou.cannons.fire);
-			this.voiceConnection.removeListener('error', onError);
-			this.queue.songs.shift();
-			this.start().catch(this.Kongou.cannons.fire);
-		});
-		stream.on('error', onError);
-		this.voiceConnection.on('error', onError);
 		await this.textChannel.createMessage(`Admiral, The Current Song is \`\`\`diff\n- ${this.queue.songs[0].title}\`\`\``);
 	};
 };
