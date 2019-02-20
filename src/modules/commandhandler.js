@@ -18,11 +18,11 @@ class CommandHandler {
     		    if (this.validate(msg, cached)) {
     			    await cached.run(msg, args);
     		    } else 
-    		        await msg.channel.createMessage('Admiral, it appears like **You dont have Permissions** to Perform this Operation.');
+    		        await msg.channel.createMessage('Admiral, you do not have the required permissions to use this command.');
     	    };
     	} catch (error) {
     		this.Kongou.cannons.fire(error);
-    		await msg.channel.createMessage(`Admiral, There is slight malfunction in the Command Module \`${command}\`. Additional Report\`\`\`${error.stack}\`\`\``);
+    		await msg.channel.createMessage(`Admiral, an Error has been caught in the command **${command}**. Additional Report\`\`\`js\n${error.stack}\`\`\``);
     	};
     };
 
@@ -30,13 +30,10 @@ class CommandHandler {
     	switch (command.level) {
     		case 1:
     		    return msg.member.permission.has('manageMessages');
-    		    break;
     		case 2:
     		    return msg.member.permission.has('kickMembers');
-    		    break;
     		case 3:
     		    return msg.member.permission.has('banMembers');
-    		    break;
     		case 4:
     		    return msg.member.permission.has('manageGuild');
     		case 5:

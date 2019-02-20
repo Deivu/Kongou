@@ -15,6 +15,7 @@ class BattleCruiser extends Client {
 		this.handler = new CommandHandler(this);
 		this.youtube = new YoutubeAPI(Config.googletoken);
 		this.unavailable = new Set();
+		this.ratelimit = new Set();
 		this.persistence = new Enmap({ name: 'config', autoFetch: 'true', fetchAll: false });
 		this.commands = new Map();
 		this.queue = new Map();
@@ -46,6 +47,8 @@ class BattleCruiser extends Client {
 		this.on('messageCreate', (msg) => {
 			if (msg.author.bot || msg.channel.type !== 0 || !msg.content.startsWith(this.misc.prefix) || this.unavailable.has(msg.guild.id)) return;
 			if (msg.channel.guild.members.get(this.user.id).permission.has('sendMessages')) {
+				this.ratelimit.add(msg.author.id);
+				setTimeout(() => this.ratelimit.delete(msg.author.id), 1500);
 				this.handler.run(msg)
 				.catch(error => {
 			        this.Kongou.cannons.fire(error);
