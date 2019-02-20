@@ -19,7 +19,7 @@
     "eris": "^0.9.0",
     "enmap": "^4.0.9",
     "simple-youtube-api": "^5.0.2",
-    "ytdl-core": "^0.24.0"
+    "ytdl-core-discord": "^1.0.2"
   },
   "optionalDependencies": {
     "better-sqlite-pool": "^0.1.2",

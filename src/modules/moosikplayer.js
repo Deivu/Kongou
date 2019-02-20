@@ -25,8 +25,8 @@ class Player {
 			this.guild.channels.get(this.voiceConnection.channelID).leave();
 			return;
 		};
-		const stream = this.Kongou.ytdl(this.queue.songs[0].url, { quality: 'highest' });
-		this.voiceConnection.play(stream, { inlineVolume: true, sampleRate: 128000 });
+		const stream = await this.Kongou.ytdl(this.queue.songs[0].url);
+		this.voiceConnection.play(stream, { inlineVolume: true, sampleRate: 128000, format: 'ogg' });
 		this.voiceConnection.setVolume(Math.pow(0.60, 1.660964));
 		const onError = (error) => {
 			this.Kongou.cannons.fire(error);

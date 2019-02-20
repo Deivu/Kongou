@@ -10,13 +10,13 @@ class BattleCruiser extends Client {
 	constructor(token, settings) {
 		super(token, settings);
 		this.misc = require('./misc.json');
-		this.ytdl = require('ytdl-core');
+		this.ytdl = require('ytdl-core-discord');
 		this.cannons = new ErrorHandler(this);
 		this.handler = new CommandHandler(this);
 		this.youtube = new YoutubeAPI(Config.googletoken);
 		this.unavailable = new Set();
 		this.ratelimit = new Set();
-		this.persistence = new Enmap({ name: 'config', autoFetch: 'true', fetchAll: false });
+		this.persistence = new Enmap({ name: 'config', autoFetch: true, fetchAll: false });
 		this.commands = new Map();
 		this.queue = new Map();
 	};
