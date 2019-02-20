@@ -7,6 +7,18 @@ class Player {
 		this.textChannel = this.guild.channels.get(this.queue.textChannel);
 	};
 
+	drain(readable) {
+		return new Promise(res => {
+			const interval = setInterval(() => {
+				if (!readable.read()) {
+				  clearInterval(interval);
+				  readable.destroy();
+				  res();
+				};
+			}, 2);
+		});
+	};
+
 	async start() {
 		if (!this.queue.songs.length) {
 			this.Kongou.queue.delete(this.guild.id);
@@ -14,27 +26,22 @@ class Player {
 			return;
 		};
 		const stream = this.Kongou.ytdl(this.queue.songs[0].url, { quality: 'highest' });
-		this.voiceConnection.play(stream, { inlineVolume: true, sampleRate: 96000 });
+		this.voiceConnection.play(stream, { inlineVolume: true, sampleRate: 128000 });
 		this.voiceConnection.setVolume(Math.pow(0.60, 1.660964));
-		const onConnectionError = (error) => {
-			this.voiceConnection.stopPlaying();
-			this.voiceConnection.end();
-			this.Kongou.cannons.fire(error);
-		};
-		const onStreamError = (error) => {
-			stream.end();
+		const onError = (error) => {
 			this.Kongou.cannons.fire(error);
 		};
 		this.voiceConnection.once('end', () => {
-			stream.removeListener('error', onStreamError);
-			stream.destroy();
-			this.voiceConnection.removeListener('error', onConnectionError);
+			this.drain(stream).then(() => {
+				stream.removeListener('error', onError);
+				stream.destroy();
+			}).catch(this.Kongou.cannons.fire);
+			this.voiceConnection.removeListener('error', onError);
 			this.queue.songs.shift();
-			this.start()
-			.catch(err => this.Kongou.cannons.fire(err));
+			this.start().catch(this.Kongou.cannons.fire);
 		});
-		stream.on('error', onStreamError);
-		this.voiceConnection.on('error', onConnectionError);
+		stream.on('error', onError);
+		this.voiceConnection.on('error', onError);
 		await this.textChannel.createMessage(`Admiral, The Current Song is \`\`\`diff\n- ${this.queue.songs[0].title}\`\`\``);
 	};
 };

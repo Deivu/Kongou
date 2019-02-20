@@ -44,11 +44,11 @@ class BattleCruiser extends Client {
 			console.log(`Some Fool Removed me Admiral, ${guild.name}`);
 		});
 		this.on('messageCreate', (msg) => {
-			if (msg.author.bot || msg.channel.type !== 0 || !msg.content.startsWith(this.misc.prefix)) return;
+			if (msg.author.bot || msg.channel.type !== 0 || !msg.content.startsWith(this.misc.prefix) || this.unavailable.has(msg.guild.id)) return;
 			if (msg.channel.guild.members.get(this.user.id).permission.has('sendMessages')) {
 				this.handler.run(msg)
-				.catch(err => {
-			        this.Kongou.cannons.fire(err);
+				.catch(error => {
+			        this.Kongou.cannons.fire(error);
 		        });
 		    };
 		});
