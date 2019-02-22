@@ -23,7 +23,7 @@ class Status extends Handler {
                     inline: true
                 }, {
                     name: '\:pushpin: Current Uptime',
-                    value: `• Ready For: **${await this.convert(Math.floor(process.uptime()))}**`
+                    value: `• Ready For: **${this.Kongou.getUptime(true)}**`
                 }],
                 timestamp: new Date(),
                 footer: {
@@ -32,17 +32,6 @@ class Status extends Handler {
                 }
             }
         });
-    };
-
-    async convert(seconds) {
-        const d = Number(seconds);
-        const h = Math.floor(d / 3600);
-        const m = Math.floor(d % 3600 / 60);
-        const s = Math.floor(d % 3600 % 60);
-        const hDisplay = h > 0 ? h + (h == 1 ? " hr " : " hrs ") : "";
-        const mDisplay = m > 0 ? m + (m == 1 ? " min " : " mins ") : "";
-        const sDisplay = s > 0 ? s + (s == 1 ? " sec" : " secs") : "";
-        return hDisplay + mDisplay + sDisplay; 
     };
 };
 

@@ -67,20 +67,18 @@ class BattleCruiser extends Client {
 		this.connect();
 	};
 
-	getUptime() {
+	getUptime(status) {
 		const ms = process.uptime();
 		const h = (ms / 3600000 % 24).toFixed(1)
 		const da = (ms /(1000*60*60*24)).toFixed(1);
+		if (status) {
+			return `${Math.floor(da) <= 1 ? `${da} Day` : `${da} Days`} and ${Math.floor(h) <= 1 ? `${h} Hour` : `${h} Hours`}`
+		};
 		if (Math.floor(da) < 1) return `with you for ${h} hr(s)`;
 		else return `on bed for ${da} day(s)`
-		
 	}
 };
 
 const Kongou = new BattleCruiser(Config.token, { compress: true, defaultImageFormat: 'webp', defaultImageSize: 256 });
 
 Kongou.Sortie();
-
-function getUptime() {
-	
-}
