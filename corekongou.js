@@ -20,8 +20,8 @@ class BattleCruiser extends Client {
 		this.commands = new Map();
 		this.queue = new Map();
 	};
-	
-	GetCommands() {
+
+	loadCommands() {
 		for (const file of Fs.readdirSync('./src/commands')) {
 			this.commands.set(file.split('.')[0], (new (require(`./src/commands/${file}`))(this)));
 		};
@@ -29,38 +29,58 @@ class BattleCruiser extends Client {
 
 	Sortie() {
 		this.on('ready', () => {
-			this.editStatus('online', { name: 'with the Admiral.'});
+			this.editStatus('online', { name: 'Just booted up ...'});
+			setInterval(() => this.editStatus('online', { name: this.getUptime()}), 60000);
 			console.log(`Admiral, Kongou is now Operational with ${this.guilds.size} Port(s) Accessible.`);
 		});
-		this.on('connect', (id) => console.log(`Admiral, Module Shard #${id} is now Operational.`));
-		this.on('shardDisconnect', (error) => console.log(`Admiral, a shard disconnected due to ${error}`));
-		this.on('error', (error) => this.cannons.fire(error));
+		this.on('error', this.cannons.fire);
 		this.on('guildUnavailable', (guild) => this.unavailable.add(guild.id));
 		this.on('guildAvailable', (guild) => this.unavailable.delete(guild.id));
-
 		this.on('guildCreate', (guild) => {
-			console.log(`New Guild Admiral, ${guild.name}`);
+			this.persistence.set(guild.id, { prefix: this.misc.prefix });
+			console.log(`New guild joined: ${guild}`);
 		});
 		this.on('guildRemove', (guild) => {
-			console.log(`Some Fool Removed me Admiral, ${guild.name}`);
+			this.persistence.delete(guild.id);
+			console.log(`Removed guild: ${guild.name}`);
 		});
 		this.on('messageCreate', (msg) => {
-			if (msg.author.bot || msg.channel.type !== 0 || !msg.content.startsWith(this.misc.prefix) || this.unavailable.has(msg.channel.guild.id)) return;
+			let settings = this.persistence.get(msg.channel.guild.id);
+			if (!settings) settings = this.persistence.set(msg.channel.guild.id, { prefix: this.misc.prefix }).get(msg.channel.guild.id);
+			if (msg.author.bot || msg.channel.type !== 0 || this.unavailable.has(msg.channel.guild.id)) return;
 			if (msg.channel.guild.members.get(this.user.id).permission.has('sendMessages')) {
+				if (!this.mentionregex) this.mentionregex = new RegExp(`^<@!?${this.user.id}>`);
+				if (this.ratelimit.has(msg.author.id)) return;
 				this.ratelimit.add(msg.author.id);
-				setTimeout(() => this.ratelimit.delete(msg.author.id), 1500);
-				this.handler.run(msg)
-				.catch(error => {
-			        this.Kongou.cannons.fire(error);
-		        });
+				setTimeout(() => this.ratelimit.delete(msg.author.id), 1250);
+				if (msg.content.match(this.mentionregex)) {
+					if (msg.content.split(' ').length === 1) {
+						msg.channel.createMessage(`Seems like you forgot my prefix Admiral. The prefix in this server is **${settings.prefix}**`).catch(this.cannons.fire);
+					    return;
+					};
+				};
+				if (msg.content.startsWith(settings.prefix)) this.handler.run(msg, settings).catch(this.cannons.fire);
 		    };
 		});
 
-		this.GetCommands();
+		this.loadCommands();
 		this.connect();
 	};
+
+	getUptime() {
+		const ms = process.uptime();
+		const h = (ms / 3600000 % 24).toFixed(1)
+		const da = (ms /(1000*60*60*24)).toFixed(1);
+		if (Math.floor(da) < 1) return `with you for ${h} hr(s)`;
+		else return `on bed for ${da} day(s)`
+		
+	}
 };
 
 const Kongou = new BattleCruiser(Config.token, { compress: true, defaultImageFormat: 'webp', defaultImageSize: 256 });
 
 Kongou.Sortie();
+
+function getUptime() {
+	
+}

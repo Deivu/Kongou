@@ -38,7 +38,7 @@ class Help extends Handler {
                     timestamp: new Date(),
                     footer: {
                         icon_url: this.Kongou.user.avatarURL,
-                        text: this.Kongou.user.username
+                        text: 'Help Menu'
                     }
                 }
             });
@@ -60,7 +60,7 @@ class Help extends Handler {
                     timestamp: new Date(),
                     footer: {
                         icon_url: this.Kongou.user.avatarURL,
-                        text: this.Kongou.user.username
+                        text: 'Command Help'
                     }
                 }
             });

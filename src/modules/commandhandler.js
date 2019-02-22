@@ -7,18 +7,18 @@ class CommandHandler {
     	} = {}) {
         this.Kongou = Kongou;
 		this.help = { name, usage, category, level };
+		this.whitespaceregex = / +/;
     };
 
-    async run(msg) {
-        const args = msg.content.split(/ +/);
-    	const command = args[0].toLowerCase().slice(this.Kongou.misc.prefix.length);
+    async run(msg, settings) {
+        const args = msg.content.split(this.whitespaceregex);
+		const command = args[0].toLowerCase().slice(settings.prefix.length);
     	try {
     	    if (this.Kongou.commands.has(command)) {
     		    const cached = this.Kongou.commands.get(command);
     		    if (this.validate(msg, cached)) {
-    			    await cached.run(msg, args);
-    		    } else 
-    		        await msg.channel.createMessage('Admiral, you do not have the required permissions to use this command.');
+    			    await cached.run(msg, args, settings);
+    		    } else await msg.channel.createMessage('Admiral, you do not have the required permissions to use this command.');
     	    };
     	} catch (error) {
     		this.Kongou.cannons.fire(error);
