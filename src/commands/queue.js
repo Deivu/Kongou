@@ -22,7 +22,7 @@ class Queue extends Handler {
 							return `- ${x.title}`;
 						} else return `+ ${x.title}`;
                     }).slice(0, 6).join('\n');
-                    await msg.channel.createMessage(`\`\`\`diff\n${songs}\`\`\``);
+                    await msg.channel.createMessage(`\`\`\`diff\n${songs}\n\nTotal of ${queue.songs.size} songs in queue.\`\`\``);
                 };
             };
         };

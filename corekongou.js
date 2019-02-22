@@ -69,14 +69,12 @@ class BattleCruiser extends Client {
 
 	getUptime(status) {
 		const ms = process.uptime();
-		const h = (ms / 3600000 % 24).toFixed(1)
+		const h = Math.floor(ms / 3600000 % 24)
 		const da = (ms /(1000*60*60*24)).toFixed(1);
-		if (status) {
-			return `${Math.floor(da) <= 1 ? `${da} Day` : `${da} Days`} and ${Math.floor(h) <= 1 ? `${h} Hour` : `${h} Hours`}`
-		};
-		if (Math.floor(da) < 1) return `with you for ${h} hr(s)`;
-		else return `on bed for ${da} day(s)`
-	}
+		if (status) return `${Math.floor(da) <= 1 ? `${da} Day` : `${da} Days`} and ${h <= 1 ? `${h} Hour` : `${h} Hours`}`;
+		if (Math.floor(da) < 1) return h <= 1 ? `with you for ${h} Hour` : `with you for ${h} Hours`;
+		else return Math.floor(da) <= 1 ? `on bed for ${da} Day` : `on bed for ${da} Days`;
+	};
 };
 
 const Kongou = new BattleCruiser(Config.token, { compress: true, defaultImageFormat: 'webp', defaultImageSize: 256 });
