@@ -1,5 +1,5 @@
 {
-  "name": "Kongou",
+  "name": "kongou",
   "version": "0.0.3",
   "description": "Waifu Waifu All The Way",
   "main": "corekongou.js",
@@ -13,8 +13,8 @@
   "engines": {
     "node": "10.9.0"
   },
-  "author": "Saya",
-  "license": "AGPL-3.0",
+  "author": "Deivu (Saya)",
+  "license": "MIT",
   "dependencies": {
     "eris": "^0.9.0",
     "enmap": "^4.0.9",
