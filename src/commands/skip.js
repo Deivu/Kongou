@@ -16,7 +16,7 @@ class Skip extends Handler {
                 const queue = this.Kongou.queue.get(msg.channel.guild.id);
                 if (msg.channel.id !== queue.textChannel)
                     return msg.channel.createMessage(`Admiral, the music player is currently binded in <#${queue.textChannel}>`)
-                queue.player.stopPlaying();
+                queue.player.voiceConnection.stopPlaying();
             };
         };
     };

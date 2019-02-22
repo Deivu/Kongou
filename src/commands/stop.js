@@ -17,7 +17,7 @@ class Stop extends Handler {
                 if (msg.channel.id !== queue.textChannel)
                     return msg.channel.createMessage(`Admiral, the music player is currently binded in <#${queue.textChannel}>`)
                 queue.songs.length = 0;
-                queue.player.stopPlaying();
+                queue.player.voiceConnection.stopPlaying();
             };
         };
     };
