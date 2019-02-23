@@ -11,6 +11,7 @@ class Status extends Handler {
     };
 
     async run(msg) {
+        const time = this.Kongou.getUptime();
         await msg.channel.createMessage({
             embed: {
                 color: 0x2C2F33,
@@ -23,7 +24,7 @@ class Status extends Handler {
                     inline: true
                 }, {
                     name: '\:pushpin: Current Uptime',
-                    value: `• Ready For: **${this.Kongou.getUptime(true)}**`
+                    value: `• Ready for: **${time.days}** and **${time.hours}**`
                 }],
                 timestamp: new Date(),
                 footer: {

@@ -30,7 +30,10 @@ class BattleCruiser extends Client {
 	Sortie() {
 		this.on('ready', () => {
 			this.editStatus('online', { name: 'Just booted up ...'});
-			setInterval(() => this.editStatus('online', { name: this.getUptime()}), 60000);
+			setInterval(() => {
+				const time = this.getUptime();
+				this.editStatus('online', { name: `with Saya for ${time.days} : ${time.hours}`})
+			}, 60000);
 			console.log(`Admiral, Kongou is now Operational with ${this.guilds.size} Port(s) Accessible.`);
 		});
 		this.on('error', this.cannons.fire);
@@ -67,13 +70,14 @@ class BattleCruiser extends Client {
 		this.connect();
 	};
 
-	getUptime(status) {
-		const ms = process.uptime();
-		const h = Math.floor(ms / 3600000 % 24)
+	getUptime() {
+		const ms = Math.floor(process.uptime() * 1000);
+		const h = (ms / 3600000 % 24).toFixed(2);
 		const da = (ms /(1000*60*60*24)).toFixed(1);
-		if (status) return `${Math.floor(da) <= 1 ? `${da} Day` : `${da} Days`} and ${h <= 1 ? `${h} Hour` : `${h} Hours`}`;
-		if (Math.floor(da) < 1) return h <= 1 ? `with you for ${h} Hour` : `with you for ${h} Hours`;
-		else return Math.floor(da) <= 1 ? `on bed for ${da} Day` : `on bed for ${da} Days`;
+		return {
+			hours: Math.floor(h) <= 1 ? `${h} hour` : `${h} hours`,
+			days: Math.floor(da) <= 1 ? `${da} day` : `${da} days`,
+		};
 	};
 };
 
