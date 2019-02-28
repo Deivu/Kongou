@@ -5,7 +5,6 @@ class Player {
 		this.guild = this.Kongou.guilds.get(data.guild);
 		this.voiceConnection = this.Kongou.voiceConnections.get(data.guild);
 		this.textChannel = this.guild.channels.get(data.textChannel);
-		this.stream = null;
 
 		this.voiceConnection.on('end', () => {
 			this.drain(this.stream).then(() => {
@@ -23,7 +22,6 @@ class Player {
 				  clearInterval(interval);
 				  readable.removeListener('error', this.Kongou.cannons.fire);
 				  readable.destroy();
-				  interval = null;
 				  res();
 				};
 			}, 5);
