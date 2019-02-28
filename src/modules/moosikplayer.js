@@ -9,10 +9,7 @@ class Player {
 
 		this.voiceConnection.on('end', () => {
 			this.drain(this.stream).then(() => {
-				this.stream.removeListener('error', this.Kongou.cannons.fire);
-				this.stream.destroy();
 				this.songs.shift();
-				this.stream = null;
 				this.start().catch(this.Kongou.cannons.fire);
 			}).catch(this.Kongou.cannons.fire);
 		});
@@ -24,10 +21,12 @@ class Player {
 			const interval = setInterval(() => {
 				if (!readable.read()) {
 				  clearInterval(interval);
+				  readable.removeListener('error', this.Kongou.cannons.fire);
 				  readable.destroy();
+				  interval = null;
 				  res();
 				};
-			}, 1);
+			}, 5);
 		});
 	};
 
