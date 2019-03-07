@@ -17,9 +17,9 @@ class Skip extends Handler {
                 if (msg.channel.id !== queue.textChannel)
                     return msg.channel.createMessage(`Admiral, the music player is currently binded in <#${queue.textChannel}>`)
                 queue.player.voiceConnection.stopPlaying();
-            };
-        };
+            }
+        }
     };
-};
+}
 
 module.exports = Skip;

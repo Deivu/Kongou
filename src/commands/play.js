@@ -25,18 +25,17 @@ class Play extends Handler {
 				return await msg.channel.createMessage('Admiral, please grant me permissions to join & speak in this channel.');
 
 			await voiceChannel.join();
-		};
-
-		const parse = args.slice(1).join(' ').replace(/<(.+)>/g, '$1');
+        }
+        const parse = args.slice(1).join(' ').replace(/<(.+)>/g, '$1');
 		if (parse.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)) {
 			const playlist = await this.Kongou.youtube.getPlaylist(parse);
 			const videos = await playlist.getVideos();
 			for (const data of videos) {
 				if (data.thumbnails !== undefined) {
 				    await ManageQueue(this.Kongou, msg, data);
-			    };
-			};
-			await msg.channel.createMessage(`The playlist \`${playlist.title}\` is now loaded in queue.`);
+                }
+            }
+            await msg.channel.createMessage(`The playlist \`${playlist.title}\` is now loaded in queue.`);
 		} else {
 			let data;
 			try {
@@ -46,13 +45,13 @@ class Play extends Handler {
 				if (!searched.length)
 					return await msg.channel.createMessage('Admiral, do you know how to use a search function properly?');
 				data = await this.Kongou.youtube.getVideoByID(searched[0].id);
-			};
-			if (data.thumbnails === undefined) 
+            }
+            if (data.thumbnails === undefined)
 		        return await msg.channel.send('This video is private. I can\'t touch something that is private.');
 		    await ManageQueue(this.Kongou, msg, data);
 		    await msg.channel.createMessage(`The video \`${data.title}\` is now added in queue.`);
-		};
-	};
-};
+        }
+    };
+}
 
 module.exports = Play;

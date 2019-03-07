@@ -24,8 +24,8 @@ class BattleCruiser extends Client {
 	loadCommands() {
 		for (const file of Fs.readdirSync('./src/commands')) {
 			this.commands.set(file.split('.')[0], (new (require(`./src/commands/${file}`))(this)));
-		};
-	};
+        }
+    };
 
 	Sortie() {
 		this.on('ready', () => {
@@ -60,14 +60,14 @@ class BattleCruiser extends Client {
 					if (msg.content.split(' ').length === 1) {
 						msg.channel.createMessage(`Seems like you forgot my prefix Admiral. The prefix in this server is **${settings.prefix}**`).catch(this.cannons.fire);
 					    return;
-					};
-				};
-				if (msg.content.startsWith(settings.prefix)) this.handler.run(msg, settings).catch(this.cannons.fire);
-		    };
-		});
+                    }
+                }
+                if (msg.content.startsWith(settings.prefix)) this.handler.run(msg, settings).catch(this.cannons.fire);
+            }
+        });
 
 		this.loadCommands();
-		this.connect();
+		this.connect().catch(console.error)
 	};
 
 	getUptime() {
@@ -79,8 +79,8 @@ class BattleCruiser extends Client {
 			days: Math.floor(da) <= 1 ? `${da} day` : `${da} days`,
 		};
 	};
-};
+}
 
 const Kongou = new BattleCruiser(Config.token, { compress: true, defaultImageFormat: 'webp', defaultImageSize: 256 });
 
-Kongou.Sortie();
+Kongou.Sortie()

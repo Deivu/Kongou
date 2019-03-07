@@ -19,11 +19,11 @@ class CommandHandler {
     		    if (this.validate(msg, cached)) {
     			    await cached.run(msg, args, settings);
     		    } else await msg.channel.createMessage('Admiral, you do not have the required permissions to use this command.');
-    	    };
-    	} catch (error) {
+            }
+        } catch (error) {
     		this.Kongou.cannons.fire(error);
     		await msg.channel.createMessage(`Admiral, an Error has been caught in the command **${command}**. Additional Report\`\`\`js\n${error.stack}\`\`\``);
-    	};
+        }
     };
 
     validate(msg, command) {
@@ -40,8 +40,8 @@ class CommandHandler {
     		    return this.Kongou.misc.owners.includes(msg.author.id);
     		default:
     		    return true;
-    	};
+        }
     };
-};
+}
 
 module.exports = CommandHandler;

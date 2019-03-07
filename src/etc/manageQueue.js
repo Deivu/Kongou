@@ -21,7 +21,6 @@ async function manageQueue(Kongou, msg, data) {
 		    title: data.title,
 		    url: `https://www.youtube.com/watch?v=${data.id}`
 		});
-	};
-};
-
+    }
+}
 module.exports = manageQueue;

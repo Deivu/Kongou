@@ -13,6 +13,6 @@ class Ping extends Handler {
     async run(msg) {
     	await msg.channel.createMessage(`Admiral, The Current Ping to Discord's API is **${Math.round(msg.channel.guild.shard.latency)} ms**`);
     };
-};
+}
 
 module.exports = Ping;

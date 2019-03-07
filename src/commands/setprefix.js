@@ -18,6 +18,6 @@ class Setprefix extends Handler {
             await msg.channel.createMessage(`Admiral, you have customized your prefix to **${prefix}**. In case you forgot you prefix, mention me.`);
         } else await msg.channel.createMessage('Invalid arguments received, please try again Admiral.');
     };
-};
+}
 
 module.exports = Setprefix;

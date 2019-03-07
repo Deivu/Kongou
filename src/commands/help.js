@@ -25,15 +25,15 @@ class Help extends Handler {
                         value: array.map(x => {
 						    if (x.help.category === 'Misc') {
 							    return `\`${x.help.name}\``;
-						    };
-					    }).join(' ')
+                            }
+                        }).join(' ')
                     }, {
                         name: 'Moosik',
                         value: array.map(x => {
 						    if (x.help.category === 'Moosik') {
 							    return `\`${x.help.name}\``;
-						    };
-					    }).join(' ')
+                            }
+                        }).join(' ')
                     }],
                     timestamp: new Date(),
                     footer: {
@@ -64,8 +64,8 @@ class Help extends Handler {
                     }
                 }
             });
-		};
+        }
     };
-};
+}
 
 module.exports = Help;

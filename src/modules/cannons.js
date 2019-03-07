@@ -1,5 +1,5 @@
 class ErrorHandler {
-	constructor(kongou, error) {
+	constructor(kongou) {
 		this.kongou = kongou;
 	};
 
@@ -8,6 +8,6 @@ class ErrorHandler {
 		console.error(errored);
 		// Some More Handler in future
 	};
-};
+}
 
 module.exports = ErrorHandler;

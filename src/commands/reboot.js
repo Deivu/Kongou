@@ -14,6 +14,6 @@ class Reboot extends Handler {
     	await msg.channel.createMessage(`Ok Admiral, I will be right back ♪`);
         process.exit();
     };
-};
+}
 
 module.exports = Reboot;
