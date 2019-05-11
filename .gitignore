@@ -2,4 +2,6 @@
 .project
 .settings
 .idea
+config.json
+out
 node_modules

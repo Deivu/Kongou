@@ -1,0 +1,32 @@
+{
+  "name": "kongou",
+  "version": "1.0.0",
+  "description": "Best Waifu",
+  "dependencies": {
+    "discord.js": "github:discordjs/discord.js",
+    "typescript": "^3.4.5"
+  },
+  "devDependencies": {    
+    "@types/node": "^12.0.0",
+    "@types/ws": "^6.0.1"
+  },
+  "scripts": {
+    "start": "node ./out/index.js",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Deivu/Kongou.git"
+  },
+  "keywords": [
+    "Discord",
+    "Bot",
+    "Waifu"
+  ],
+  "author": "Deivu (Saya)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Deivu/Kongou/issues"
+  },
+  "homepage": "https://github.com/Deivu/Kongou#readme"
+}
