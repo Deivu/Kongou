@@ -1,5 +1,5 @@
 
-import BaseEvent from "./base/event";
+import BaseEvent from "./base/BaseEvent";
 import {Battleship} from "../index";
 import {Dirent} from "fs";
 

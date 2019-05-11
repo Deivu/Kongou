@@ -1,6 +1,6 @@
 import {Battleship} from "../../index";
 
-export default class Event {
+export default class BaseEvent {
     public client: Battleship;
     public name: string;
 
@@ -10,6 +10,6 @@ export default class Event {
     }
 
     public exec = async (): Promise<void> => {
-        throw new Error('NOT_IMPLEMENTED: Go extend it you weebo');
+        throw new Error("NOT_IMPLEMENTED: Go extend it you weebo");
     }
 }

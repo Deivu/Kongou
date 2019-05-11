@@ -2,14 +2,14 @@ process.chdir("./out");
 
 import {Client, ClientOptions} from "discord.js";
 import { readdir, Dirent } from "fs";
-import {EventHandler} from "./src/eventHandler";
+import {EventHandler} from "./src/EventHandler";
 import Config from "./config.json";
 
 export class Battleship extends Client {
     public eventHandler: EventHandler;
 
     constructor(options:ClientOptions) {
-        super(options)
+        super(options);
         this.eventHandler = new EventHandler(this);
     }
 
@@ -20,7 +20,7 @@ export class Battleship extends Client {
 
     public promiseReaddir(path:string): Promise<Dirent[]> {
         return new Promise((resolve, reject) => {
-            readdir(path, { withFileTypes: true }, (error, entries) => {
+            readdir(path, { withFileTypes: true }, (error:any, entries:Dirent[]) => {
                 error ? reject(error) : resolve(entries);
             })
         })
@@ -31,4 +31,4 @@ const Kongou:Battleship = new Battleship({});
 Kongou.build()
     .then(() => {
         Kongou.login(Config.token);
-    })
+    });

@@ -1,4 +1,4 @@
-import BaseEvent from "../base/event";
+import BaseEvent from "../base/BaseEvent";
 import {Battleship} from "../../index";
 
 export default class Ready extends BaseEvent {
