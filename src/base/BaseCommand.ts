@@ -8,10 +8,10 @@ interface Options {
 
 export default class BaseCommand {
     public client: Battleship;
-    public name: String;
-    public category: String;
-    public description: String;
-    public usage: String;
+    public name: string;
+    public category: string;
+    public description: string;
+    public usage: string;
     public options?: Options;
 
     constructor(client: Battleship) {
@@ -22,7 +22,7 @@ export default class BaseCommand {
         this.usage = "Extend this";
     }
 
-    async exec(msg: Message, args: Array<String>): Promise<void> {
+    public async exec(msg: Message, args: Array<string>): Promise<void> {
         throw new Error("NOT_IMPLEMENTED: Go extend it you weebo");
     }
 }

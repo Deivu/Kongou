@@ -6,10 +6,12 @@ import {Dirent} from "fs";
 export class EventHandler {
     public client: Battleship;
     public listeners: Map<string, BaseEvent["exec"]>;
+    private initialized: boolean;
 
     constructor(client: Battleship) {
         this.client = client;
         this.listeners = new Map();
+        this.initialized = false;
     }
 
 
@@ -24,9 +26,12 @@ export class EventHandler {
         }
     }
 
-    public listenEvents(once:Array<String>): void {
+    public listenEvents(once: Array<string>): void {
+        if (this.initialized)
+            throw new Error("EventHandler is already initialized");
         for (const [key, val] of this.listeners) {
             once.includes(key) ? this.client.once(key, val) :  this.client.on(key, val);
         }
+        this.initialized = true;
     }
 }
