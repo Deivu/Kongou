@@ -2,9 +2,9 @@
 .project
 .settings
 .idea
-config.json
+/config.json
 out
 node_modules
 package-lock.json
-lavalink-server.json
+/lavalink-server.json
 db
