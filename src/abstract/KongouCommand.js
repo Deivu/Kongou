@@ -24,3 +24,4 @@ class KongouCommand {
         } else throw new TypeError('Classes extending KongouCommand must implement an async function "run"');
     }
 }
+module.exports = KongouCommand;

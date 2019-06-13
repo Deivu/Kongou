@@ -7,7 +7,7 @@ class CommandHandler {
     }
 
     build() {
-        const commands = fs.readdirSync(this.client.location + "/src/commands");
+        const commands = fs.readdirSync(this.client.location + '/src/commands');
         for (const command of commands) {
             const req = require(`../commands/${command}`);
             const init = new req(this.client);
