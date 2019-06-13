@@ -13,7 +13,7 @@ class CommandHandler {
             const init = new req(this.client);
             this.commands.set(init.name, init);
         }
-        console.log(`${this.commands.size} commands loaded`);
+        console.log(`Command Handler: Loaded ${this.commands.size} commands.`);
     }
 }
 
