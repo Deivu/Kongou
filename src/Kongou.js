@@ -6,7 +6,7 @@ const Level = require('level');
 const CommandHandler = require('./modules/CommandHandler.js');
 const EventHandler = require('./modules/EventHandler.js');
 
-const Config = require('../config.json');
+const Defaults = require('../misc.json');
 const LavalinkServers = require('../lavalink-server.json');
 
 class Kongou extends Client {
@@ -29,7 +29,7 @@ class Kongou extends Client {
     }
     
     get getDefaultConfig() {
-        return Config;
+        return Defaults;
     }
 
     build() {
