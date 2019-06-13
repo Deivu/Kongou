@@ -1,5 +1,5 @@
 const Kongou = require('./src/Kongou.js');
-const Config = require('./src/config.json');
+const Config = require('./config.json');
 
 const client = new Kongou({ messageCacheMaxSize	: 5 });
 
