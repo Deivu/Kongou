@@ -1,18 +1,9 @@
 {
   "name": "kongou",
   "version": "1.0.0",
-  "description": "Best Waifu",
-  "dependencies": {
-    "discord.js": "github:discordjs/discord.js",
-    "typescript": "^3.4.5"
-  },
-  "devDependencies": {    
-    "@types/node": "^12.0.0",
-    "@types/ws": "^6.0.1"
-  },
+  "description": "A simple template bot with Discord.js v12",
   "scripts": {
-    "start": "node ./out/index.js",
-    "build": "tsc"
+    "start": "node Kongou.js"
   },
   "repository": {
     "type": "git",
@@ -21,7 +12,13 @@
   "keywords": [
     "Discord",
     "Bot",
-    "Waifu"
+    "Waifu",
+    "music-bot",
+    "template-bot",
+    "discord.js",
+    "discord-js",
+    "discordjs",
+    "music"
   ],
   "author": "Deivu (Saya)",
   "license": "MIT",
