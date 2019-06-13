@@ -1,7 +1,10 @@
 const fs = require('fs');
+const EventEmitter = require('events');
 
-class EventHandler {
+class EventHandler extends EventEmitter {
     constructor(client) {
+        super();
+        
         this.client = client;
         this.built = false;
     }
@@ -19,8 +22,9 @@ class EventHandler {
         console.log(`Event Handler: Loaded ${index} events.`);
     }
 
-    exec(func, ...args) {
-        func.run(...args).catch(console.error);
+    async exec(func, ...args) {
+        await func.run(...args)
+            .catch((error) => this.emit('error', error));
     }
 }
 
