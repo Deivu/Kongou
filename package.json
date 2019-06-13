@@ -25,5 +25,10 @@
   "bugs": {
     "url": "https://github.com/Deivu/Kongou/issues"
   },
-  "homepage": "https://github.com/Deivu/Kongou#readme"
+  "homepage": "https://github.com/Deivu/Kongou#readme",
+  "dependencies": {
+    "discord.js": "github:discordjs/discord.js#f82f0af9286b4ebf1350c725ba4251fef89b8b83",
+    "level": "^5.0.1",
+    "shoukaku": "github:Deivu/Shoukaku"
+  }
 }
