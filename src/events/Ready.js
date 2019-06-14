@@ -13,7 +13,7 @@ class Ready extends KongouEvent {
     
     async run() {
         await this.initializeSettings();
-        this.client.Shoukaku.buildManager({ id: this.client.user.id, shardCount: 1 }, LavalinkServers);
+        this.client.shoukaku.build(LavalinkServers, { id: this.client.user.id });
         console.log(`Kongou Client: ${this.client.user.username} is now logged in. Serving ${this.client.guilds.size} guilds.`);
     }
 

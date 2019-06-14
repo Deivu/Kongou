@@ -1,31 +1,29 @@
 const fs = require('fs');
 const { Client } = require('discord.js');
-const { Shoukaku, ShoukakuResolver } = require('../../Shoukaku/index.js');
+const { Shoukaku } = require('../../Shoukaku/index.js');
 const Level = require('level');
 
 const CommandHandler = require('./modules/CommandHandler.js');
 const EventHandler = require('./modules/EventHandler.js');
 
 const Defaults = require('../misc.json');
-const LavalinkServers = require('../lavalink-server.json');
 
 class Kongou extends Client {
     constructor(options) {
         super(options);
         Object.defineProperty(this, 'location', { value: process.cwd() });
 
-        this.Shoukaku = new Shoukaku(this, {
-            resumable: true,
-            resumableTimeout: 15,
-            resumekey: 'Kongou',
-            reconnectInterval: 5000
+        this.shoukaku = new Shoukaku(this, {
+            resumable: false,
+            resumableTimeout: 30,
+            reconnectTries: 2,
+            restTimeout: 10000
         });
-        this.ShoukakuResolver = new ShoukakuResolver(LavalinkServers[0]);
-        this.handlers = {};
 
-        this.Shoukaku.on('nodeReady', (host) => console.log(`Lavalink Host: ${host} is now connected`));
-        this.Shoukaku.on('nodeError', (error, host) => console.log(`Lavalink Host: ${host} emitted an error. ${error}`));
-        this.Shoukaku.on('nodeDisconnect', (host) => console.log(`Lavalink Host: ${host} is now disconnected and cleaned from hosts.`));
+        this.handlers = {};
+        this.shoukaku.on('ready', (name) => console.log(`Lavalink Node: ${name} is now connected`));
+        this.shoukaku.on('error', (name, error) => console.log(`Lavalink Node: ${name} emitted an error.`, error));
+        this.shoukaku.on('close', (name, code, reason) => console.log(`Lavalink Node: ${name} closed with code ${code}. Reason: ${reason || 'No reason'}`));
     }
     
     get getDefaultConfig() {
