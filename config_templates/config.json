@@ -1,3 +1,4 @@
 {
-	"token": "sneaky_discord_bot_token"
+	"owners": ["your account id"],
+	"token": "bot token"
 }

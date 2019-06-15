@@ -1,8 +1,6 @@
 class KongouCommand {
     constructor(client) {
         this.client = client;
-        this.permissions = null;
-
         if (this.constructor === KongouCommand) throw new TypeError('Abstract class "KongouCommand" cannot be instantiated directly.'); 
         if (this.name === undefined) throw new TypeError('Classes extending KongouCommand must have a getter "name"');
         if (this.usage === undefined) throw new TypeError('Classes extending KongouCommand must have a getter "usage"');
@@ -11,6 +9,10 @@ class KongouCommand {
             if (this.run.constructor.name !== "AsyncFunction")
                 throw new TypeError('Classes extending KongouCommand must implement "run" as async function');
         } else throw new TypeError('Classes extending KongouCommand must implement an async function "run"');
+    }
+    
+    get permissions() {
+        return null;
     }
 }
 module.exports = KongouCommand;

@@ -1,5 +1,6 @@
 [{
-    "host": "localhost",
-    "port": 6996,
-    "auth": "some_lewd_auth"
+    "name": "node name",
+    "host": "node host",
+    "port": "port for lavalink",
+    "auth": "password of your lavalink"
 }]

@@ -1,4 +1,3 @@
 {
-	"owners": ["array of ids"],
-	"prefix": "$"
+	"prefix": "~"
 }

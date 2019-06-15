@@ -12,6 +12,7 @@ class Kongou extends Client {
     constructor(options) {
         super(options);
         Object.defineProperty(this, 'location', { value: process.cwd() });
+        Object.defineProperty(this, 'color', { value: 0x7E686C });
 
         this.shoukaku = new Shoukaku(this, {
             resumable: false,
@@ -19,7 +20,6 @@ class Kongou extends Client {
             reconnectTries: 2,
             restTimeout: 10000
         });
-
         this.handlers = {};
         this.shoukaku.on('ready', (name) => console.log(`Lavalink Node: ${name} is now connected`));
         this.shoukaku.on('error', (name, error) => console.log(`Lavalink Node: ${name} emitted an error.`, error));
