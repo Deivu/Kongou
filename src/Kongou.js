@@ -1,8 +1,8 @@
 const fs = require('fs');
+const Level = require('level');
 const { Client } = require('discord.js');
 const { Shoukaku } = require('../../Shoukaku/index.js');
-const Level = require('level');
-
+const Queue = require('./modules/Queue.js');
 const CommandHandler = require('./modules/CommandHandler.js');
 const EventHandler = require('./modules/EventHandler.js');
 
@@ -20,6 +20,7 @@ class Kongou extends Client {
             reconnectTries: 2,
             restTimeout: 10000
         });
+        this.queue = new Queue(this);
         this.handlers = {};
         this.shoukaku.on('ready', (name) => console.log(`Lavalink Node: ${name} is now connected`));
         this.shoukaku.on('error', (name, error) => console.log(`Lavalink Node: ${name} emitted an error.`, error));
