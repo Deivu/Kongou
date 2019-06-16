@@ -11,8 +11,8 @@ class Queue extends Map {
         const existing = this.get(msg.guild.id)
         if (!existing) {
             const link = await node.joinVoiceChannel({ 
-                guild_id: msg.guild.id, 
-                channel_id: msg.member.voice.channelID 
+                guildID: msg.guild.id, 
+                voiceChannelID: msg.member.voice.channelID 
             });
             const dispatcher = new KongouDispatcher({
                 client: this.client,

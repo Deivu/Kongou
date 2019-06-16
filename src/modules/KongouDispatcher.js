@@ -7,8 +7,16 @@ class KongouDispatcher {
         this.link = options.link;
         this.queue = [];
         this.current = null;
+        this.lastUpdate = null;
 
-        this.link.player.on('TrackEnd', () => {
+        this.link.player.on('playerUpdate', (data) => {
+            if (!data.position && !this.lastUpdate) {
+                this.text.send(`Now Playing: **${this.current.info.title}**`).catch(() => null);
+            }
+            this.lastUpdate = data.time;
+        })
+        this.link.player.on('end', () => {
+            this.lastUpdate = null;
             this.play()
                 .catch((error) => {
                     console.error(error);
@@ -16,9 +24,10 @@ class KongouDispatcher {
                     this.leave();
                 });
           })
-        this.link.player.on('TrackException', console.error);
-        this.link.player.on('TrackStuck', (reason) => {
+        this.link.player.on('exception', console.error);
+        this.link.player.on('stuck', (reason) => {
             console.warn(reason);
+            this.lastUpdate = null;
             this.play()
                 .catch((error) => {
                     console.error(error);
@@ -26,7 +35,7 @@ class KongouDispatcher {
                     this.leave();
                 });
           });
-        this.link.player.on('WebSocketClosed', (reason) => {
+        this.link.player.on('voiceClose', (reason) => {
             console.warn(reason);
             this.leave();
         });
@@ -41,7 +50,6 @@ class KongouDispatcher {
             return this.leave();
         this.current = this.queue.shift();
         await this.link.player.playTrack(this.current.track);
-        await this.text.send('Now Playing: ' + this.current.info.title).catch(() => null);
     }
 
     leave() {

@@ -1,7 +1,7 @@
 const fs = require('fs');
 const Level = require('level');
 const { Client } = require('discord.js');
-const { Shoukaku } = require('../../Shoukaku/index.js');
+const { Shoukaku } = require('shoukaku');
 const Queue = require('./modules/Queue.js');
 const CommandHandler = require('./modules/CommandHandler.js');
 const EventHandler = require('./modules/EventHandler.js');
@@ -15,14 +15,15 @@ class Kongou extends Client {
         Object.defineProperty(this, 'color', { value: 0x7E686C });
 
         this.shoukaku = new Shoukaku(this, {
-            resumable: false,
+            resumable: 'resumablekongou',
             resumableTimeout: 30,
             reconnectTries: 2,
             restTimeout: 10000
         });
         this.queue = new Queue(this);
         this.handlers = {};
-        this.shoukaku.on('ready', (name) => console.log(`Lavalink Node: ${name} is now connected`));
+
+        this.shoukaku.on('ready', (name, resumed) => console.log(`Lavalink Node: ${name} is now connected. This connection is ${resumed ? 'resumed' : 'a new connection'}`));
         this.shoukaku.on('error', (name, error) => console.log(`Lavalink Node: ${name} emitted an error.`, error));
         this.shoukaku.on('close', (name, code, reason) => console.log(`Lavalink Node: ${name} closed with code ${code}. Reason: ${reason || 'No reason'}`));
     }

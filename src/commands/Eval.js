@@ -26,9 +26,9 @@ class Eval extends KongouCommand {
         let res;
         try {
             res = eval(code);
-            res = util.inspect(res);
+            res = util.inspect(res, { depth: 0 });
         } catch (error) {
-            res = util.inspect(error);
+            res = util.inspect(error, { depth: 0 });
         }
         const embed = new MessageEmbed()
         .setColor(this.client.color)

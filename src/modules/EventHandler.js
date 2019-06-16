@@ -17,6 +17,9 @@ class EventHandler {
             event.once ? this.client.once(event.name, bind) : this.client.on(event.name, bind);
             index++
         }
+        this.client.on('shardReconnecting', () =>console.log('Reconnecting'))
+        this.client.on('shardResumed', () => console.log('Reconnected'))
+        this.client.on('shardReady', () => console.log('Ready'))
         console.log(`Event Handler: Loaded ${index} events.`);
         this.built = true;
     }
