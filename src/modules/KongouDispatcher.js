@@ -39,6 +39,7 @@ class KongouDispatcher {
             console.warn(reason);
             this.leave();
         });
+        this.link.player.on('nodeDisconnect', this.leave.bind(this));
     }
 
     get exists() {
@@ -46,8 +47,7 @@ class KongouDispatcher {
     }
 
     async play() {
-        if (!this.exists || !this.queue.length)
-            return this.leave();
+        if (!this.exists || !this.queue.length) return this.leave();
         this.current = this.queue.shift();
         await this.link.player.playTrack(this.current.track);
     }

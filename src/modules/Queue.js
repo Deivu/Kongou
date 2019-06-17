@@ -22,16 +22,10 @@ class Queue extends Map {
             });
             dispatcher.queue.push(track);
             this.set(msg.guild.id, dispatcher);
-            return {
-                dispatcher,
-                playing: false
-            };
+            return dispatcher;
         }
         existing.queue.push(track);
-        return {
-            dispatcher: existing,
-            playing: true
-        };
+        return null
     }
 }
 module.exports = Queue;

@@ -25,12 +25,12 @@ class Play extends KongouCommand {
             if (!tracks)
                 return await msg.channel.send('Admiral, I didn\'t find anything in the query you gave me');
             const isPlaylist = Array.isArray(tracks) && tracks.name;
-            const handled = isPlaylist ? await this.client.queue.handle(node, tracks.shift(), msg) : await this.client.queue.handle(node, tracks, msg);
+            const res = isPlaylist ? await this.client.queue.handle(node, tracks.shift(), msg) : await this.client.queue.handle(node, tracks, msg);
             if (isPlaylist) {
                 for (const track of tracks) await this.client.queue.handle(node, track, msg);
             }
             await msg.channel.send(isPlaylist ? `Added the playlist **${tracks.name}** in queue!` : `Added the track **${tracks.info.name}** in queue!`).catch(() => null);
-            if (!handled.playing) await handled.dispatcher.play();
+            if (res) await res.play();
             return;
         }
         if (!args[1])
@@ -40,9 +40,9 @@ class Play extends KongouCommand {
         if (!tracks.length)
             return await msg.channel.send('Admiral, I didn\'t find anything in the query you gave me');
         const track = tracks.shift();
-        const handled = await this.client.queue.handle(node, track, msg);
+        const res = await this.client.queue.handle(node, track, msg);
         await msg.channel.send(`Added the track **${track.info.name}** in queue!`).catch(() => null);
-        if (!handled.playing) await handled.dispatcher.play();
+        if (res) await res.play();
     }
 }
 module.exports = Play;
