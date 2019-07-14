@@ -10,7 +10,7 @@ class Queue extends Map {
     async handle(node, track, msg) {
         const existing = this.get(msg.guild.id)
         if (!existing) {
-            const link = await node.joinVoiceChannel({ 
+            const player = await node.joinVoiceChannel({ 
                 guildID: msg.guild.id, 
                 voiceChannelID: msg.member.voice.channelID 
             });
@@ -18,7 +18,7 @@ class Queue extends Map {
                 client: this.client,
                 guild: msg.guild,
                 text: msg.channel,
-                link
+                player
             });
             dispatcher.queue.push(track);
             this.set(msg.guild.id, dispatcher);

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A simple template bot with Discord.js v12",
   "scripts": {
-    "start": "node Kongou.js"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -29,6 +29,6 @@
   "dependencies": {
     "discord.js": "github:discordjs/discord.js#f82f0af9286b4ebf1350c725ba4251fef89b8b83",
     "level": "^5.0.1",
-    "shoukaku": "^0.0.7"
+    "shoukaku": "^0.2.0"
   }
 }

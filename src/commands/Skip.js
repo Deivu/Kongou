@@ -19,9 +19,9 @@ class Skip extends KongouCommand {
         const dispatcher = this.client.queue.get(msg.guild.id);
         if (!dispatcher)
             return await msg.channel.send('Nothing is playing in this guild.');
-        if (dispatcher.link.voiceChannelID !== msg.member.voice.channelID)
+        if (dispatcher.player.voiceConnection.voiceChannelID !== msg.member.voice.channelID)
             return await msg.channel.send('Teitoku, you are not in the same voice channel where I am.');
-        await dispatcher.link.player.stopTrack();
+        await dispatcher.player.stopTrack();
     }
 }
 module.exports = Skip;
