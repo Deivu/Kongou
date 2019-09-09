@@ -15,7 +15,7 @@ class Ping extends KongouCommand {
 
     async run(msg) {
         const sent = await msg.channel.send('....');
-        await sent.edit(`Command Delay: **${Math.round(sent.createdTimestamp - msg.createdTimestamp)}ms**\nGateway Ping: **${msg.guild.shard.ping}ms**`);
+        await sent.edit(`Command Delay: **${Math.round(sent.createdTimestamp - msg.createdTimestamp)}ms**\nGateway Ping: **${Math.round(msg.guild.shard.ping)}ms**`);
     }
 }
 module.exports = Ping;

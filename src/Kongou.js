@@ -1,7 +1,7 @@
 const fs = require('fs');
 const Level = require('level');
 const { Client } = require('discord.js');
-const { Shoukaku } = require('../../Shoukaku/index.js');
+const { Shoukaku } = require('shoukaku');
 const Queue = require('./modules/Queue.js');
 const CommandHandler = require('./modules/CommandHandler.js');
 const EventHandler = require('./modules/EventHandler.js');
