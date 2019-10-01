@@ -15,7 +15,8 @@ class Kongou extends Client {
         Object.defineProperty(this, 'color', { value: 0x7E686C });
 
         this.shoukaku = new Shoukaku(this, {
-            resumable: 'resumablekongou',
+            moveOnDisconnect: false,
+            resumable: 'resumableKongou',
             resumableTimeout: 30,
             reconnectTries: 2,
             restTimeout: 10000
@@ -29,7 +30,7 @@ class Kongou extends Client {
         this.shoukaku.on('disconnected', (name, reason) => console.log(`Lavalink Node: ${name} disconnected. Reason: ${reason || 'No reason'}`));
 
     }
-    
+
     get getDefaultConfig() {
         return Defaults;
     }

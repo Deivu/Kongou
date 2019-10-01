@@ -27,8 +27,8 @@
   },
   "homepage": "https://github.com/Deivu/Kongou#readme",
   "dependencies": {
-    "discord.js": "github:discordjs/discord.js#f82f0af9286b4ebf1350c725ba4251fef89b8b83",
+    "discord.js": "github:discordjs/discord.js#c5cbf8677e72522a366d03c9c90e313b864ff582",
     "level": "^5.0.1",
-    "shoukaku": "^0.2.1"
+    "shoukaku": "^1.1.0"
   }
 }

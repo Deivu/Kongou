@@ -9,7 +9,7 @@ class EventHandlers {
     }
 
     static onClean(param) {
-        console.error(param instanceof Error || param instanceof Object ? param : `Disconnected Node: ${param}`);
+        if (param instanceof Error || param instanceof Object) console.error(param);
         this.queue.length = 0;
         this.leave();
     }
