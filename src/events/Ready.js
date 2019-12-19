@@ -1,5 +1,5 @@
 const KongouEvent = require('../abstract/KongouEvent.js');
-const LavalinkServers = require('../../lavalink-server.json');
+
 
 class Ready extends KongouEvent {
 
@@ -13,7 +13,6 @@ class Ready extends KongouEvent {
 
     async run() {
         await this.initializeSettings();
-        this.client.shoukaku.start(LavalinkServers, { id: this.client.user.id });
         console.log(`Kongou Client: ${this.client.user.username} is now logged in. Serving ${this.client.guilds.size} guilds.`);
     }
 

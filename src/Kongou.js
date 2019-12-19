@@ -6,6 +6,7 @@ const Queue = require('./modules/Queue.js');
 const CommandHandler = require('./modules/CommandHandler.js');
 const EventHandler = require('./modules/EventHandler.js');
 
+const LavalinkServers = require('../lavalink-server.json');
 const Defaults = require('../misc.json');
 
 class Kongou extends Client {
@@ -14,13 +15,18 @@ class Kongou extends Client {
         Object.defineProperty(this, 'location', { value: process.cwd() });
         Object.defineProperty(this, 'color', { value: 0x7E686C });
 
-        this.shoukaku = new Shoukaku(this, {
-            moveOnDisconnect: false,
-            resumable: 'resumableKongou',
-            resumableTimeout: 30,
-            reconnectTries: 2,
-            restTimeout: 10000
-        });
+        this.shoukaku = new Shoukaku(
+            this,
+            LavalinkServers,
+            {
+                moveOnDisconnect: false,
+                resumable: 'resumableKongou',
+                resumableTimeout: 30,
+                reconnectTries: 2,
+                restTimeout: 10000
+            }
+        );
+
         this.queue = new Queue(this);
         this.handlers = {};
 
