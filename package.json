@@ -1,7 +1,7 @@
 {
   "name": "kongou",
   "version": "1.2.0",
-  "description": "A simple template bot with Discord.js v12",
+  "description": "Example bot for using Shoukaku",
   "scripts": {
     "start": "node index.js"
   },
@@ -27,8 +27,8 @@
   },
   "homepage": "https://github.com/Deivu/Kongou#readme",
   "dependencies": {
-    "discord.js": "github:discordjs/discord.js#5519d6fbaa61abccc27b742f97ad725bf4259265",
+    "discord.js": "github:discordjs/discord.js#97eac663b3e1292cc399c56eb701069301f4637d",
     "level": "^5.0.1",
-    "shoukaku": "github:Deivu/Shoukaku#2b32128d4d4e0f901ac515b4da32ebe5c3d8ccc5"
+    "shoukaku": "^1.3.0"
   }
 }
