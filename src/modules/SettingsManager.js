@@ -27,6 +27,7 @@ class SettingsManager {
     async createDefaults(guildID) {
         const statement = await this.db.prepare('INSERT INTO Settings VALUES(?, ?)', [guildID, this.client.getDefaultConfig.prefix]);
         await statement.run();
+        this.client.logger.debug(this.constructor.name, `Added guild "${guildID}" as a new entry in "Settings" Database`);
     }
 
     async get(guildID, createIfNotExist = false) {
@@ -44,6 +45,7 @@ class SettingsManager {
     async destroy(guildID) {
         const statement = await this.db.prepare('DELETE FROM Settings WHERE id = ? LIMIT 1', guildID);
         await statement.run();
+        this.client.logger.debug(this.constructor.name, `Destroyed guild "${guildID}" entry in "Settings" Database`);
     }
 }
 
