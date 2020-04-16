@@ -7,7 +7,7 @@ class KongouSetting {
 
     async setData(prop, value) {
         if (!this[prop] === undefined) return;
-        const statement = await this.db.prepare(`UPDATE Settings SET prefix = ? WHERE id = ?`, [ value, this.id ])
+        const statement = await this.db.prepare('UPDATE Settings SET prefix = ? WHERE id = ?', [ value, this.id ]);
         await statement.run();
         this[prop] = value;
     }

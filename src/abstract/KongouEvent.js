@@ -8,7 +8,7 @@ class KongouEvent extends  EventEmitter {
         if (this.name === undefined) throw new TypeError('Classes extending KongouEvent must have a getter "name"');
         if (this.once === undefined) throw new TypeError('Classes extending KongouEvent must have a getter "once"');
         if (this.run !== undefined) {
-            if (this.run.constructor.name !== "AsyncFunction")
+            if (this.run.constructor.name !== 'AsyncFunction')
                 throw new TypeError('Classes extending KongouEvent must implement "run" as async function');
         } else throw new TypeError('Classes extending KongouEvent must implement an async function "run"');
         this.on('error', (error) => client.logger.error(error));

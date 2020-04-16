@@ -31,7 +31,7 @@ class Eval extends KongouCommand {
             res = util.inspect(error, { depth: 0 });
         }
         const embed = new MessageEmbed()
-        .setColor(this.client.color)
+            .setColor(this.client.color)
             .setTitle('Eval Results')
             .setDescription(`\`\`\`js\n${this.trim(res, 2000)}\`\`\``)
             .setTimestamp()

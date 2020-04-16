@@ -13,19 +13,19 @@ class SettingsManager {
         }
         open({ filename: `${client.location}/db/Settings.db`, driver: cached.Database })
             .then((db) => {
-                client.logger.debug(this.constructor.name, 'SQLITE Database "Settings" is now connected')
+                client.logger.debug(this.constructor.name, 'SQLITE Database "Settings" is now connected');
                 db.exec(`CREATE TABLE IF NOT EXISTS Settings(id TEXT PRIMARY KEY, prefix TEXT DEFAULT '${client.getDefaultConfig.prefix}')`)
                     .then(() => {
                         this.db = db;
                         client.logger.debug(this.constructor.name, 'SQLITE Database "Settings" created');
                     })
-                    .catch(error => client.logger.error(error))
+                    .catch(error => client.logger.error(error));
             })
             .catch(error => client.logger.error(error));
     }
 
     async createDefaults(guildID) {
-        const statement = await this.db.prepare('INSERT INTO Settings VALUES(?, ?)', [guildID, this.client.getDefaultConfig.prefix])
+        const statement = await this.db.prepare('INSERT INTO Settings VALUES(?, ?)', [guildID, this.client.getDefaultConfig.prefix]);
         await statement.run();
     }
 

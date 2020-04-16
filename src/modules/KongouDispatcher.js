@@ -18,14 +18,14 @@ class KongouDispatcher {
                     this.queue.length = 0;
                     this.destroy();
                     this.client.logger.error(error);
-                })
-        })
+                });
+        });
         for (const playerEvent of ['closed', 'error', 'nodeDisconnect']) {
             this.player.on(playerEvent, data => {
                 if (data instanceof Error || data instanceof Object) this.client.logger.error(data);
                 this.queue.length = 0;
                 this.destroy();
-            })
+            });
         }
     }
 

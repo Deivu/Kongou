@@ -7,7 +7,7 @@ class Queue extends Map {
     }
 
     async handle(node, track, msg) {
-        const existing = this.get(msg.guild.id)
+        const existing = this.get(msg.guild.id);
         if (!existing) {
             const player = await node.joinVoiceChannel({
                 guildID: msg.guild.id,
@@ -26,7 +26,7 @@ class Queue extends Map {
             return dispatcher;
         }
         existing.queue.push(track);
-        return null
+        return null;
     }
 }
 module.exports = Queue;
