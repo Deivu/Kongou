@@ -8,11 +8,11 @@ class KongouLogger {
     }
 
     debug(title, message) {
-        console.log(`[Process ${process.pid}] [Cluster ${this.id}] [${title}]  ${message}`);
+        console.log(`[Process ${process.pid}] [Cluster ${this.id}] [${title}] ${message}`);
     }
 
     log(title, message) {
-        console.log(`[Process ${process.pid}] [Cluster ${this.id}] [${title}]  ${message}`);
+        console.log(`[Process ${process.pid}] [Cluster ${this.id}] [${title}] ${message}`);
     }
 
     error(error) {
