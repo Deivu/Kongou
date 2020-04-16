@@ -27,8 +27,14 @@
   },
   "homepage": "https://github.com/Deivu/Kongou#readme",
   "dependencies": {
-    "discord.js": "github:discordjs/discord.js#97eac663b3e1292cc399c56eb701069301f4637d",
-    "level": "^5.0.1",
-    "shoukaku": "^1.3.0"
+    "@godaddy/terminus": "^4.3.1",
+    "bufferutil": "^4.0.1",
+    "discord.js": "12.1.1",
+    "erlpack": "github:discordapp/erlpack",
+    "shoukaku": "^1.3.8",
+    "sqlite": "^4.0.7",
+    "sqlite3": "^4.1.1",
+    "utf-8-validate": "^5.0.2",
+    "zlib-sync": "^0.1.6"
   }
 }

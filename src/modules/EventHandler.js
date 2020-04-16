@@ -1,28 +1,27 @@
-const fs = require('fs');
+const { readdirSync } = require('fs');
 
 class EventHandler {
     constructor(client) {
-        
         this.client = client;
         this.built = false;
-
-        this.client.on('shardReconnecting', (id) => console.log(`WS Shard ${id} is reconnecting.`));
-        this.client.on('shardResumed', (id, rep) => console.log(`WS Shard ${id} was able to resume and replay ${rep} events`));
-        this.client.on('shardReady', (id) => console.log(`WS Shard ${id} is now ready`));
+        client.on('shardReconnecting', (id) => client.logger.debug(`Shard ${id}`, 'Shard Reconnecting'));
+        client.on('shardResumed', (id, rep) => client.logger.debug(`Shard ${id}`, `Shard Resume | ${rep} events replayed`));
+        client.on('shardReady', (id) => client.logger.debug(`Shard ${id}`, 'Shard Ready'));
     }
 
     build() {
-        if (this.built) return;
-        const events = fs.readdirSync(this.client.location + '/src/events');
+        if (this.built) return this;
+        const events = readdirSync(this.client.location + '/src/events');
         let index = 0;
         for (let event of events) {
             event = new (require(`../events/${event}`))(this.client);
-            const bind = event.run.bind(event);
-            event.once ? this.client.once(event.name, bind) : this.client.on(event.name, bind);
+            const exec = event.exec.bind(event);
+            event.once ? this.client.once(event.name,  event.exec.bind(event)) : this.client.on(event.name, exec);
             index++;
         }
-        console.log(`Event Handler: Loaded ${index} events.`);
+        this.client.logger.debug(this.constructor.name, `Loaded ${index} client event(s)`);
         this.built = true;
+        return this;
     }
 }
 

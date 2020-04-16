@@ -1,20 +1,3 @@
-class EventHandlers {
-    static onEnd() {
-        this.play()
-            .catch((error) => {
-                console.error(error);
-                this.queue.length = 0;
-                this.leave();
-            })
-    }
-
-    static onClean(param) {
-        if (param instanceof Error || param instanceof Object) console.error(param);
-        this.queue.length = 0;
-        this.leave();
-    }
-}
-
 class KongouDispatcher {
     constructor(options) {
 
@@ -25,13 +8,27 @@ class KongouDispatcher {
         this.queue = [];
         this.current = null;
 
-        this.onEnd = EventHandlers.onEnd.bind(this);
-        this.onClean = EventHandlers.onClean.bind(this);
+        this.player.on('start', () =>
+            this.text.send(`Now Playing: **${this.current.info.title}**`)
+                .catch(() => null)
+        );
 
-        this.player.on('end', this.onEnd);
-        this.player.on('closed', this.onClean);
-        this.player.on('error',  this.onClean);
-        this.player.on('nodeDisconnect', this.onClean);
+        this.player.on('end', () => {
+            this.play()
+                .catch(error => {
+                    this.queue.length = 0;
+                    this.leave();
+                    this.client.logger.error(error);
+                })
+        })
+
+        for (const playerEvent of ['closed', 'error', 'nodeDisconnect']) {
+            this.player.on(playerEvent, data => {
+                if (data instanceof Error || data instanceof Object) this.client.logger.error(data);
+                this.queue.length = 0;
+                this.leave();
+            })
+        }
     }
 
     get exists() {
@@ -42,7 +39,6 @@ class KongouDispatcher {
         if (!this.exists || !this.queue.length) return this.leave();
         this.current = this.queue.shift();
         await this.player.playTrack(this.current.track);
-        await this.text.send(`Now Playing: **${this.current.info.title}**`).catch(() => null);
     }
 
     leave(log) {
