@@ -30,19 +30,22 @@ class Play extends KongouCommand {
         const node = this.client.shoukaku.getNode();
         const query = args.join(' ');
         if (this._checkURL(query)) {
-            const tracks = await node.rest.resolve(query);
-            if (!tracks)
+            const result = await node.rest.resolve(query);
+            if (!result)
                 return await msg.channel.send('Admiral, I didn\'t find anything in the query you gave me');
-            const isPlaylist = Array.isArray(tracks) && tracks.name;
-            const res = isPlaylist ? await this.client.queue.handle(node, tracks.shift(), msg) : await this.client.queue.handle(node, tracks, msg);
+            const { type, tracks, playlistName } = result;
+            const track = tracks.shift();
+            const isPlaylist = type === 'PLAYLIST';
+            const res = await this.client.queue.handle(node, track, msg);
             if (isPlaylist) {
                 for (const track of tracks) await this.client.queue.handle(node, track, msg);
-            }
-            await msg.channel.send(isPlaylist ? `Added the playlist **${tracks.name}** in queue!` : `Added the track **${tracks.info.title}** in queue!`).catch(() => null);
+            }   
+            await msg.channel.send(isPlaylist ? `Added the playlist **${playlistName}** in queue!` : `Added the track **${track.info.title}** in queue!`)
+                .catch(() => null);
             if (res) await res.play();
             return;
         }
-        let searchData = await node.rest.resolve(query, 'youtube');
+        const searchData = await node.rest.resolve(query, 'youtube');
         if (!searchData.tracks.length)
             return await msg.channel.send('Admiral, I didn\'t find anything in the query you gave me');
         const track = searchData.tracks.shift();
