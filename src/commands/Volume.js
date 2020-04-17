@@ -6,7 +6,7 @@ class Volume extends KongouCommand {
     }
 
     get usage() {
-        return 'volume <10-1000>';
+        return 'volume [number]';
     }
 
     get description() {

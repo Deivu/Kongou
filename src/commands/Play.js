@@ -6,11 +6,20 @@ class Play extends KongouCommand {
     }
 
     get usage() {
-        return 'play <link or search:youtube or search:soundcloud> <searchterm if search>';
+        return 'play [search/link]';
     }
 
     get description() {
         return 'Automatically fetches the video(s) and joins the channel.';
+    }
+
+    _checkURL(string) {
+        try {
+            new URL(string);
+            return true;
+        } catch (error) {
+            return false;
+        }
     }
 
     async run(msg, args) {
@@ -19,9 +28,9 @@ class Play extends KongouCommand {
         if (!args[0])
             return await msg.channel.send('Admiral, you did not specify a link or search mode');
         const node = this.client.shoukaku.getNode();
-        if (!['search:youtube', 'search:soundcloud'].includes(args[0])) {
-            const link = args.join(' ');
-            const tracks = await node.rest.resolve(link);
+        const query = args.join(' ');
+        if (this._checkURL(query)) {
+            const tracks = await node.rest.resolve(query);
             if (!tracks)
                 return await msg.channel.send('Admiral, I didn\'t find anything in the query you gave me');
             const isPlaylist = Array.isArray(tracks) && tracks.name;
@@ -33,13 +42,10 @@ class Play extends KongouCommand {
             if (res) await res.play();
             return;
         }
-        if (!args[1])
-            return await msg.channel.send('Admiral, what is the search term you want me to search for?');
-        const type = args[0].split(':')[1];
-        const tracks = await node.rest.resolve(args.slice(1).join(' '), type);
-        if (!tracks.length)
+        let searchData = await node.rest.resolve(query, 'youtube');
+        if (!searchData.tracks.length)
             return await msg.channel.send('Admiral, I didn\'t find anything in the query you gave me');
-        const track = tracks.shift();
+        const track = searchData.tracks.shift();
         const res = await this.client.queue.handle(node, track, msg);
         await msg.channel.send(`Added the track **${track.info.title}** in queue!`).catch(() => null);
         if (res) await res.play();

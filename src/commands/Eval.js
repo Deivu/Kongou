@@ -8,7 +8,7 @@ class Eval extends KongouCommand {
     }
 
     get usage() {
-        return 'eval <code>';
+        return 'eval [code]';
     }
 
     get description() {
