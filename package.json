@@ -31,7 +31,7 @@
     "bufferutil": "^4.0.1",
     "discord.js": "12.1.1",
     "erlpack": "github:discordapp/erlpack",
-    "shoukaku": "^1.4.0",
+    "shoukaku": "^1.4.1",
     "sqlite": "^4.0.7",
     "sqlite3": "^4.1.1",
     "utf-8-validate": "^5.0.2",
