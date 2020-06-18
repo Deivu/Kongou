@@ -14,6 +14,7 @@ class Ready extends KongouEvent {
         if (!(this.count instanceof Number)) this.count = 0;
         if (this.count >= 2) this.count = 0;
         else this.count++;
+        return this.count;
     }
 
 
