@@ -34,6 +34,7 @@ class Say extends KongouCommand {
                 message = message.concat('\n@everyone');
         }
         await channel.send(message);
+        if (msg.channel.id !== channel.id) await msg.channel.send('Message sent, Admiral.');
     }
 }
 module.exports = Say;

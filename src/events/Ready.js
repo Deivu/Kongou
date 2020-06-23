@@ -10,14 +10,6 @@ class Ready extends KongouEvent {
         return true;
     }
 
-    get currentCount() {
-        if (!(this.count instanceof Number)) this.count = 0;
-        if (this.count >= 2) this.count = 0;
-        else this.count++;
-        return this.count;
-    }
-
-
     async run() {
         this.client.logger.debug(`${this.client.user.username}`, `Ready! Serving ${this.client.guilds.cache.size} guild(s) with ${this.client.users.cache.size} user(s)`);
         if (!this.interval) {
@@ -27,7 +19,12 @@ class Ready extends KongouEvent {
                 'Here, Commander, you get Sara\'s Pure Love chocolate ♪ Promise you\'ll love me forever and ever~',
                 'Saratoga-chan loves you a lot~!'
             ];
-            this.interval = setInterval(() => this.client.user.setActivity(statuses[this.currentCount]).catch(() => null), 300000)
+            this.interval = setInterval(() => {
+                const current = statuses.shift();
+                this.client.user.setActivity(current)
+                    .catch(() => null)
+                    .finally(() => statuses.push(current));
+            }, 300000)
         }
     }
 }
