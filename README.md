@@ -9,7 +9,7 @@ A simple example of how to implement [Shoukaku](https://github.com/Deivu/Shoukak
 
 ### If you want to selfhost this 
 
-> Clonse this repo to a work directory of your choice.
+> Clone this repo to a work directory of your choice.
 
 > Fill in the `config_templates` then drag them beside the index.js in your working directory
 
