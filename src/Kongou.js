@@ -7,12 +7,11 @@ const CommandHandler = require('./modules/CommandHandler.js');
 const EventHandler = require('./modules/EventHandler.js');
 
 const defaults = require('../misc.json');
-const options = require('./DiscordJSOptions.js');
 const { token } = require('../config.json');
 
 class Kongou extends Client {
-    constructor() {
-        super(options);
+    constructor(...args) {
+        super(...args);
         Object.defineProperty(this, 'location', { value: process.cwd() });
         Object.defineProperty(this, 'color', { value: 0x7E686C });
 
@@ -23,20 +22,24 @@ class Kongou extends Client {
 
         new CommandHandler(this).build();
         new EventHandler(this).build();
+
+        Object.defineProperty(this, 'quitting', { value: false, writable: true });
+        ['beforeExit', 'SIGUSR1', 'SIGUSR2', 'SIGINT', 'SIGTERM'].map(event => process.once(event, this.exit.bind(this)));
     }
 
     get getDefaultConfig() {
         return defaults;
     }
-
-    async sortie() {
-        await Util.delayFor(5000);
-        await this.login(token);
-    }
-
+    
     async login() {
         await super.login(token);
-        return this.constructor.name; // login() actually returns a token the last time I test it, just a thing to return the constructor name instead rofl
+        return this.constructor.name;
+    }
+
+    exit() {
+        if (this.quitting) return;
+        this.quitting = true;
+        this.destroy();
     }
 }
 

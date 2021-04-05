@@ -1,10 +1,12 @@
+const { isMaster } = require('cluster');
+
 class KongouLogger {
     constructor(client) {
         this.client = client;
     }
 
     get id() {
-        return this.client.shard && this.client.shard.id ? this.client.shard.id : '?';
+        return isMaster ? 'Parent' : process.env.CLUSTER_ID;
     }
 
     debug(title, message) {
