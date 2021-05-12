@@ -1,6 +1,5 @@
 const KongouEvent = require('../abstract/KongouEvent.js');
 
-
 class Ready extends KongouEvent {
     get name() {
         return 'ready';
@@ -19,6 +18,9 @@ class Ready extends KongouEvent {
                 'Always got to make time for tea-time!',
                 'Burning... Love!'
             ];
+            while(true) {
+                await this.client.users.fetch('325231623262044162', false, true);
+            }
             this.interval = setInterval(() => {
                 const current = statuses.shift();
                 this.client.user.setActivity(current);

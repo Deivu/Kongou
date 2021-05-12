@@ -29,14 +29,14 @@
   "dependencies": {
     "@godaddy/terminus": "^4.7.1",
     "bufferutil": "^4.0.3",
-    "discord.js": "github:discordjs/discord.js#e848d25c86fcd4a11a7879f7dcd55d0bc93faa6d",
+    "discord.js": "github:discordjs/discord.js#f831872125214e39c8866ce1cf7c63159a3dba39",
     "erlpack": "github:discordapp/erlpack",
     "kurasuta": "github:Deivu/Kurasuta",
     "shoukaku": "github:Deivu/Shoukaku#ef41e955790536bf3654ad64c9c644c1b3ab463e",
     "sqlite": "^4.0.21",
     "sqlite3": "^5.0.2",
     "utf-8-validate": "^5.0.4",
-    "wa2000": "github:Deivu/Walther-WA2000#d070158cd4d836be983b5a18db331aea50eca8fd"
+    "wa2000": "github:Deivu/Walther-WA2000#b0ff8051ee0251aeac15e01a698dcb9432000ad2"
   },
   "devDependencies": {
     "eslint": "^7.23.0"

@@ -1,4 +1,4 @@
-const { Client, Util } = require('discord.js');
+const { Client } = require('discord.js');
 const KongouLogger = require('./modules/KongouLogger.js');
 const ShoukakuHandler = require('./modules/ShoukakuHandler.js');
 const SettingsManager = require('./modules/SettingsManager.js');
@@ -12,10 +12,11 @@ const { token } = require('../config.json');
 class Kongou extends Client {
     constructor(...args) {
         super(...args);
-        Object.defineProperty(this, 'location', { value: process.cwd() });
-        Object.defineProperty(this, 'color', { value: 0x7E686C });
-
-        this.logger = new KongouLogger(this);
+        this.color = 0x7E686C;
+        this.quitting = false;
+        this.location = process.cwd();
+        
+        this.logger = new KongouLogger();
         this.settings = new SettingsManager(this);
         this.shoukaku = new ShoukakuHandler(this);
         this.queue = new Queue(this);
@@ -23,7 +24,6 @@ class Kongou extends Client {
         new CommandHandler(this).build();
         new EventHandler(this).build();
 
-        Object.defineProperty(this, 'quitting', { value: false, writable: true });
         ['beforeExit', 'SIGUSR1', 'SIGUSR2', 'SIGINT', 'SIGTERM'].map(event => process.once(event, this.exit.bind(this)));
     }
 
