@@ -27,18 +27,18 @@
   },
   "homepage": "https://github.com/Deivu/Kongou#readme",
   "dependencies": {
-    "@godaddy/terminus": "^4.7.1",
+    "@godaddy/terminus": "^4.7.2",
     "bufferutil": "^4.0.3",
-    "discord.js": "github:discordjs/discord.js#f831872125214e39c8866ce1cf7c63159a3dba39",
+    "discord.js": "github:discordjs/discord.js#c7334363b36c5f7f1c7880fe77a2e9b2eb1a6442",
     "erlpack": "github:discordapp/erlpack",
     "kurasuta": "github:Deivu/Kurasuta",
     "shoukaku": "github:Deivu/Shoukaku#ef41e955790536bf3654ad64c9c644c1b3ab463e",
-    "sqlite": "^4.0.21",
+    "sqlite": "^4.0.22",
     "sqlite3": "^5.0.2",
-    "utf-8-validate": "^5.0.4",
-    "wa2000": "github:Deivu/Walther-WA2000#b0ff8051ee0251aeac15e01a698dcb9432000ad2"
+    "utf-8-validate": "^5.0.5",
+    "wa2000": "github:Deivu/Walther-WA2000#6e8aec90208210a8a19ea7dd574ba6397f20030e"
   },
   "devDependencies": {
-    "eslint": "^7.23.0"
+    "eslint": "^7.26.0"
   }
 }

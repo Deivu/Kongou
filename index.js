@@ -24,17 +24,20 @@ const sharderOptions = {
 };
 
 const walther = new Walther(new ShardingManager(join(__dirname, '/src/KongouBaseCluster.js'), sharderOptions));
+
 const logger = new KongouLogger();
 
 walther.on('ratelimit', info => 
     logger.debug(
         'Walther 2k',                     
         'Ratelimit Handled; Info =>\n' + 
-        `  URL                      : ${info.base}${info.endpoint}\n` + 
+        `  URL                      : ${info.base}${info.route}\n` + 
         `  Bucket [Hash:Major]      : ${info.bucket}\n` +
         `  Requests [Remaining/Max] : ${info.remaining}/${info.limit}\n` +
-        `  Retry After              : ${info.after || info.timeout}ms\n` + 
+        `  Headers Retry After      : ${info.after}ms\n` + 
+        `  Calculated Retry After   : ${info.timeout}ms\n` + 
         `  Global Ratelimit         : ${info.global}`
     )
 );
+
 walther.spawn();
