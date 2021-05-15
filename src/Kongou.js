@@ -23,7 +23,7 @@ class Kongou extends Client {
 
         new CommandHandler(this).build();
         new EventHandler(this).build();
-
+        
         ['beforeExit', 'SIGUSR1', 'SIGUSR2', 'SIGINT', 'SIGTERM'].map(event => process.once(event, this.exit.bind(this)));
     }
 
