@@ -1,4 +1,4 @@
-const { Shoukaku } = require('shoukaku');
+const { Shoukaku } = require('../../../Shoukaku/index');
 const LavalinkServers = require('../../lavalink-server.json');
 const Options = require('../../shoukaku-options.js');
 
@@ -18,9 +18,13 @@ class ShoukakuHandler extends Shoukaku {
             (name, code, reason) =>
                 client.logger.log(`Lavalink Node: ${name} closed with code ${code}`, reason || 'No reason')
         );
-        this.on('disconnected',
+        this.on('disconnect',
+            (name, players, moved) =>
+                client.logger.log(`Lavalink Node: ${name} disconnected`, moved ? 'players have been moved' : 'players have been disconnected')
+        );
+        this.on('debug',
             (name, reason) =>
-                client.logger.log(`Lavalink Node: ${name} disconnected`, reason || 'No reason')
+                client.logger.log(`Lavalink Node: ${name}`, reason || 'No reason')
         );
     }
 }

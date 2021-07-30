@@ -9,9 +9,9 @@ class Queue extends Map {
     async handle(node, track, msg) {
         const existing = this.get(msg.guild.id);
         if (!existing) {
-            const player = await node.joinVoiceChannel({
+            const player = await node.joinChannel({
                 guildID: msg.guild.id,
-                voiceChannelID: msg.member.voice.channelID
+                channelID: msg.member.voice.channelId
             });
             this.client.logger.debug(player.constructor.name, `New connection @ guild "${msg.guild.id}"`);
             const dispatcher = new KongouDispatcher({

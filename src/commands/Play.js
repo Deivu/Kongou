@@ -23,7 +23,7 @@ class Play extends KongouCommand {
     }
 
     async run(msg, args) {
-        if (!msg.member.voice.channelID)
+        if (!msg.member.voice.channelId)
             return await msg.channel.send('Admiral, you are not in a voice channel');
         if (!args[0])
             return await msg.channel.send('Admiral, you did not specify a link or search mode');
@@ -46,7 +46,7 @@ class Play extends KongouCommand {
             return;
         }
         const searchData = await node.rest.resolve(query, 'youtube');
-        if (!searchData.tracks.length)
+        if (!searchData || !searchData.tracks.length)
             return await msg.channel.send('Admiral, I didn\'t find anything in the query you gave me');
         const track = searchData.tracks.shift();
         const res = await this.client.queue.handle(node, track, msg);

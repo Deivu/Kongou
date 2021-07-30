@@ -19,7 +19,7 @@ class CommandHandler extends EventEmitter {
             this.commands.set(command.name, command);
         }
         const bind = this.exec.bind(this);
-        this.client.on('message', bind);
+        this.client.on('messageCreate', bind);
         this.client.logger.debug(this.constructor.name, `Loaded ${this.commands.size} client command(s)`);
         this.built = true;
         return this;
@@ -27,7 +27,7 @@ class CommandHandler extends EventEmitter {
 
     async exec(msg) {
         try {
-            if (msg.author.bot || msg.channel.type !== 'text') return;
+            if (msg.author.bot || msg.channel.type !== 'GUILD_TEXT') return;
             if (!msg.channel.permissionsFor(msg.guild.me).has('SEND_MESSAGES')) return;
             const config = await this.client.settings.get(msg.guild.id, true);
             if (!msg.content.startsWith(config.prefix)) return;

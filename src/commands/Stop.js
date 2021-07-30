@@ -11,7 +11,7 @@ class Stop extends KongouCommand {
 
     get description() {
         return 'Stops the playback';
-    }
+    }   
 
     async run(msg) {
         if (!msg.member.voice.channelID)
@@ -19,10 +19,10 @@ class Stop extends KongouCommand {
         const dispatcher = this.client.queue.get(msg.guild.id);
         if (!dispatcher)
             return await msg.channel.send('Nothing is playing in this guild.');
-        if (dispatcher.player.voiceConnection.voiceChannelID !== msg.member.voice.channelID)
+        if (dispatcher.player.connection.channelID !== msg.member.voice.channelId)
             return await msg.channel.send('Teitoku, you are not in the same voice channel where I am.');
         dispatcher.queue.length = 0;
-        await dispatcher.player.stopTrack();
+        dispatcher.player.stopTrack();
     }
 }
 module.exports = Stop;
