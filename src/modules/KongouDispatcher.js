@@ -1,13 +1,14 @@
 const { MessageEmbed } = require('discord.js');
 
 class KongouDispatcher {
-    constructor(options) {
-        this.client = options.client;
-        this.guild = options.guild;
-        this.text = options.text;
-        this.player = options.player;
+    constructor({ client, guild, channel, player }) {
+        this.client = client;
+        this.guild = guild;
+        this.channel = channel;
+        this.player = player;
         this.queue = [];
         this.current = null;
+        this.stopped = false;
 
         this.player.on('start', () => {
             const embed = new MessageEmbed()
@@ -15,7 +16,9 @@ class KongouDispatcher {
                 .setThumbnail(`https://img.youtube.com/vi/${this.current.info.identifier}/default.jpg`)
                 .addField('Now Playing', `[${this.current.info.title}](${this.current.info.uri}) [${KongouDispatcher.humanizeTime(this.current.info.length)}]`)
                 .addField('Uploaded by', this.current.info.author);
-            this.text.send({ embeds: [ embed ] }).catch(() => null);
+            this.channel
+                .send({ embeds: [ embed ] })
+                .catch(() => null);
         });
         this.player.on('end', () => this.play());
         for (const event of ['closed', 'error']) {
@@ -30,8 +33,7 @@ class KongouDispatcher {
     static humanizeTime(ms) {
         const seconds = Math.floor(ms / 1000 % 60);
         const minutes = Math.floor(ms / 1000 / 60 % 60);
-        // const hours = Math.floor(ms  / 1000 / 3600  % 24);
-        return [ minutes.toString(), seconds.toString() ].join(':');
+        return [ minutes.toString().padStart(2, '0'), seconds.toString().padStart(2, '0') ].join(':');
     }
 
     get exists() {
@@ -47,13 +49,14 @@ class KongouDispatcher {
     }
     
     destroy(reason) {
-        this.client.logger.debug(this.constructor.name, `Destroyed the player dispatcher @ guild "${this.guild.id}"`);
-        if (reason) this.client.logger.debug(this.constructor.name, reason);
         this.queue.length = 0;
         this.player.connection.disconnect();
-        this.client.logger.debug(this.player.constructor.name, `Destroyed the connection @ guild "${this.guild.id}"`);
         this.client.queue.delete(this.guild.id);
-        this.text.send('Left the channel due to empty queue.').catch(() => null);
+        this.client.logger.debug(this.player.constructor.name, `Destroyed the player & connection @ guild "${this.guild.id}"\nReason: ${reason || 'No Reason Provided'}`);
+        if (this.stopped) return;
+        this.channel
+            .send('No more songs in queue, feel free to create a new player again!')
+            .catch(() => null);
     }
 }
 module.exports = KongouDispatcher;

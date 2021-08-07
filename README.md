@@ -18,9 +18,11 @@ A Waifu Discord.JS Bot Template ❤️
 
 > Fill in the `config_templates` then drag them beside the index.js in your working directory
 
-> do `npm i` in your working directory
+> Do `npm i` in your working directory
 
-> do `npm start` to start the bot
+> Do `npm run slash` to get the slash commands updated for your bot
+
+> Then do `npm start` to start the bot
 
 ### If you want to contribute just submit a PR.
 

@@ -3,7 +3,8 @@
   "version": "2.0.0",
   "description": "An example bot for Using both Walther-WA2000 & Shoukaku",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "slash": "node src/SlashUpdate.js"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,7 @@
   },
   "homepage": "https://github.com/Deivu/Kongou#readme",
   "dependencies": {
+    "@discordjs/rest": "^0.1.0-canary.0",
     "@godaddy/terminus": "^4.9.0",
     "bufferutil": "^4.0.3",
     "discord.js": "github:discordjs/discord.js#60ace9a2d4cd2844a862f03f33d3be81b56f352b",

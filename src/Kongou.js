@@ -3,7 +3,7 @@ const KongouLogger = require('./modules/KongouLogger.js');
 const ShoukakuHandler = require('./modules/ShoukakuHandler.js');
 const SettingsManager = require('./modules/SettingsManager.js');
 const Queue = require('./modules/Queue.js');
-const CommandHandler = require('./modules/CommandHandler.js');
+const InteractionHandler = require('./modules/InteractionHandler.js');
 const EventHandler = require('./modules/EventHandler.js');
 
 const defaults = require('../misc.json');
@@ -31,9 +31,9 @@ class Kongou extends Client {
         this.settings = new SettingsManager(this);
         this.shoukaku = new ShoukakuHandler(this);
         this.queue = new Queue(this);
-
-        new CommandHandler(this).build();
-        new EventHandler(this).build();
+        
+        this.interactions = new InteractionHandler(this).build();
+        this.events = new EventHandler(this).build();
         
         ['beforeExit', 'SIGUSR1', 'SIGUSR2', 'SIGINT', 'SIGTERM'].map(event => process.once(event, this.exit.bind(this)));
     }
