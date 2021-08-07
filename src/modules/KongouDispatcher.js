@@ -45,7 +45,17 @@ class KongouDispatcher {
             .setVolume(0.3)
             .playTrack(this.current.track);
     }
+    
+    async pause() {
+       if (!this.player) return;
+       if (!this.player.paused) await this.player.setPaused(true);
+    }
 
+    async resume() {
+        if (!this.player) return;
+        if (this.player.paused) await this.player.setPaused(false);
+    }
+    
     destroy(reason) {
         this.client.logger.debug(this.constructor.name, `Destroyed the player dispatcher @ guild "${this.guild.id}"`);
         if (reason) this.client.logger.debug(this.constructor.name, reason);
