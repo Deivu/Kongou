@@ -24,7 +24,7 @@ class Queue extends KongouInteraction {
             .setThumbnail(`https://img.youtube.com/vi/${dispatcher.current.info.identifier}/default.jpg`)
             .setDescription(`[${dispatcher.current.info.title}](${dispatcher.current.info.uri}) [${KongouDispatcher.humanizeTime(dispatcher.current.info.length)}]`)
             .setFooter(`• ${dispatcher.queue.length} total songs in queue`);
-        if (queue.length) embed.addField('Up Next', queue.map((track, index) => `**${index + 1}**\`${track.info.title}\``).join('\n'));
+        if (queue.length) embed.addField('Up Next', queue.map((track, index) => `**${index + 1}.)** \`${track.info.title}\``).join('\n'));
         await interaction.reply({ embeds: [ embed ] });
     }
 }
