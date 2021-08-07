@@ -10,7 +10,7 @@ class Pause extends KongouCommand {
     }
 
     get description() {
-        return 'pause(s) the song';
+        return 'Pause(s) the song';
     }
 
     async run(msg) {
@@ -19,9 +19,9 @@ class Pause extends KongouCommand {
         const dispatcher = this.client.queue.get(msg.guild.id);
         if (!dispatcher)
             return await msg.channel.send('Nothing is playing in this guild.');
-        if (dispatcher.player.connection.channelID !== msg.member.voice.channelId)
+        if (dispatcher.player.connection.channelId !== msg.member.voice.channelId)
             return await msg.channel.send('Teitoku, you are not in the same voice channel where I am.');
-        await dispatcher.pause();
+        dispatcher.player.setPaused(true);
     }
 }
 module.exports = Pause;
