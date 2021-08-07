@@ -36,7 +36,7 @@ class Eval extends KongouCommand {
             .setDescription(`\`\`\`js\n${this.trim(res, 2000)}\`\`\``)
             .setTimestamp()
             .setFooter(this.client.user.username, this.client.user.displayAvatarURL());
-        await msg.channel.send(embed);
+        await msg.channel.send({ embeds: [ embed ] });
     }
 
     trim(string, max) {

@@ -1,3 +1,5 @@
+const { MessageEmbed } = require('discord.js');
+
 class KongouDispatcher {
     constructor(options) {
         this.client = options.client;
@@ -7,7 +9,14 @@ class KongouDispatcher {
         this.queue = [];
         this.current = null;
 
-        this.player.on('start', () => this.text.send(`Now Playing: **${this.current.info.title}**`).catch(() => null));
+        this.player.on('start', () => {
+            const embed = new MessageEmbed()
+                .setColor(0xff0000)
+                .setThumbnail(`https://img.youtube.com/vi/${this.current.info.identifier}/default.jpg`)
+                .addField('Now Playing', `[${this.current.info.title}](${this.current.info.uri}) [${KongouDispatcher.humanizeTime(this.current.info.length)}]`)
+                .addField('Uploaded by', this.current.info.author);
+            this.text.send({ embeds: [ embed ] }).catch(() => null);
+        });
         this.player.on('end', () => this.play());
         for (const event of ['closed', 'error']) {
             this.player.on(event, data => {
@@ -18,6 +27,13 @@ class KongouDispatcher {
         }
     }
 
+    static humanizeTime(ms) {
+        const seconds = Math.floor(ms / 1000 % 60);
+        const minutes = Math.floor(ms / 1000 / 60 % 60);
+        // const hours = Math.floor(ms  / 1000 / 3600  % 24);
+        return [ minutes.toString(), seconds.toString() ].join(':');
+    }
+
     get exists() {
         return this.client.queue.has(this.guild.id);
     }
@@ -25,8 +41,9 @@ class KongouDispatcher {
     play() {
         if (!this.exists || !this.queue.length) return this.destroy();
         this.current = this.queue.shift();
-        this.player.setVolume(0.25);
-        this.player.playTrack(this.current.track);
+        this.player
+            .setVolume(0.3)
+            .playTrack(this.current.track);
     }
 
     destroy(reason) {

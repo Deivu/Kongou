@@ -42,7 +42,7 @@ class Play extends KongouCommand {
             }   
             await msg.channel.send(isPlaylist ? `Added the playlist **${playlistName}** in queue!` : `Added the track **${track.info.title}** in queue!`)
                 .catch(() => null);
-            if (res) await res.play();
+            if (res) res.play();
             return;
         }
         const searchData = await node.rest.resolve(query, 'youtube');
@@ -51,7 +51,7 @@ class Play extends KongouCommand {
         const track = searchData.tracks.shift();
         const res = await this.client.queue.handle(node, track, msg);
         await msg.channel.send(`Added the track **${track.info.title}** in queue!`).catch(() => null);
-        if (res) await res.play();
+        if (res) res.play();
     }
 }
 module.exports = Play;

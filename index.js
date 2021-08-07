@@ -7,9 +7,8 @@ const Walther = require('wa2000');
 const KongouLogger = require('./src/modules/KongouLogger.js');
 const KongouClient = require('./src/Kongou.js');
 
+// cache settings on client file
 const customClientOptions = {
-    messageCacheMaxSize: 1,
-    messageCacheLifetime: 1800,
     disableMentions: 'everyone',
     restRequestTimeout: 30000,
     intents: [ GUILDS, GUILD_MEMBERS, GUILD_BANS, GUILD_VOICE_STATES, GUILD_MESSAGES, GUILD_MESSAGE_REACTIONS ]

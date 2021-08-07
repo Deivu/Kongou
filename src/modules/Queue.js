@@ -10,8 +10,9 @@ class Queue extends Map {
         const existing = this.get(msg.guild.id);
         if (!existing) {
             const player = await node.joinChannel({
-                guildID: msg.guild.id,
-                channelID: msg.member.voice.channelId
+                guildId: msg.guild.id,
+                shardId: msg.guild.shardId,
+                channelId: msg.member.voice.channelId
             });
             this.client.logger.debug(player.constructor.name, `New connection @ guild "${msg.guild.id}"`);
             const dispatcher = new KongouDispatcher({

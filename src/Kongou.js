@@ -1,4 +1,4 @@
-const { Client } = require('discord.js');
+const { Client, Options } = require('discord.js');
 const KongouLogger = require('./modules/KongouLogger.js');
 const ShoukakuHandler = require('./modules/ShoukakuHandler.js');
 const SettingsManager = require('./modules/SettingsManager.js');
@@ -10,8 +10,19 @@ const defaults = require('../misc.json');
 const { token } = require('../config.json');
 
 class Kongou extends Client {
-    constructor(...args) {
-        super(...args);
+    constructor(options) {
+        // create cache
+        options.makeCache = Options.cacheWithLimits({
+            MessageManager: 1,
+            PresenceManager: 0,
+            GuildEmojiManager: 0,
+            GuildBanManager: 0,
+            GuildStickerManager: 0,
+            StageInstanceManager: 0,
+            GuildInviteManager: 0
+        });
+        // pass options
+        super(options);
         this.color = 0x7E686C;
         this.quitting = false;
         this.location = process.cwd();
