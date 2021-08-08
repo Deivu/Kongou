@@ -1,6 +1,7 @@
 class KongouInteraction {
     constructor(client) {
         this.client = client;
+        this.category = null;
         if (this.constructor === KongouInteraction) throw new TypeError('Abstract class "KongouInteraction" cannot be instantiated directly.'); 
         if (this.name === undefined) throw new TypeError('Classes extending KongouInteraction must have a getter "name"');
         if (this.description === undefined) throw new TypeError('Classes extending KongouInteraction must have a getter "description"');

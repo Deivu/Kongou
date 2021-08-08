@@ -19,7 +19,7 @@ class Queue extends KongouInteraction {
     async run({ interaction, dispatcher }) {
         const queue = dispatcher.queue.length > 9 ? dispatcher.queue.slice(0, 9) : dispatcher.queue;
         const embed = new MessageEmbed()
-            .setColor(0xff99CC)
+            .setColor(this.client.color)
             .setTitle('Now Playing')
             .setThumbnail(`https://img.youtube.com/vi/${dispatcher.current.info.identifier}/default.jpg`)
             .setDescription(`[${dispatcher.current.info.title}](${dispatcher.current.info.uri}) [${KongouDispatcher.humanizeTime(dispatcher.current.info.length)}]`)

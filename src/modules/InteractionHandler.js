@@ -30,6 +30,7 @@ class InteractionHandler extends EventEmitter {
                 if (!command.isFile()) continue;
                 const Interaction = require(`${this.client.location}/src/interactions/${directory.name}/${command.name}`);
                 const Command = new Interaction(this.client);
+                Command.category = directory.name.charAt(0).toUpperCase() + directory.name.substring(1);
                 this.commands.set(Command.name, Command);
             }
         }

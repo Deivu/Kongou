@@ -7,6 +7,7 @@ class KongouDispatcher {
         this.channel = channel;
         this.player = player;
         this.queue = [];
+        this.repeat = 'off';
         this.current = null;
         this.stopped = false;
 
@@ -20,7 +21,11 @@ class KongouDispatcher {
                 .send({ embeds: [ embed ] })
                 .catch(() => null);
         });
-        this.player.on('end', () => this.play());
+        this.player.on('end', () => {
+            if (this.repeat === 'one') this.queue.unshift(this.current);
+            if (this.repeat === 'all') this.queue.push(this.current);
+            this.play();
+        });
         for (const event of ['closed', 'error']) {
             this.player.on(event, data => {
                 if (data instanceof Error || data instanceof Object) this.client.logger.error(data);
