@@ -2,7 +2,7 @@ const { MessageEmbed } = require('discord.js');
 const { ApplicationCommandOptionType } = require('discord-api-types/v9');
 const KongouInteraction = require('../../abstract/KongouInteraction.js');
 
-class Ping extends KongouInteraction {
+class Help extends KongouInteraction {
     get name() {
         return 'help';
     }
@@ -19,6 +19,10 @@ class Ping extends KongouInteraction {
         }];
     }
 
+    static invite(id) {
+        return `https://discord.com/api/oauth2/authorize?client_id=${id}&permissions=139623484672&scope=bot%20applications.commands`;
+    }
+
     async run({ interaction }) {
         let command = interaction.options.getString('command');
         if (!command) {
@@ -29,6 +33,7 @@ class Ping extends KongouInteraction {
                 .setDescription('Do /help [command] for a detailed help about that command')
                 .addField('<:kongou_desu:545882696048443392> Info', this.client.interactions.commands.filter(cmd => cmd.category === 'Info').map(cmd => `/${cmd.name}`).join(', '))
                 .addField('<:love_kongou:448387538617630751> Music', this.client.interactions.commands.filter(cmd => cmd.category === 'Music').map(cmd => `/${cmd.name}`).join(', '))
+                .addField('<:be_happy:448387627163582464> Links', `[Source](https://github.com/Deivu/Kongou) | [Developer](https://github.com/Deivu) | [Invite](${Help.invite(this.client.user.id)}) | [Support](https://discord.gg/FVqbtGu)`)
                 .setFooter(`The Shipgirl Project • ${this.client.interactions.commands.size} commands loaded`);
             return interaction.reply({ embeds: [ embed ] });
         }
@@ -48,4 +53,4 @@ class Ping extends KongouInteraction {
         return interaction.reply({ embeds: [ embed ] });
     }
 }
-module.exports = Ping;
+module.exports = Help;
