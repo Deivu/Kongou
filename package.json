@@ -31,6 +31,7 @@
     "@discordjs/rest": "^0.1.0-canary.0",
     "@godaddy/terminus": "^4.9.0",
     "bufferutil": "^4.0.3",
+    "discord-api-types": "^0.22.0",
     "discord.js": "github:discordjs/discord.js#60ace9a2d4cd2844a862f03f33d3be81b56f352b",
     "erlpack": "github:discordapp/erlpack",
     "kurasuta": "^2.2.3",
