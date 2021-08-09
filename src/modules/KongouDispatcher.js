@@ -15,9 +15,9 @@ class KongouDispatcher {
             if (this.repeat === 'one') return;
             const embed = new MessageEmbed()
                 .setColor(0xff0000)
-                .setThumbnail(`https://img.youtube.com/vi/${this.current.info.identifier}/default.jpg`)
-                .addField('Now Playing', `[${this.current.info.title}](${this.current.info.uri}) [${KongouDispatcher.humanizeTime(this.current.info.length)}]`)
-                .addField('Uploaded by', this.current.info.author);
+                .setTitle('Now Playing')
+                .setDescription(`[${this.current.info.title}](${this.current.info.uri})`)
+                .setFooter(`⏲️ ${KongouDispatcher.humanizeTime(this.current.info.length)} 🔼 ${this.current.info.author}`);
             this.channel
                 .send({ embeds: [ embed ] })
                 .catch(() => null);
