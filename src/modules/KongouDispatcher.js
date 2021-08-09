@@ -12,6 +12,7 @@ class KongouDispatcher {
         this.stopped = false;
 
         this.player.on('start', () => {
+            if (this.repeat === 'one') return;
             const embed = new MessageEmbed()
                 .setColor(0xff0000)
                 .setThumbnail(`https://img.youtube.com/vi/${this.current.info.identifier}/default.jpg`)

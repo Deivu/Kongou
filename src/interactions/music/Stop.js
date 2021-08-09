@@ -17,6 +17,7 @@ class Stop extends KongouInteraction {
     async run({ interaction, dispatcher }) {
         await interaction.deferReply();
         dispatcher.queue.length = 0;
+        dispatcher.repeat = 'off';
         dispatcher.stopped = true;
         dispatcher.player.stopTrack();
         Wait(500);
