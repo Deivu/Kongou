@@ -1,7 +1,7 @@
 const { ApplicationCommandOptionType } = require('discord-api-types/v9');
 const KongouInteraction = require('../../abstract/KongouInteraction.js');
 
-class Skip extends KongouInteraction {
+class Repeat extends KongouInteraction {
     get name() {
         return 'repeat';
     }
@@ -35,4 +35,4 @@ class Skip extends KongouInteraction {
         await interaction.reply(`Teitoku, the repeat playback mode is now set to \`${dispatcher.repeat}\`!`);
     }
 }
-module.exports = Skip;
+module.exports = Repeat;
