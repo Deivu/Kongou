@@ -42,7 +42,7 @@ class Eval extends KongouInteraction {
         const embed = new MessageEmbed()
             .setColor(this.client.color)
             .setTitle('Eval Results')
-            .setDescription(`\`\`\`js\n${Eval.trim(res, 2000)}\`\`\``)
+            .setDescription(`\`\`\`js\n${Eval.trim(res, 4000)}\`\`\``)
             .setTimestamp()
             .setFooter(this.client.user.username, this.client.user.displayAvatarURL());
         await interaction.editReply({ embeds: [ embed ] });
