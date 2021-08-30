@@ -31,12 +31,11 @@ const walther = new Walther(join(__dirname, '/src/KongouBaseCluster.js'), sharde
 const logger = new KongouLogger();
 walther.on('ratelimit', info => logger.debug(
     'Walther 2k',                     
-    'Ratelimit Handled; Info =>\n' + 
-    `  URL                      : ${info.base}${info.route}\n` + 
+    `  Route                    : ${info.route}\n` + 
     `  Bucket [Hash:Major]      : ${info.bucket}\n` +
     `  Requests [Remaining/Max] : ${info.remaining}/${info.limit}\n` +
     `  Headers Retry After      : ${info.after}ms\n` + 
     `  Calculated Retry After   : ${info.timeout}ms\n` + 
-    `  Global Ratelimit         : ${info.global}` )
+    `  Global Ratelimit         : ${info.global}`)
 );
 walther.spawn();
