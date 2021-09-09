@@ -1,14 +1,12 @@
 const { Client, LimitedCollection } = require('discord.js');
 const { Cheshire } = require('cheshire');
 const { Collection } = require('@discordjs/collection');
+const { token } = require('../config.json');
 const KongouLogger = require('./modules/KongouLogger.js');
 const ShoukakuHandler = require('./modules/ShoukakuHandler.js');
 const Queue = require('./modules/Queue.js');
 const InteractionHandler = require('./modules/InteractionHandler.js');
 const EventHandler = require('./modules/EventHandler.js');
-
-const defaults = require('../misc.json');
-const { token } = require('../config.json');
 
 class Kongou extends Client {
     constructor(options) {
@@ -44,11 +42,7 @@ class Kongou extends Client {
         
         ['beforeExit', 'SIGUSR1', 'SIGUSR2', 'SIGINT', 'SIGTERM'].map(event => process.once(event, this.exit.bind(this)));
     }
-
-    get getDefaultConfig() {
-        return defaults;
-    }
-    
+        
     async login() {
         await super.login(token);
         return this.constructor.name;
