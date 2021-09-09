@@ -1,7 +1,8 @@
-const { Client, Options } = require('discord.js');
+const { Client, LimitedCollection } = require('discord.js');
+const { Cheshire } = require('cheshire');
+const { Collection } = require('@discordjs/collection');
 const KongouLogger = require('./modules/KongouLogger.js');
 const ShoukakuHandler = require('./modules/ShoukakuHandler.js');
-const SettingsManager = require('./modules/SettingsManager.js');
 const Queue = require('./modules/Queue.js');
 const InteractionHandler = require('./modules/InteractionHandler.js');
 const EventHandler = require('./modules/EventHandler.js');
@@ -12,15 +13,22 @@ const { token } = require('../config.json');
 class Kongou extends Client {
     constructor(options) {
         // create cache
-        options.makeCache = Options.cacheWithLimits({
-            MessageManager: 1,
-            PresenceManager: 0,
-            GuildEmojiManager: 0,
-            GuildBanManager: 0,
-            GuildStickerManager: 0,
-            StageInstanceManager: 0,
-            GuildInviteManager: 0
-        });
+        options.makeCache = manager => {
+            switch(manager.name) {
+                // Disable Cache
+                case 'GuildEmojiManager': 
+                case 'GuildBanManager': 
+                case 'GuildInviteManager':
+                case 'GuildStickerManager':
+                case 'StageInstanceManager':
+                case 'PresenceManager':
+                case 'ThreadManager': return new LimitedCollection({ maxSize: 0 });
+                // TLRU cache, Lifetime 30 minutes
+                case 'MessageManager': return new Cheshire({ lifetime: 1e+6, lru: false });
+                // Default cache
+                default: return new Collection();
+            }
+        };
         // pass options
         super(options);
         this.color = 0x7E686C;
@@ -28,7 +36,6 @@ class Kongou extends Client {
         this.location = process.cwd();
         
         this.logger = new KongouLogger();
-        this.settings = new SettingsManager(this);
         this.shoukaku = new ShoukakuHandler(this);
         this.queue = new Queue(this);
         

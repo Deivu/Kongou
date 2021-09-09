@@ -1,6 +1,6 @@
 const { readdirSync } = require('fs');
 const { MessageEmbed } = require('discord.js');
-const Collection = require('@discordjs/collection');
+const { Collection } = require('@discordjs/collection');
 const EventEmitter = require('events');
 const config = require('../../config.json');
 
@@ -69,10 +69,8 @@ class InteractionHandler extends EventEmitter {
                 return interaction.reply('Teitoku, Nothing is playing in this guild!');
             if (command.playerCheck?.channel && dispatcher.player.connection.channelId !== interaction.member.voice.channelId) 
                 return interaction.reply('Teitoku, you are not in the same voice channel I\'m currently connected to!');         
-            // boiler db for future stuff
-            const config = await this.client.settings.get(interaction.guildId, true); 
             // execute le commandz
-            await command.run({ interaction, config, dispatcher });
+            await command.run({ interaction, dispatcher });
         } catch (error) {
             const embed = new MessageEmbed()
                 .setColor(0xff99CC)
