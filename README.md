@@ -8,9 +8,9 @@ A Waifu Discord.JS Bot Template ❤️
 </p>
 
 
-> A simple bot to show how I use [Shoukaku](https://github.com/Deivu/Shoukaku) & [Walther-WA2000](https://github.com/Deivu/Walther-WA2000) on your Discord.JS bot
+> A simple bot to show how I use [Shoukaku](https://github.com/Deivu/Shoukaku) & [Azuma](https://github.com/Deivu/Azuma) on your Discord.JS bot
 
-> PS. this supports sharding out of box due to `Walther-WA2000`
+> PS. this supports sharding out of box due to `Azuma`
 
 ### Before you start 
 
