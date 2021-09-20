@@ -6,14 +6,14 @@ A pretty bare Discord music bot base (forked from @Deivu/Kongou).
 *Please, for the sake of almost everything holy, disregard this repository. It's mostly intended for personal use of a self-hosted music bot on my Discord servers, and will most likely not cover your own needs, nor supersede in any way the original project. If any, you should be using [Kongou](https://github.com/Deivu/Kongou).*
 
 ----
+**Sample README is included from the original Kongou repository**
 
-> `(c) Kancolle for Kirishima`.
 
 <p align="center">
-  <img src="https://static.wikia.nocookie.net/kancolle/images/c/c3/Kirishima_Kai_Ni_Full.png/revision/latest">
+  <img src="https://static.wikia.nocookie.net/kancolle/images/c/c3/Kirishima_Kai_Ni_Full.png/revision/latest/scale-to-width-down/500">
 </p>
+> `(c) Kancolle for Kirishima`.
 
-**Sample README is included from the original Kongou repository**
 
 > A simple bot to show how I use [Shoukaku](https://github.com/Deivu/Shoukaku) & [Azuma](https://github.com/Deivu/Azuma) on your Discord.JS bot
 
