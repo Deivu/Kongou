@@ -9,3 +9,4 @@
 out
 node_modules
 db
+package-lock.json
