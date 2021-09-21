@@ -2,6 +2,7 @@
 .project
 .settings
 .idea
+.vscode
 /slash-reloader-config.json
 /config.json
 /lavalink-server.json
