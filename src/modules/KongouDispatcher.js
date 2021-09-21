@@ -16,11 +16,11 @@ class KongouDispatcher {
 
         this.player.on('start', () => {
             
-            if (this.repeat === 'one' || this.queue.length < 2) {
+            if (this.repeat === 'one' || this.queue.length < 1) {
                if (_notifiedOnce) return;
                else _notifiedOnce = true; 
             }
-            
+
             const embed = new MessageEmbed()
                 .setColor(0xff0000)
                 .setAuthor(
