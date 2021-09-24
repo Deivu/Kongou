@@ -36,7 +36,7 @@ class InteractionHandler extends EventEmitter {
                 this.client.logger.debug(this.constructor.name, `\tCommand '${Command.name}' loaded (@${Command.uid})`);
             }
         }
-        this.client.logger.debug(this.constructor.name, `Loaded ${this.commands.size} interaction client command(s)`);
+        this.client.logger.log(this.constructor.name, `Loaded ${this.commands.size} interaction client command(s)`);
         this.built = true;
         return this;
     }
@@ -65,7 +65,6 @@ class InteractionHandler extends EventEmitter {
             const ReloadInteraction = require(`${this.client.location}/src/interactions/info/Reload.js`);
             const ReloadCommand = new ReloadInteraction(this.client);
             this.commands.set(ReloadCommand.name, ReloadCommand);
-            this.client.on('interactionCreate', interaction => this.exec(interaction));
             this.client.logger.error(this.constructor.name, `Failed to reload commands ! '/reload' was still loaded, fix the issue and reload, teitoku!\nError : ${error}`)
             throw error;
         }
