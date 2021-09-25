@@ -11,6 +11,7 @@ class InteractionHandler extends EventEmitter {
         this.commands = new Collection();
         this.built = false;
         this.on('error', error => client.logger.error(error));
+        this.client.on('interactionCreate', interaction => this.exec(interaction));
     }
 
     static checkPermission(permissions, interaction) {
@@ -32,12 +33,44 @@ class InteractionHandler extends EventEmitter {
                 const Command = new Interaction(this.client);
                 Command.category = directory.name.charAt(0).toUpperCase() + directory.name.substring(1);
                 this.commands.set(Command.name, Command);
+                this.client.logger.debug(this.constructor.name, `\tCommand '${Command.name}' loaded (@${Command.uid})`);
             }
         }
-        this.client.on('interactionCreate', interaction => this.exec(interaction));
-        this.client.logger.debug(this.constructor.name, `Loaded ${this.commands.size} interaction client command(s)`);
+        this.client.logger.log(this.constructor.name, `Loaded ${this.commands.size} interaction client command(s)`);
         this.built = true;
         return this;
+    }
+
+    /**
+     * WARNING : The lack of a proper deep-clone in NodeJS, or of any working polyfills makes
+     * such operations of 'self-replacement' vulnerable to errors, for that the previous state
+     * cannot be stashed and popped back in case of error. Thus, this should only be used as a
+     * development tool and not be available to actual users, even admins.
+     */
+    rebuild() {
+        this.client.logger.log(this.constructor.name, `---- Live reload triggered ----`);
+
+        // let stashed = this.commands;
+        try {
+            this.commands = new Collection();
+            this.built = false;
+
+            // Node's require() keeps a cache, which we wanna clear prior to reloading the modules
+            Object.keys(require.cache).forEach(function (key) { delete require.cache[key] })
+    
+            this.build();
+        } catch (error) {
+            // this.commands = stashed;
+            // In case of failure, the special Reload command is still made avaiable
+            const ReloadInteraction = require(`${this.client.location}/src/interactions/info/Reload.js`);
+            const ReloadCommand = new ReloadInteraction(this.client);
+            this.commands.set(ReloadCommand.name, ReloadCommand);
+            this.client.logger.error(this.constructor.name, `Failed to reload commands ! '/reload' was still loaded, fix the issue and reload, teitoku!\nError : ${error}`)
+            throw error;
+        }
+
+        this.client.logger.log(this.constructor.name, `---- Live reload completed ----`);
+        return this; // For the sake of transparency, this behaves just as build()
     }
 
     async update(guildId) {
@@ -70,6 +103,7 @@ class InteractionHandler extends EventEmitter {
             if (command.playerCheck?.channel && dispatcher.player.connection.channelId !== interaction.member.voice.channelId) 
                 return interaction.reply('Teitoku, you are not in the same voice channel I\'m currently connected to!');         
             // execute le commandz
+            this.client.logger.log(this.constructor.name, `Executing command ${command.name} (@${command.uid})`);
             await command.run({ interaction, dispatcher });
         } catch (error) {
             const embed = new MessageEmbed()
