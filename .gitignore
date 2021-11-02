@@ -2,6 +2,7 @@
 .project
 .settings
 .idea
+.vscode
 /slash-reloader-config.json
 /config.json
 /lavalink-server.json
@@ -9,3 +10,4 @@
 out
 node_modules
 db
+package-lock.json
