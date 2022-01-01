@@ -33,7 +33,7 @@
     "@godaddy/terminus": "^4.9.0",
     "azuma": "^2.1.2",
     "bufferutil": "^4.0.5",
-    "cheshire": "github:Deivu/Cheshire#v2.0.2",
+    "cheshire": "github:Deivu/Cheshire#2.0.2",
     "discord-api-types": "^0.24.0",
     "discord.js": "^13.3.1",
     "kurasuta": "^3.0.1",
