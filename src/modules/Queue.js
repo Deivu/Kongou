@@ -28,6 +28,7 @@ class Queue extends Map {
             return dispatcher;
         }
         existing.queue.push(track);
+        if (!existing.current) existing.play();
         return null;
     }
 }
