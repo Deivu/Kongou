@@ -11,8 +11,8 @@ class Ready extends KongouEvent {
 
     async run() {
         this.client.logger.debug(`${this.client.user.username}`, `Ready! Serving ${this.client.guilds.cache.size} guild(s) with ${this.client.users.cache.size} user(s)`);
-        if (!this.interval) {
-            await this.client.user.setActivity('It\'s the English-born returnee, Kongou! Nice to meet you!');
+        //if (!this.interval) {
+            //await this.client.user.setActivity('It\'s the English-born returnee, Kongou! Nice to meet you!');
           
             const statuses = [
                 {type : 'PLAYING', message: 'Admiral! You\'ve got mail! Love Letters aren\'t allowed!'},
@@ -32,7 +32,7 @@ class Ready extends KongouEvent {
                 statuses.push(current);
             }, 300000);
             */
-        }
+        //}
     }
 }
 module.exports = Ready;
