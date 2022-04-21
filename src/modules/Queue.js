@@ -9,7 +9,8 @@ class Queue extends Map {
     async handle(guild, member, channel, node, track) {
         const existing = this.get(guild.id);
         if (!existing) {
-            const player = await node.joinChannel({
+            let player = this.client.shoukaku.players.get(guild.id);
+            if(!player) player = await node.joinChannel({
                 guildId: guild.id,
                 shardId: guild.shardId,
                 channelId: member.voice.channelId
@@ -27,6 +28,7 @@ class Queue extends Map {
             return dispatcher;
         }
         existing.queue.push(track);
+        if (!existing.current) existing.play();
         return null;
     }
 }
