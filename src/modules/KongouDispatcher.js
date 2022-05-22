@@ -12,15 +12,17 @@ class KongouDispatcher {
         this.stopped = false;
 
         let _notifiedOnce = false;
-
+        let _errorHandler = data => {
+            if (data instanceof Error || data instanceof Object) this.client.logger.error(data);
+            this.queue.length = 0;
+            this.destroy();
+        };
 
         this.player.on('start', () => {
-            
             if (this.repeat === 'one' || this.queue.length < 1) {
-               if (_notifiedOnce) return;
-               else _notifiedOnce = true; 
+                if (_notifiedOnce) return;
+                else _notifiedOnce = true; 
             }
-
             const embed = new MessageEmbed()
                 .setColor(0xff0000)
                 .setAuthor(
@@ -31,19 +33,19 @@ class KongouDispatcher {
             this.channel
                 .send({ embeds: [ embed ] })
                 .catch(() => null);
-        });
-        this.player.on('end', () => {
-            if (this.repeat === 'one') this.queue.unshift(this.current);
-            if (this.repeat === 'all') this.queue.push(this.current);
-            this.play();
-        });
-        for (const event of ['closed', 'error']) {
-            this.player.on(event, data => {
-                if (data instanceof Error || data instanceof Object) this.client.logger.error(data);
-                this.queue.length = 0;
-                this.destroy();
-            });
-        }
+        })
+            .on('end', () => {
+                if (this.repeat === 'one') this.queue.unshift(this.current);
+                if (this.repeat === 'all') this.queue.push(this.current);
+                this.play();
+            })
+            .on('stuck', () => {
+                if (this.repeat === 'one') this.queue.unshift(this.current);
+                if (this.repeat === 'all') this.queue.push(this.current);
+                this.play();
+            })
+            .on('closed', _errorHandler)
+            .on('error', _errorHandler);
     }
 
     static humanizeTime(ms) {
@@ -61,7 +63,7 @@ class KongouDispatcher {
         this.current = this.queue.shift();
         this.player
             .setVolume(0.3)
-            .playTrack(this.current.track);
+            .playTrack({ track: this.current.track });
     }
     
     destroy(reason) {

@@ -1,6 +1,7 @@
 module.exports = {
     moveOnDisconnect: false,
-    resumable: 'resumableKongou',
+    resumable: true,
+    resumableKey: 'KongouBongou',
     resumableTimeout: 30,
     reconnectTries: 2,
     restTimeout: 10000

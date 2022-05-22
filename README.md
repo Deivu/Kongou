@@ -1,5 +1,5 @@
 # Kongou
-A Waifu Discord.JS Bot Template ❤️
+A waifu Discord.JS bot example
 
 > The ShipGirl Project. Kongou. `(c) Kancolle for Kongou`.
 
@@ -8,11 +8,13 @@ A Waifu Discord.JS Bot Template ❤️
 </p>
 
 
-> A simple bot to show how I use [Shoukaku](https://github.com/Deivu/Shoukaku) & [Azuma](https://github.com/Deivu/Azuma) on your Discord.JS bot
+> A simple bot to show how I use [Shoukaku](https://github.com/Deivu/Shoukaku) on your Discord.JS bot
 
-> PS. this supports sharding out of box due to `Azuma`
+> PS. This supports sharding out of box!
 
 ### Before you start 
+
+> This uses Shoukaku V3 which is a TS rewrite
 
 > Make sure you have Node >=16.6.0 installed on your system as this uses Discord.JS v13
 

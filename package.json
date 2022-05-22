@@ -1,7 +1,7 @@
 {
   "name": "kongou",
   "version": "2.0.0",
-  "description": "An example bot for Using both Azuma & Shoukaku",
+  "description": "An example bot on how I implement Shoukaku in a basic level",
   "scripts": {
     "start": "node index.js",
     "slash": "node src/SlashUpdate.js"
@@ -28,20 +28,20 @@
   },
   "homepage": "https://github.com/Deivu/Kongou#readme",
   "dependencies": {
-    "@discordjs/collection": "^0.3.2",
-    "@discordjs/rest": "^0.1.0-canary.0",
-    "@godaddy/terminus": "^4.9.0",
-    "azuma": "^2.1.2",
-    "bufferutil": "^4.0.5",
+    "@discordjs/collection": "^0.6.0",
+    "@discordjs/rest": "^0.4.1",
+    "@godaddy/terminus": "^4.10.0",
+    "bufferutil": "^4.0.6",
     "cheshire": "github:Deivu/Cheshire#v2.0.2",
-    "discord-api-types": "^0.24.0",
-    "discord.js": "^13.3.1",
-    "kurasuta": "^3.0.1",
+    "discord-api-types": "^0.33.0",
+    "discord.js": "^13.7.0",
+    "kurasuta": "^3.0.2",
     "petitio": "^1.4.0",
-    "shoukaku": "^2.1.0",
-    "utf-8-validate": "^5.0.5"
+    "shoukaku": "github:Deivu/Shoukaku#next",
+    "utf-8-validate": "^5.0.9",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "eslint": "^8.1.0"
+    "eslint": "^8.16.0"
   }
 }
