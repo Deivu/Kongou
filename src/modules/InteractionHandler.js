@@ -48,7 +48,7 @@ class InteractionHandler extends EventEmitter {
      * development tool and not be available to actual users, even admins.
      */
     rebuild() {
-        this.client.logger.log(this.constructor.name, `---- Live reload triggered ----`);
+        this.client.logger.log(this.constructor.name, '---- Live reload triggered ----');
 
         // let stashed = this.commands;
         try {
@@ -56,7 +56,7 @@ class InteractionHandler extends EventEmitter {
             this.built = false;
 
             // Node's require() keeps a cache, which we wanna clear prior to reloading the modules
-            Object.keys(require.cache).forEach(function (key) { delete require.cache[key] })
+            Object.keys(require.cache).forEach(function (key) { delete require.cache[key]; });
     
             this.build();
         } catch (error) {
@@ -65,11 +65,11 @@ class InteractionHandler extends EventEmitter {
             const ReloadInteraction = require(`${this.client.location}/src/interactions/info/Reload.js`);
             const ReloadCommand = new ReloadInteraction(this.client);
             this.commands.set(ReloadCommand.name, ReloadCommand);
-            this.client.logger.error(this.constructor.name, `Failed to reload commands ! '/reload' was still loaded, fix the issue and reload, teitoku!\nError : ${error}`)
+            this.client.logger.error(this.constructor.name, `Failed to reload commands ! '/reload' was still loaded, fix the issue and reload, teitoku!\nError : ${error}`);
             throw error;
         }
 
-        this.client.logger.log(this.constructor.name, `---- Live reload completed ----`);
+        this.client.logger.log(this.constructor.name, '---- Live reload completed ----');
         return this; // For the sake of transparency, this behaves just as build()
     }
 
