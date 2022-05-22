@@ -41,7 +41,7 @@ class Play extends KongouInteraction {
             if (!result?.tracks.length) 
                 return interaction.editReply('Teitoku, I didn\'t find any song on the query you provided!');
             const track = result.tracks.shift();
-            const playlist = result.loadType === 'PLAYLIST';
+            const playlist = result.loadType === 'PLAYLIST_LOADED';
             const dispatcher = await this.client.queue.handle(interaction.guild, interaction.member, interaction.channel, node, track);
             if (playlist) {
                 for (const track of result.tracks) await this.client.queue.handle(interaction.guild, interaction.member, interaction.channel, node, track);
