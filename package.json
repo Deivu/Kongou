@@ -1,6 +1,6 @@
 {
   "name": "kongou",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "An example bot on how I implement Shoukaku in a basic level",
   "scripts": {
     "start": "node index.js",
