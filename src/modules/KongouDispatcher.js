@@ -18,22 +18,22 @@ class KongouDispatcher {
             this.destroy();
         };
 
-        this.player.on('start', () => {
-            if (this.repeat === 'one' || this.queue.length < 1) {
-                if (_notifiedOnce) return;
-                else _notifiedOnce = true; 
-            }
-            const embed = new MessageEmbed()
-                .setColor(0xff0000)
-                .setAuthor(
-                    `${this.current.info.title} [${KongouDispatcher.humanizeTime(this.current.info.length)}]`, 
-                    `https://img.youtube.com/vi/${this.current.info.identifier}/default.jpg`, 
-                    this.current.info.uri
-                );
-            this.channel
-                .send({ embeds: [ embed ] })
-                .catch(() => null);
-        })
+        this.player
+            .on('start', () => {
+                if (this.repeat === 'one' || this.queue.length < 1) {
+                    if (_notifiedOnce) return;
+                    else _notifiedOnce = true; 
+                }
+                const embed = new MessageEmbed()
+                    .setColor(this.client.color)
+                    .setAuthor({
+                        name: `${this.current.info.title} [${KongouDispatcher.humanizeTime(this.current.info.length)}]`,
+                        url: this.current.info.uri
+                    });
+                this.channel
+                    .send({ embeds: [ embed ] })
+                    .catch(() => null);
+            })
             .on('end', () => {
                 if (this.repeat === 'one') this.queue.unshift(this.current);
                 if (this.repeat === 'all') this.queue.push(this.current);
