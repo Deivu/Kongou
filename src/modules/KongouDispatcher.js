@@ -20,16 +20,18 @@ class KongouDispatcher {
 
         this.player
             .on('start', () => {
-                if (this.repeat === 'one' || this.queue.length < 1) {
+                if (this.repeat === 'one') {
                     if (_notifiedOnce) return;
                     else _notifiedOnce = true; 
                 }
+                else if (this.repeat === 'all' || this.repeat === 'off') {
+                    _notifiedOnce = false;
+                }
                 const embed = new MessageEmbed()
                     .setColor(this.client.color)
-                    .setAuthor({
-                        name: `${this.current.info.title} [${KongouDispatcher.humanizeTime(this.current.info.length)}]`,
-                        url: this.current.info.uri
-                    });
+                    .setTitle('Now Playing')
+                    .setDescription(`${this.current.info.title} [${KongouDispatcher.humanizeTime(this.current.info.length)}]`)
+                    .setURL(this.current.info.uri);
                 this.channel
                     .send({ embeds: [ embed ] })
                     .catch(() => null);
