@@ -37,7 +37,7 @@
     "discord.js": "^13.7.0",
     "kurasuta": "^3.0.2",
     "petitio": "^1.4.0",
-    "shoukaku": "^3.0.4",
+    "shoukaku": "^3.0.5",
     "utf-8-validate": "^5.0.9",
     "uuid": "^8.3.2"
   },
