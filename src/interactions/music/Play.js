@@ -43,6 +43,8 @@ class Play extends KongouInteraction {
             const track = result.tracks.shift();
             const playlist = result.loadType === 'PLAYLIST_LOADED';
             const dispatcher = await this.client.queue.handle(interaction.guild, interaction.member, interaction.channel, node, track);
+            if (dispatcher === 'Busy')
+                return interaction.editReply('Teitoku, I\'m currently connecting to a voice channel');
             if (playlist) {
                 for (const track of result.tracks) await this.client.queue.handle(interaction.guild, interaction.member, interaction.channel, node, track);
             }   
@@ -57,6 +59,8 @@ class Play extends KongouInteraction {
             return interaction.editReply('Teitoku, I didn\'t find any song on the query you provided!');
         const track = search.tracks.shift();
         const dispatcher = await this.client.queue.handle(interaction.guild, interaction.member, interaction.channel, node, track);
+        if (dispatcher === 'Busy')
+            return interaction.editReply('Teitoku, I\'m currently connecting to a voice channel');
         await interaction
             .editReply(`Added the track \`${track.info.title}\` in queue!`)
             .catch(() => null);
