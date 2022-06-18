@@ -7,7 +7,7 @@ class ShoukakuHandler extends Shoukaku {
         super(new Connectors.DiscordJS(client), servers, options);
         this.on('ready',
             (name, resumed) =>
-                client.logger.log(`Lavalink Node: ${name} is now connected`, `This connection is ${resumed ? 'resumed' : 'a new connection'}`)
+                client.logger.log('Shoukaku', `Lavalink Node: ${name} is now connected`, `This connection is ${resumed ? 'resumed' : 'a new connection'}`)
         );
         this.on('error',
             (name, error) =>
@@ -15,15 +15,15 @@ class ShoukakuHandler extends Shoukaku {
         );
         this.on('close',
             (name, code, reason) =>
-                client.logger.log(`Lavalink Node: ${name} closed with code ${code}`, reason || 'No reason')
+                client.logger.log('Shoukaku', `Lavalink Node: ${name} closed with code ${code}`, reason || 'No reason')
         );
         this.on('disconnect',
             (name, players, moved) =>
-                client.logger.log(`Lavalink Node: ${name} disconnected`, moved ? 'players have been moved' : 'players have been disconnected')
+                client.logger.log('Shoukaku', `Lavalink Node: ${name} disconnected`, moved ? 'players have been moved' : 'players have been disconnected')
         );
         this.on('debug',
             (name, reason) =>
-                client.logger.log(`Lavalink Node: ${name}`, reason || 'No reason')
+                client.logger.log('Shoukaku', `Lavalink Node: ${name}`, reason || 'No reason')
         );
     }
 }
