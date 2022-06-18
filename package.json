@@ -1,0 +1,45 @@
+{
+  "name": "kongou",
+  "version": "3.0.0",
+  "description": "An example bot on how I implement Shoukaku in a basic level",
+  "scripts": {
+    "start": "node index.js",
+    "slash": "node src/SlashUpdate.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Deivu/Kongou.git"
+  },
+  "keywords": [
+    "Discord",
+    "Bot",
+    "Waifu",
+    "music-bot",
+    "template-bot",
+    "discord.js",
+    "discord-js",
+    "discordjs",
+    "music"
+  ],
+  "author": "Deivu (Saya)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Deivu/Kongou/issues"
+  },
+  "homepage": "https://github.com/Deivu/Kongou#readme",
+  "dependencies": {
+    "@discordjs/collection": "^0.7.0",
+    "@discordjs/rest": "^0.5.0",
+    "bufferutil": "^4.0.6",
+    "discord-api-types": "^0.34.0",
+    "discord.js": "^13.8.0",
+    "indomitable": "^0.0.7",
+    "msgpackr": "^1.6.1",
+    "shoukaku": "^3.1.0",
+    "utf-8-validate": "^5.0.9",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.16.0"
+  }
+}

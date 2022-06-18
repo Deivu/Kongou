@@ -1,0 +1,5 @@
+[{
+    "name": "node name",
+    "url": "nodehost:nodeport",
+    "auth": "password of your lavalink"
+}]

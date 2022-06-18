@@ -1,0 +1,5 @@
+{
+    "dev": false,
+    "clientId": "your bot user id",
+    "guildId": "your guild's id, where you want the slash commands to be updated, on guild basis, when you enabled dev mode, disabling dev mode, means commands will be rolled out globally"
+}
