@@ -1,29 +1,29 @@
 const { Shoukaku, Connectors } = require('shoukaku');
 const servers = require('../../lavalink-server.json');
 const options = require('../../shoukaku-options.js');
-
+    
 class ShoukakuHandler extends Shoukaku {
     constructor(client) {
         super(new Connectors.DiscordJS(client), servers, options);
         this.on('ready',
-            (name, resumed) =>
-                client.logger.log('Shoukaku', `Lavalink Node: ${name} is now connected`, `This connection is ${resumed ? 'resumed' : 'a new connection'}`)
+            (name, reconnected) =>
+                client.logger.log('Shoukaku', `Lavalink Node: ${name} is now connected, This connection is ${reconnected ? 'resumed' : 'a new connection'}`)
         );
         this.on('error',
-            (name, error) =>
+            (_, error) =>
                 client.logger.error(error)
         );
         this.on('close',
             (name, code, reason) =>
-                client.logger.log('Shoukaku', `Lavalink Node: ${name} closed with code ${code}`, reason || 'No reason')
+                client.logger.log('Shoukaku', `Lavalink Node: ${name} closed with code: ${code} reason: ${reason || 'No reason'}`)
         );
         this.on('disconnect',
-            (name, players, moved) =>
-                client.logger.log('Shoukaku', `Lavalink Node: ${name} disconnected`, moved ? 'players have been moved' : 'players have been disconnected')
+            (name, _, moved) =>
+                client.logger.log('Shoukaku', `Lavalink Node: ${name} disconnected ${moved ? 'players have been moved' : 'players have been disconnected'}`)
         );
         this.on('debug',
-            (name, reason) =>
-                client.logger.log('Shoukaku', `Lavalink Node: ${name}`, reason || 'No reason')
+            (name, info) =>
+                client.logger.log('Shoukaku', `Lavalink Node: ${name} ${info || 'No reason'}`)
         );
     }
 }
