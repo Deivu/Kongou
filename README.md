@@ -8,9 +8,9 @@ A waifu Discord.JS bot example
 </p>
 
 
-> A simple bot to show how I use [Shoukaku](https://github.com/Deivu/Shoukaku) on your Discord.JS bot
+> A simple bot to show how I use [Shoukaku](https://github.com/Deivu/Shoukaku) and [Indomitable](https://github.com/Deivu/Indomitable) on your Discord.JS bot
 
-> PS. This supports sharding out of box!
+> This supports sharding out of box since it uses Indomitable by default
 
 ### Before you start 
 

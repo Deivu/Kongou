@@ -33,7 +33,7 @@
     "bufferutil": "^4.0.6",
     "discord-api-types": "^0.34.0",
     "discord.js": "^13.8.0",
-    "indomitable": "github:Deivu/Indomitable#d50fc85473a6098fb786feb95ae2d90058f7c370",
+    "indomitable": "github:Deivu/Indomitable#3df31b2ebdf2454f9fbf31786fb9498b1b565161",
     "msgpackr": "^1.6.1",
     "shoukaku": "^3.1.0",
     "utf-8-validate": "^5.0.9",
