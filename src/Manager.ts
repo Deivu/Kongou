@@ -21,6 +21,7 @@ export class Manager {
         this.timers = {};
 
         this.indomitable
+            .on('error', error => this.logger.error(error))
             .on('debug', (message, data) => {
                 if (data)
                     this.logger.debug(data, message);
@@ -49,10 +50,10 @@ export class Manager {
                         300000
                         ).unref();
                     }
-                    this.logger.info(`Spawned Cluster Id: ${cluster.id}, remaining ${this.indomitable.inSpawnQueueCount} cluster(s) to spawn`);
-                    await Promise.allSettled([
-                        this.ipc.broadcast({ op: 'ActivityUpdate', data: `/help | Spawned ${cluster.id + 1}/${this.indomitable.clusters!.size} cluster(s)` })
-                    ]);
+                    this.logger.info(`Spawned Cluster Id: ${cluster.id} | Remaining ${this.indomitable.inSpawnQueueCount} cluster(s) to spawn`);
+                    await this.ipc
+                        .broadcast({ op: 'ActivityUpdate', data: `/help | Spawned ${cluster.id + 1}/${this.indomitable.clusters!.size} cluster(s)` })
+                        .catch(() => null);
                     if (cluster.id === 0 && Config.slashOptions.update) {
                         this.logger.info(`Slash commands will be updated. Will update in dev mode (guild)? ${Config.slashOptions.dev}. Will clear? ${Config.slashOptions.clear}`);
                         if (Config.slashOptions.guildId && Config.slashOptions.dev)
@@ -60,7 +61,7 @@ export class Manager {
                         else if (!Config.slashOptions.dev)
                             await this.ipc.send(cluster.id, { op: 'SlashCommandsUpdate', data: { clear: Config.slashOptions.clear }});
                         else
-                            this.logger.warn('Requested to update slash commnads, but can\'t due to invalid config');
+                            this.logger.warn('Requested to update slash commands, but can\'t due to invalid config');
                     }
                 } catch (error) {
                     this.logger.error(error);

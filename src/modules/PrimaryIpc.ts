@@ -24,14 +24,14 @@ export class PrimaryIpc {
     public async send(id: number, content: IpcContent, repliable: boolean = false): Promise<unknown> {
         const controller = new AbortController();
         const timeout = setTimeout(() => controller.abort(), 30000).unref();
-        return await this.manager.indomitable.ipc!.send(id,{ content, repliable, signal: controller.signal })
+        return await this.manager.indomitable.send(id,{ content, repliable, signal: controller.signal })
             .finally(() => clearTimeout(timeout));
     }
 
     public async broadcast(content: IpcContent, repliable: boolean = false): Promise<unknown> {
         const controller = new AbortController();
         const timeout = setTimeout(() => controller.abort(), 30000).unref();
-        return await this.manager.indomitable.ipc!.broadcast({ content, repliable, signal: controller.signal })
+        return await this.manager.indomitable.broadcast({ content, repliable, signal: controller.signal })
             .finally(() => clearTimeout(timeout));
     }
 }
