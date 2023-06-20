@@ -1,10 +1,16 @@
 {
   "name": "kongou",
-  "version": "3.0.0",
-  "description": "An example bot on how I implement Shoukaku in a basic level",
+  "version": "4.0.0",
+  "description": "An example bot created by me to showcase Shoukaku and Indomitable",
+  "type": "module",
+  "main": "index.js",
   "scripts": {
+    "clean:ts": "tsc --build --clean",
+    "build:ts": "tsc --build",
+    "build": "npm run clean:ts && npm run build:ts",
+    "lint": "eslint --fix --ext .ts",
     "start": "node index.js",
-    "slash": "node src/SlashUpdate.js"
+    "dev": "node index.js | pino-pretty -c -l -t yyyy/mm/dd,HH:MM:ss -i hostname,pid"
   },
   "repository": {
     "type": "git",
@@ -28,18 +34,25 @@
   },
   "homepage": "https://github.com/Deivu/Kongou#readme",
   "dependencies": {
-    "@discordjs/collection": "^0.7.0",
-    "@discordjs/rest": "^0.5.0",
-    "bufferutil": "^4.0.6",
-    "discord-api-types": "^0.34.0",
-    "discord.js": "^13.8.0",
-    "indomitable": "github:Deivu/Indomitable#e0dcefcf209ef7d94d0ba1c08bedc689d9fb5ebc",
-    "msgpackr": "^1.6.1",
-    "shoukaku": "^3.1.0",
-    "utf-8-validate": "^5.0.9",
-    "uuid": "^8.3.2"
+    "@discordjs/rest": "^1.7.1",
+    "denque": "^2.1.0",
+    "discord-api-types": "^0.37.45",
+    "discord.js": "^14.11.0",
+    "indomitable": "github:Deivu/Indomitable#4772477",
+    "pino": "^8.14.1",
+    "shoukaku": "github:Deivu/Shoukaku#dada9ce"
   },
   "devDependencies": {
-    "eslint": "^8.16.0"
+    "@augu/eslint-config": "^4.0.1",
+    "@types/node": "^20.3.1",
+    "@types/node-fetch": "^2.6.4",
+    "@types/ws": "^8.5.5",
+    "@typescript-eslint/eslint-plugin": "^5.59.11",
+    "@typescript-eslint/parser": "^5.59.11",
+    "eslint": "^8.42.0",
+    "pino-pretty": "^10.0.0",
+    "tsup": "^6.7.0",
+    "typedoc": "^0.24.8",
+    "typescript": "^5.1.3"
   }
 }

@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "module": "es2020",
+    "moduleResolution": "node16",
+    "outDir": "dist",
+    "target": "es2020",
+    "declaration": true,                              
+    "declarationMap": true, 
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true
+  }
+}

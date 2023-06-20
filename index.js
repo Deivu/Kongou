@@ -1,25 +1,29 @@
-const { Constants, Intents, Util } = require('discord.js');
-const { Indomitable } = require('indomitable');
-const { token } = require('./config.json');
-const { GUILDS, GUILD_MEMBERS, GUILD_BANS, GUILD_VOICE_STATES, GUILD_MESSAGES, GUILD_MESSAGE_REACTIONS } = Intents.FLAGS;
-const KongouClient = require('./src/Kongou.js');
+import { GatewayIntentBits } from 'discord-api-types/v10';
+import { Partials, Options } from 'discord.js';
 
-// cache settings on client file
-const customClientOptions = {
-    disableMentions: 'everyone',
-    restRequestTimeout: 30000,
-    intents: [ GUILDS, GUILD_MEMBERS, GUILD_BANS, GUILD_VOICE_STATES, GUILD_MESSAGES, GUILD_MESSAGE_REACTIONS ]
-};
+import { Config } from './dist/Utils.js';
+import { Kongou } from './dist/Kongou.js';
+import { Manager } from './dist/Manager.js';
 
-const sharderOptions = {
-    clientOptions: Util.mergeDefault(Constants.DefaultOptions, customClientOptions),
-    client: KongouClient,
+const { Guilds, GuildMembers, GuildVoiceStates } = GatewayIntentBits;
+
+const options = {
+    clientOptions: {
+        allowedMentions: { parse: [ 'users', 'roles' ] },
+        partials: [ Partials.User, Partials.GuildMember ],
+        intents: [ Guilds, GuildMembers, GuildVoiceStates ],
+        makeCache: Options.cacheWithLimits(Options.DefaultMakeCacheSettings)
+    },
+    shardCount: Config.shards || undefined,
+    clusterCount: Config.clusters || undefined,
+    client: Kongou,
+    clusterSettings: { execArgv: [ '--enable-source-maps' ] },
     autoRestart: true,
-    token
+    handleConcurrency: true,
+    spawnTimeout: 60000,
+    token: Config.token
 };
 
-const manager = new Indomitable(sharderOptions)
-    .on('error', console.error)
-    .on('debug', message => console.log(`[Indomitable] [Main] ${message}`));
+const manager = new Manager(options);
 
-manager.spawn();
+manager.start();

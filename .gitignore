@@ -3,11 +3,9 @@
 .settings
 .idea
 .vscode
-/slash-reloader-config.json
-/config.json
-/lavalink-server.json
-/misc.json
+/Config.json
+/Lavalink.json
+/dist
 out
 node_modules
-db
 package-lock.json

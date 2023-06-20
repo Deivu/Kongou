@@ -1,39 +1,45 @@
 # Kongou
-A waifu Discord.JS bot example
+A Typescript Discord.JS bot template, using 2 of my public packages
 
-> The ShipGirl Project. Kongou. `(c) Kancolle for Kongou`.
+> The ShipGirl Project. Kongou. `(c) Azur Lane for Kongou`
 
 <p align="center">
-  <img src="https://vignette.wikia.nocookie.net/kancolle/images/d/d6/Kongou_Kai_Ni_Shopping_Full.png/revision/latest">
+  <img src="https://azurlane.netojuu.com/images/thumb/a/ac/KongouSchoolWithoutBG.png/362px-KongouSchoolWithoutBG.png?20220326031043">
 </p>
 
 
-> A simple bot to show how I use [Shoukaku](https://github.com/Deivu/Shoukaku) and [Indomitable](https://github.com/Deivu/Indomitable) on your Discord.JS bot
+> A bot that showcases how I implement [Shoukaku](https://github.com/Deivu/Shoukaku) and [Indomitable](https://github.com/Deivu/Indomitable) in my bots
 
-> This supports sharding out of box since it uses Indomitable by default
+> This supports sharding and concurrency handling to showcase [Indomitable](https://github.com/Deivu/Indomitable)
 
 ### Before you start 
 
-> This uses Shoukaku V3 which is a TS rewrite
+> Kongou v4 is a rewritten project in TS
 
-> Make sure you have Node >=16.6.0 installed on your system as this uses Discord.JS v13
+> Make sure you have Node >=16.6.0 installed on your system as this uses Discord.JS v14
 
-> Your own instance of [Lavalink](https://github.com/freyacodes/Lavalink/tree/dev), You can download the binaries at their [CI Server](https://ci.fredboat.com/viewType.html?buildTypeId=Lavalink_Build&branch_Lavalink=refs%2Fheads%2Fdev&tab=buildTypeStatusDiv)
+> Your own instance of [Lavalink](https://github.com/lavalink-devs/Lavalink)
 
-> Some knowledge on filling the `config_templates` correctly
+> Make sure to read the README.md in [Configuration Files](https://github.com/Deivu/Kongou/tree/master/ConfigurationTemplates)
 
-### If you want to selfhost this 
+### If you want to self-host this
 
 > Clone, then Download this repo to a work directory of your choice.
 
-> Fill in the `config_templates` then drag them beside the index.js in your working directory
+> Fill in the [Configuration Files](https://github.com/Deivu/Kongou/tree/master/ConfigurationTemplates) then drag them beside the index.js in your working directory
 
 > Do `npm i` in your working directory
+ 
+> Do `npm run build` in your working directory
 
-> Do `npm run slash` to get the slash commands updated for your bot
+> Then do `npm start` (no log formatting) or `npm run dev` (with log formatting) to start the bot
 
-> Then do `npm start` to start the bot
+### If you want to contribute
 
-### If you want to contribute just submit a PR.
+> Ensure you have knowledge on developing in Typescript
 
-> Made with ❤️ by @Sāya#0113
+> Test your changes to ensure it adheres to the repository's coding standards by doing `npm run lint`
+
+> Test the code locally by doing `npm run dev` before submitting a pull request
+
+### Made with ❤️ by `@sayanyan`
