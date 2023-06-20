@@ -73,8 +73,11 @@ export class Interactions {
                 if (options.music.channel) {
                     if (!context.member!.voice.channelId)
                         return await context.sendInteractionMessage('Please join a voice channel first, or re-join if you are in one');
-                    if (context.member!.voice.channelId !== context.me!.voice.channelId)
+                    if (context.me!.voice.channelId && context.member!.voice.channelId !== context.me!.voice.channelId)
                         return await context.sendInteractionMessage('Please join the same voice channel where I am currently in');
+                    const { Connect } = PermissionsBitField.Flags;
+                    if (context.me!.voice.channel && !context.me!.voice.channel.permissionsFor(context.me!)!.has([ Connect ]))
+                        return await context.sendInteractionMessage('Please give me proper connect permission(s) to join this channel');
                 }
                 if (options.music.author) {
                     const queue = this.client.queue.get(context.interaction.guildId! as string);
