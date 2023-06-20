@@ -117,7 +117,7 @@ export function Shuffle<T>(array: T[]): T[] {
     const duplicate = array.slice();
     for (let length = duplicate.length - 1; length > 0; length--) {
         const random = Math.floor(Math.random() * (length + 1));
-        [ array[length], array[random] ] = [ array[random], array[length] ];
+        [ duplicate[length], duplicate[random] ] = [ duplicate[random], duplicate[length] ];
     }
     return duplicate;
 }
