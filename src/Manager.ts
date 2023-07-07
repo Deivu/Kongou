@@ -22,12 +22,7 @@ export class Manager {
 
         this.indomitable
             .on('error', error => this.logger.error(error))
-            .on('debug', (message, data) => {
-                if (data)
-                    this.logger.debug(data, message);
-                else
-                    this.logger.debug(message);
-            })
+            .on('debug', message => this.logger.debug(message))
             .on('workerReady', async (cluster) => {
                 try {
                     // check if we are ready

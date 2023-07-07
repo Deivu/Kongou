@@ -17,6 +17,8 @@ A Typescript Discord.JS bot template, using 2 of my public packages
 > Kongou v4 is a rewritten project in TS
 
 > Make sure you have Node >=16.6.0 installed on your system as this uses Discord.JS v14
+ 
+> If you are getting fetch issues, enable node's experimental modules
 
 > Your own instance of [Lavalink](https://github.com/lavalink-devs/Lavalink)
 
