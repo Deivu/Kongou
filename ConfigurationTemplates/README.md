@@ -10,7 +10,6 @@
 
 ### Config.json
 
-### Shoukaku's options
 | Option               | Type           | Description                                                                                                                             |
 |----------------------|----------------|-----------------------------------------------------------------------------------------------------------------------------------------|
 | level                | string         | Debug levels, example: "debug", "info", "error". Debug means show all, info means show vital logs only, error will only show error logs |
@@ -28,7 +27,6 @@
 
 ### Lavalink.json
 
-### Shoukaku's options
 | Option                 | Type                   | Description                                                                            |
 |------------------------|------------------------|----------------------------------------------------------------------------------------|
 | name                   | string                 | Any name of your choice for your lavalink server                                       |
