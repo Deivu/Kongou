@@ -3,6 +3,7 @@ import { GuildMember, SlashCommandBuilder } from 'discord.js';
 import { CommandOptions, Interaction } from '../../structure/Interaction.js';
 import { Kongou } from '../../Kongou.js';
 import { InteractionContext } from '../../structure/InteractionContext.js';
+import { LoadType, Track } from 'shoukaku';
 
 export const CommandData = new SlashCommandBuilder()
     .setName('play')
@@ -35,7 +36,7 @@ export default class Play extends Interaction {
         if (!node)
             throw new Error('No nodes available');
         const result = await node.rest.resolve(query);
-        if (!result?.tracks.length)
+        if (!result || [ LoadType.ERROR, LoadType.EMPTY ].includes(result.loadType))
             return await context.sendInteractionMessage('Unfortunately, there are no results for your query');
         const member = context.interaction.member! as GuildMember;
         const player = await this.client.createGuildPlayer({
@@ -44,7 +45,24 @@ export default class Play extends Interaction {
             shardId: context.interaction.guild!.shardId,
             messageChannelId: context.interaction.channelId
         });
-        for (const track of result.tracks) {
+        let track;
+        if (result.loadType === LoadType.PLAYLIST) {
+            for (const track of result.data.tracks) {
+                const userTrack = {
+                    ...track,
+                    userId: context.interaction.user.id
+                };
+                player.tracks.push(userTrack);
+            }
+        } else if (result.loadType === LoadType.SEARCH) {
+            track = result.data[0]!;
+            const userTrack = {
+                ...track,
+                userId: context.interaction.user.id
+            };
+            player.tracks.push(userTrack);
+        } else {
+            track = result.data as Track;
             const userTrack = {
                 ...track,
                 userId: context.interaction.user.id
@@ -55,9 +73,9 @@ export default class Play extends Interaction {
             player.stopped = false;
             await player.playQueue();
         }
-        if (result.playlistInfo.name)
-            await context.sendInteractionMessage(`Loaded ${result.playlistInfo.name} with ${result.tracks.length} track(s) in queue!`);
+        if (result.loadType === LoadType.PLAYLIST)
+            await context.sendInteractionMessage(`Loaded ${result.data.info.name} with ${result.data.tracks.length} track(s) in queue!`);
         else
-            await context.sendInteractionMessage(`Loaded ${result.tracks[0]!.info.title} in the end of the queue!`);
+            await context.sendInteractionMessage(`Loaded ${track!.info.title} in the end of the queue!`);
     }
 }

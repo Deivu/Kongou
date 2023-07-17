@@ -1,7 +1,7 @@
 {
   "name": "kongou",
   "version": "4.0.0",
-  "description": "An example bot created by me to showcase Shoukaku and Indomitable",
+  "description": "An example bot created by @sayanyan to showcase Shoukaku and Indomitable",
   "type": "module",
   "main": "index.js",
   "scripts": {
@@ -15,6 +15,10 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Deivu/Kongou.git"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=7.0.0"
   },
   "keywords": [
     "Discord",
@@ -38,9 +42,9 @@
     "denque": "^2.1.0",
     "discord-api-types": "^0.37.45",
     "discord.js": "^14.11.0",
-    "indomitable": "^3.0.2",
+    "indomitable": "^3.0.4",
     "pino": "^8.14.1",
-    "shoukaku": "github:Deivu/Shoukaku#dada9ce"
+    "shoukaku": "github:Deivu/Shoukaku#31ed644"
   },
   "devDependencies": {
     "@augu/eslint-config": "^4.0.1",

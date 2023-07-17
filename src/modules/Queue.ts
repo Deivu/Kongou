@@ -123,7 +123,7 @@ export class Queue {
             ]);
             return;
         }
-        await this.player!.playTrack(track);
+        await this.player!.playTrack({ track: track.encoded });
     }
 
     public async sendNormalMessage(message: string): Promise<void> {
