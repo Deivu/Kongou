@@ -40,6 +40,8 @@ export class Kongou extends Client {
                 if (lowercase.includes('status update')) return;
                 this.logger.debug(`Lavalink Node: ${name} | ${message}`);
             });
+        if (options.ws?.buildStrategy)
+            this.logger.debug(`Detected a build strategy function. Function: ${options.ws.buildStrategy.toString()}`);
     }
 
     public getClientStatistics(): ClientStatistics {

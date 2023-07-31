@@ -1,3 +1,4 @@
+import { IndomitableStrategy } from 'kearsarge';
 import { GatewayIntentBits } from 'discord-api-types/v10';
 import { Partials, Options } from 'discord.js';
 
@@ -12,7 +13,10 @@ const options = {
         allowedMentions: { parse: [ 'users', 'roles' ] },
         partials: [ Partials.User, Partials.GuildMember ],
         intents: [ Guilds, GuildMembers, GuildVoiceStates ],
-        makeCache: Options.cacheWithLimits(Options.DefaultMakeCacheSettings)
+        makeCache: Options.cacheWithLimits(Options.DefaultMakeCacheSettings),
+        ws: {
+            buildStrategy: manager => new IndomitableStrategy(manager)
+        }
     },
     shardCount: Config.shards || undefined,
     clusterCount: Config.clusters || undefined,
