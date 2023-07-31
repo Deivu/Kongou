@@ -42,7 +42,7 @@
     "denque": "^2.1.0",
     "discord-api-types": "^0.37.45",
     "discord.js": "^14.11.0",
-    "indomitable": "github:Deivu/Indomitable#b6f4ef4",
+    "indomitable": "github:Deivu/Indomitable#9a940f9",
     "pino": "^8.14.1",
     "shoukaku": "github:Deivu/Shoukaku#31ed644"
   },
