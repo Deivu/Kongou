@@ -38,12 +38,12 @@
   },
   "homepage": "https://github.com/Deivu/Kongou#readme",
   "dependencies": {
-    "@discordjs/rest": "^1.7.1",
+    "@discordjs/rest": "^2.0.0",
     "denque": "^2.1.0",
     "discord-api-types": "^0.37.45",
-    "discord.js": "^14.11.0",
-    "indomitable": "^4.0.2",
-    "kearsarge": "github:Deivu/Kearsarge#1d1d597",
+    "discord.js": "^14.12.1",
+    "indomitable": "^4.0.3",
+    "kearsarge": "^1.0.0",
     "pino": "^8.14.1",
     "shoukaku": "github:Deivu/Shoukaku#31ed644"
   },
