@@ -43,7 +43,7 @@
     "discord-api-types": "^0.37.45",
     "discord.js": "^14.11.0",
     "indomitable": "^4.0.2",
-    "kearsarge": "github:Deivu/Kearsarge#fe89f2f",
+    "kearsarge": "github:Deivu/Kearsarge#1d1d597",
     "pino": "^8.14.1",
     "shoukaku": "github:Deivu/Shoukaku#31ed644"
   },
