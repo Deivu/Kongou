@@ -75,12 +75,14 @@ export class Kongou extends Client {
         });
         await queue.connect();
         this.queue.set(queue.guildId, queue);
+        queue.once('disconnected', queue => this.queue.delete(queue.guildId));
         return queue;
     }
 
     public async destroyGuildPlayer(guildId: string): Promise<Queue|undefined> {
         const queue = this.queue.get(guildId);
         if (!queue) return;
+        queue.removeAllListeners();
         await queue.disconnect();
         this.queue.delete(guildId);
         return queue;

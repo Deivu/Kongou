@@ -3,6 +3,7 @@ import { Node, Player, Track } from 'shoukaku';
 import { Kongou } from '../Kongou.js';
 import { EmbedBuilder, Guild, TextChannel, VoiceChannel } from 'discord.js';
 import { Colors, ReadableTime } from '../Utils.js';
+import { EventEmitter } from 'events';
 
 export interface QueueOptions {
     client: Kongou;
@@ -22,7 +23,16 @@ export enum Repeat {
     ALL
 }
 
-export class Queue {
+export declare interface Queue {
+    on(event: 'connected', listener: (queue: Queue) => void): this;
+    on(event: 'disconnected', listener: (queue: Queue) => void): this;
+    once(event: 'connected', listener: (queue: Queue) => void): this;
+    once(event: 'disconnected', listener: (queue: Queue) => void): this;
+    off(event: 'connected', listener: (queue: Queue) => void): this;
+    off(event: 'disconnected', listener: (queue: Queue) => void): this;
+}
+
+export class Queue extends EventEmitter {
     public readonly client: Kongou;
     public guildId: string;
     public channelId: string;
@@ -34,6 +44,7 @@ export class Queue {
     public initialized: boolean;
     public stopped: boolean;
     constructor(options: QueueOptions) {
+        super();
         this.client = options.client;
         this.guildId = options.guildId;
         this.channelId = options.channelId;
@@ -108,13 +119,16 @@ export class Queue {
             });
 
         this.initialized = true;
+        this.emit('connected', this);
     }
 
     public async disconnect(): Promise<void> {
         this.stopped = true;
         this.player = null;
+        this.messageChannelId = "";
         this.tracks.clear();
         await this.client.shoukaku.leaveVoiceChannel(this.guildId);
+        this.emit('disconnected', this);
     }
 
     public async playQueue(): Promise<void> {
@@ -122,7 +136,7 @@ export class Queue {
         if (!track) {
             await Promise.allSettled([
                 this.sendNormalMessage('No more tracks in queue, leaving'),
-                this.client.destroyGuildPlayer(this.guildId)
+                this.disconnect()
             ]);
             return;
         }
