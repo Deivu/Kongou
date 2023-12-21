@@ -82,6 +82,7 @@ export class Kongou extends Client {
         const queue = this.queue.get(guildId);
         if (!queue) return;
         await queue.disconnect();
+        this.queue.delete(guildId);
         return queue;
     }
 

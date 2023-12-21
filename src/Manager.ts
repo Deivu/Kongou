@@ -6,7 +6,7 @@ import { PrimaryIpc } from './modules/PrimaryIpc.js';
 import { Logger, Config, ClientStatistics, ParseSize } from './Utils.js';
 
 export interface Timers {
-    activity?: NodeJS.Timer;
+    activity?: NodeJS.Timeout;
 }
 
 export class Manager {

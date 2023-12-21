@@ -42,4 +42,4 @@ A Typescript Discord.JS bot template, using 2 of my public packages
 
 > Test the code locally by doing `npm run dev` before submitting a pull request
 
-### Made with ❤️ by `@sayanyan`
+### Made with ❤️ by `@ichimakase`

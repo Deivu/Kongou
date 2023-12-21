@@ -32,7 +32,7 @@ export default class Play extends Interaction {
         } catch (error: unknown) {
             query = `ytsearch:${query}`;
         }
-        const node = this.client.shoukaku.getIdealNode();
+        const node = this.client.shoukaku.options.nodeResolver(this.client.shoukaku.nodes);
         if (!node)
             throw new Error('No nodes available');
         const result = await node.rest.resolve(query);

@@ -59,18 +59,19 @@ export class Queue {
     }
 
     get idealNodeDefault(): Node|undefined {
-        return this.client.shoukaku.getIdealNode();
+        return this.client.shoukaku.options.nodeResolver(this.client.shoukaku.nodes);
     }
 
     public async connect(): Promise<void> {
         if (this.initialized)
             throw new Error('This queue is already connected');
-        this.initialized = true;
+
         this.player = await this.client.shoukaku.joinVoiceChannel({
             guildId: this.guildId,
             channelId: this.channelId,
             shardId: this.shardId
         });
+
         this.player
             .on('start', () => {
                 const track = this.tracks.peekAt(0)!;
@@ -105,6 +106,8 @@ export class Queue {
                         ])
                     );
             });
+
+        this.initialized = true;
     }
 
     public async disconnect(): Promise<void> {
@@ -119,7 +122,7 @@ export class Queue {
         if (!track) {
             await Promise.allSettled([
                 this.sendNormalMessage('No more tracks in queue, leaving'),
-                this.disconnect()
+                this.client.destroyGuildPlayer(this.guildId)
             ]);
             return;
         }
