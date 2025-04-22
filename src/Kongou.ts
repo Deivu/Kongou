@@ -10,10 +10,10 @@ import {
 import { BaseLogger } from 'pino';
 import { Shoukaku, Events, createDiscordJSOptions, PlayerEventType } from 'shoukaku';
 import { ClientIpc } from './modules/ClientIpc';
-import { EventsManager } from './modules/Events.js';
-import { Interactions } from './modules/Interactions.js';
-import { Queue, QueueOptions } from './modules/Queue.js';
-import { ClientStatistics, Colors, Config, Lavalink, Logger, ShoukakuOptions } from './Utils.js';
+import { EventsManager } from './modules/Events';
+import { Interactions } from './modules/Interactions';
+import { Queue, QueueOptions } from './modules/Queue';
+import { ClientStatistics, Colors, Config, Lavalink, Logger, ShoukakuOptions } from './Utils';
 
 export class Kongou extends Client {
 	public readonly logger: BaseLogger;
@@ -90,15 +90,15 @@ export class Kongou extends Client {
 	}
 
 	public async createGuildPlayer(options: Omit<QueueOptions, 'client'>): Promise<Queue> {
-		const existing = this.queue.get(options.guildId);
+		const existing = this.queue.get(options.guild.id);
 		if (existing) return existing;
 		const queue = new Queue({
 			client: this,
 			...options
 		});
 		await queue.connect();
-		this.queue.set(queue.guildId, queue);
-		queue.once('disconnected', queue => this.queue.delete(queue.guildId));
+		this.queue.set(queue.guild.id, queue);
+		queue.once('disconnected', queue => this.queue.delete(queue.guild.id));
 		return queue;
 	}
 

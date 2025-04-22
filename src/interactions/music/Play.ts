@@ -1,10 +1,10 @@
 import { RESTPostAPIChatInputApplicationCommandsJSONBody } from 'discord-api-types/v10';
-import { GuildMember, SlashCommandBuilder } from 'discord.js';
+import {GuildMember, SlashCommandBuilder, TextChannel, VoiceChannel} from 'discord.js';
 import { LoadType, Track } from 'shoukaku';
-import { Kongou } from '../../Kongou.js';
-import { UserTrack } from '../../modules/Queue.js';
-import { CommandOptions, Interaction } from '../../structure/Interaction.js';
-import { InteractionContext } from '../../structure/InteractionContext.js';
+import { Kongou } from '../../Kongou';
+import { UserTrack } from '../../modules/Queue';
+import { CommandOptions, Interaction } from '../../structure/Interaction';
+import { InteractionContext } from '../../structure/InteractionContext';
 
 export const CommandData = new SlashCommandBuilder()
 	.setName('play')
@@ -42,10 +42,9 @@ export default class Play extends Interaction {
 			return await context.sendInteractionMessage('Unfortunately, there are no results for your query');
 		const member = context.interaction.member! as GuildMember;
 		const player = await this.client.createGuildPlayer({
-			guildId: context.interaction.guildId!,
-			channelId: member.voice.channelId!,
-			shardId: context.interaction.guild!.shardId,
-			messageChannelId: context.interaction.channelId
+			guild: context.interaction.guild!,
+			voiceChannel: member.voice.channel! as VoiceChannel,
+			messageChannel: context.interaction.channel as TextChannel
 		});
 
 		let track: Track;

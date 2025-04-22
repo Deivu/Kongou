@@ -2,15 +2,14 @@ import { EventEmitter } from 'events';
 import Denque from 'denque';
 import { EmbedBuilder, Guild, TextChannel, VoiceChannel } from 'discord.js';
 import { Player, Track } from 'shoukaku';
-import type { Kongou } from '../Kongou.js';
-import { Colors, ReadableTime } from '../Utils.js';
+import type { Kongou } from '../Kongou';
+import { Colors, ReadableTime } from '../Utils';
 
 export interface QueueOptions {
 	client: Kongou;
-	guildId: string;
-	channelId: string;
-	shardId: number;
-	messageChannelId: string;
+	guild: Guild;
+	voiceChannel: VoiceChannel;
+	messageChannel: TextChannel;
 }
 
 export interface UserTrack extends Track {
@@ -36,10 +35,9 @@ export declare interface Queue {
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export class Queue extends EventEmitter {
 	public readonly client: Kongou;
-	public guildId: string;
-	public channelId: string;
-	public shardId: number;
-	public messageChannelId: string;
+	public guild: Guild;
+	public voiceChannel: VoiceChannel;
+	public messageChannel: TextChannel;
 	public tracks: Denque<UserTrack>;
 	public repeat: Repeat;
 	public player: Player | null;
@@ -49,10 +47,9 @@ export class Queue extends EventEmitter {
 	constructor(options: QueueOptions) {
 		super();
 		this.client = options.client;
-		this.guildId = options.guildId;
-		this.channelId = options.channelId;
-		this.shardId = options.shardId;
-		this.messageChannelId = options.messageChannelId;
+		this.guild = options.guild;
+		this.voiceChannel = options.voiceChannel;
+		this.messageChannel = options.messageChannel;
 		this.tracks = new Denque();
 		this.repeat = Repeat.OFF;
 		this.player = null;
@@ -61,26 +58,14 @@ export class Queue extends EventEmitter {
 		this.stopped = true;
 	}
 
-	get guild(): Guild | undefined {
-		return this.client.guilds.cache.get(this.guildId);
-	}
-
-	get channel(): VoiceChannel | undefined {
-		return this.client.channels.cache.get(this.channelId) as VoiceChannel;
-	}
-
-	get messageChannel(): TextChannel | VoiceChannel | undefined {
-		return this.client.channels.cache.get(this.messageChannelId) as TextChannel | VoiceChannel;
-	}
-
 	public async connect(): Promise<void> {
 		if (this.initialized)
 			throw new Error('This queue is already connected');
 
 		const connection = await this.client.shoukaku.joinVoiceChannel({
-			guildId: this.guildId,
-			channelId: this.channelId,
-			shardId: this.shardId
+			guildId: this.guild.id,
+			channelId: this.voiceChannel.id,
+			shardId: this.guild.shardId
 		});
 
 		this.player = new Player(connection);
@@ -141,19 +126,17 @@ export class Queue extends EventEmitter {
 
 	public disconnect(): void {
 		this.stopped = true;
-		this.player = null;
-		this.messageChannelId = '';
 		this.tracks.clear();
-		this.client.shoukaku.leaveVoiceChannel(this.guildId);
+		this.client.shoukaku.leaveVoiceChannel(this.guild.id);
 		this.emit('disconnected', this);
 	}
 
 	public async playQueue(): Promise<void> {
 		const track = this.tracks.peekAt(0);
 		if (!track) {
+			this.disconnect();
 			await Promise.allSettled([
-				this.sendNormalMessage('No more tracks in queue, leaving'),
-				this.disconnect()
+				this.sendNormalMessage('No more tracks in queue, leaving')
 			]);
 			return;
 		}

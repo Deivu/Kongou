@@ -2,10 +2,10 @@ import { readdirSync } from 'fs';
 import { REST } from '@discordjs/rest';
 import { RESTPostAPIChatInputApplicationCommandsJSONBody } from 'discord-api-types/v10';
 import { Routes, EmbedBuilder, ChatInputCommandInteraction, PermissionsBitField } from 'discord.js';
-import type { Kongou } from '../Kongou.js';
-import type { Interaction } from '../structure/Interaction.js';
-import { InteractionContext } from '../structure/InteractionContext.js';
-import { Config, Colors, UpdateCommandsOptions } from '../Utils.js';
+import type { Kongou } from '../Kongou';
+import type { Interaction } from '../structure/Interaction';
+import { InteractionContext } from '../structure/InteractionContext';
+import { Config, Colors, UpdateCommandsOptions } from '../Utils';
 
 export class Interactions {
 	public readonly client: Kongou;

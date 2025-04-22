@@ -1,6 +1,6 @@
 import { readdirSync } from 'fs';
-import type { Kongou } from '../Kongou.js';
-import type { Event } from '../structure/Event.js';
+import type { Kongou } from '../Kongou';
+import type { Event } from '../structure/Event';
 
 export class EventsManager {
 	public readonly client: Kongou;

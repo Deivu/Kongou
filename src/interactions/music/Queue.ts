@@ -1,10 +1,10 @@
 import { RESTPostAPIChatInputApplicationCommandsJSONBody } from 'discord-api-types/v10';
 import { EmbedBuilder, SlashCommandBuilder } from 'discord.js';
-import { Kongou } from '../../Kongou.js';
-import { UserTrack } from '../../modules/Queue.js';
-import { CommandOptions, Interaction } from '../../structure/Interaction.js';
-import { InteractionContext } from '../../structure/InteractionContext.js';
-import { Paginate, ReadableTime } from '../../Utils.js';
+import { Kongou } from '../../Kongou';
+import { UserTrack } from '../../modules/Queue';
+import { CommandOptions, Interaction } from '../../structure/Interaction';
+import { InteractionContext } from '../../structure/InteractionContext';
+import { Paginate, ReadableTime } from '../../Utils';
 
 export const CommandData = new SlashCommandBuilder()
 	.setName('queue')

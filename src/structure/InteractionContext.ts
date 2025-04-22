@@ -1,6 +1,6 @@
 import { ChatInputCommandInteraction, InteractionReplyOptions, MessagePayload, User, GuildMember } from 'discord.js';
-import type { Kongou } from '../Kongou.js';
-import { Queue } from '../modules/Queue.js';
+import type { Kongou } from '../Kongou';
+import { Queue } from '../modules/Queue';
 
 export class InteractionContext {
 	public readonly client: Kongou;

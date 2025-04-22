@@ -1,5 +1,5 @@
-import type { Manager } from '../Manager.js';
-import { IpcContent, IpcMessage } from '../Utils.js';
+import type { Manager } from '../Manager';
+import { IpcContent, IpcMessage } from '../Utils';
 
 export class PrimaryIpc {
 	public readonly manager: Manager;

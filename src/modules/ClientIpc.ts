@@ -1,6 +1,6 @@
 import { ShardClientUtil } from 'indomitable';
-import type { Kongou } from '../Kongou.js';
-import { IpcContent, IpcMessage, UpdateCommandsOptions } from '../Utils.js';
+import type { Kongou } from '../Kongou';
+import { IpcContent, IpcMessage, UpdateCommandsOptions } from '../Utils';
 
 export class ClientIpc {
 	public readonly client: Kongou;

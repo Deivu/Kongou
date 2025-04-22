@@ -1,9 +1,9 @@
 import { RESTPostAPIChatInputApplicationCommandsJSONBody } from 'discord-api-types/v10';
 import { EmbedBuilder, SlashCommandBuilder } from 'discord.js';
-import { Kongou } from '../../Kongou.js';
-import { CommandOptions, Interaction } from '../../structure/Interaction.js';
-import { InteractionContext } from '../../structure/InteractionContext.js';
-import { ParseSize } from '../../Utils.js';
+import { Kongou } from '../../Kongou';
+import { CommandOptions, Interaction } from '../../structure/Interaction';
+import { InteractionContext } from '../../structure/InteractionContext';
+import { ParseSize } from '../../Utils';
 
 export const CommandData = new SlashCommandBuilder()
 	.setName('status')

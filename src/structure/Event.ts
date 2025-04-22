@@ -1,4 +1,4 @@
-import { Kongou } from '../Kongou.js';
+import { Kongou } from '../Kongou';
 
 export abstract class Event {
 	public readonly client: Kongou;

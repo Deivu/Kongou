@@ -1,8 +1,8 @@
 import { RESTPostAPIChatInputApplicationCommandsJSONBody } from 'discord-api-types/v10';
 import { SlashCommandBuilder } from 'discord.js';
-import { Kongou } from '../../Kongou.js';
-import { CommandOptions, Interaction } from '../../structure/Interaction.js';
-import { InteractionContext } from '../../structure/InteractionContext.js';
+import { Kongou } from '../../Kongou';
+import { CommandOptions, Interaction } from '../../structure/Interaction';
+import { InteractionContext } from '../../structure/InteractionContext';
 
 export const CommandData = new SlashCommandBuilder()
 	.setName('volume')

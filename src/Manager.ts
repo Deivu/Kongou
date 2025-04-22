@@ -2,8 +2,8 @@ import Cluster from 'cluster';
 import { clearInterval } from 'timers';
 import { Indomitable, IndomitableOptions } from 'indomitable';
 import { BaseLogger } from 'pino';
-import { PrimaryIpc } from './modules/PrimaryIpc.js';
-import { Logger, Config, ClientStatistics, ParseSize } from './Utils.js';
+import { PrimaryIpc } from './modules/PrimaryIpc';
+import { Logger, Config, ClientStatistics, ParseSize } from './Utils';
 
 export interface Timers {
 	activity?: NodeJS.Timeout;

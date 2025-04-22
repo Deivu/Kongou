@@ -1,6 +1,6 @@
-import { BaseInteraction } from 'discord.js';
-import { Kongou } from '../Kongou.js';
-import { Event } from '../structure/Event.js';
+import type { BaseInteraction } from 'discord.js';
+import type { Kongou } from '../Kongou';
+import { Event } from '../structure/Event';
 
 export default class Ready extends Event {
 	public readonly name: string;

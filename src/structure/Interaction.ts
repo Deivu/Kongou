@@ -1,6 +1,6 @@
 import { RESTPostAPIChatInputApplicationCommandsJSONBody } from 'discord.js';
-import { Kongou } from '../Kongou.js';
-import { InteractionContext } from './InteractionContext.js';
+import { Kongou } from '../Kongou';
+import { InteractionContext } from './InteractionContext';
 
 export interface CommandOptions {
 	music?: {
