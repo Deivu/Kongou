@@ -38,26 +38,21 @@
   },
   "homepage": "https://github.com/Deivu/Kongou#readme",
   "dependencies": {
-    "@discordjs/rest": "^2.0.0",
+    "@discordjs/rest": "^2.4.3",
     "denque": "^2.1.0",
-    "discord-api-types": "^0.37.66",
-    "discord.js": "^14.14.1",
+    "discord-api-types": "^0.37.120",
+    "discord.js": "^14.18.0",
     "indomitable": "^4.1.0",
-    "kearsarge": "^1.0.1",
-    "pino": "^8.17.1",
-    "shoukaku": "^4.0.1"
+    "pino": "^9.6.0",
+    "shoukaku": "file:F:\\Development\\shoukaku"
   },
   "devDependencies": {
-    "@augu/eslint-config": "^5.0.0",
-    "@types/node": "^20.10.5",
-    "@types/node-fetch": "^2.6.9",
-    "@types/ws": "^8.5.10",
-    "@typescript-eslint/eslint-plugin": "^6.15.0",
-    "@typescript-eslint/parser": "^6.15.0",
-    "eslint": "^8.56.0",
+    "@shipgirl/eslint-config": "^0.4.0",
+    "@types/node": "^22.8.2",
+    "@types/ws": "^8.5.12",
+    "eslint": "^9.25.1",
     "pino-pretty": "^10.3.0",
-    "tsup": "^8.0.1",
-    "typedoc": "^0.25.4",
-    "typescript": "^5.3.3"
+    "tsup": "^8.3.5",
+    "typescript": "^5.6.3"
   }
 }
