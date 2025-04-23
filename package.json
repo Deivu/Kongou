@@ -3,14 +3,12 @@
   "version": "4.0.0",
   "description": "An example bot created by @sayanyan to showcase Shoukaku and Indomitable",
   "type": "module",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
-    "clean:ts": "tsc --build --clean",
-    "build:ts": "tsc --build",
-    "build": "npm run clean:ts && npm run build:ts",
+    "build": "tsup --config tsup-config.json",
     "lint": "eslint --fix --ext .ts",
-    "start": "node index.js",
-    "dev": "node index.js | pino-pretty -c -l -t yyyy/mm/dd,HH:MM:ss -i hostname,pid"
+    "start": "node ./dist/index.js",
+    "dev": "node ./dist/index.js | pino-pretty -c -l -t yyyy/mm/dd,HH:MM:ss -i hostname,pid"
   },
   "repository": {
     "type": "git",
@@ -44,7 +42,7 @@
     "discord.js": "^14.18.0",
     "indomitable": "^4.1.0",
     "pino": "^9.6.0",
-    "shoukaku": "file:F:\\Development\\shoukaku"
+    "shoukaku": "github:shipgirlproject/Shoukaku#cd319abde19b23a93d9367a6b28be5077e22e953"
   },
   "devDependencies": {
     "@shipgirl/eslint-config": "^0.4.0",
@@ -52,7 +50,7 @@
     "@types/ws": "^8.5.12",
     "eslint": "^9.25.1",
     "pino-pretty": "^10.3.0",
-    "tsup": "^8.3.5",
+    "tsup": "^8.4.0",
     "typescript": "^5.6.3"
   }
 }

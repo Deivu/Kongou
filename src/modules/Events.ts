@@ -22,10 +22,10 @@ export class EventsManager {
 	async load(): Promise<void> {
 		if (this.built) return;
 		let index = 0;
-		const events = readdirSync('./dist/events', { withFileTypes: true });
+		const events = readdirSync('./dist/src/events', { withFileTypes: true });
 		for (const event of events) {
 			if (!event.isFile() || !event.name.endsWith('.js')) continue;
-			const location = `../events/${event.name}`;
+			const location = `./src/events/${event.name}`;
 			// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 			const file = await import(location);
 			// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call

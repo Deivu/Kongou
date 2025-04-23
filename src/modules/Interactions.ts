@@ -17,13 +17,13 @@ export class Interactions {
 
 	public async load(): Promise<void> {
 		if (this.commands.size) return;
-		const directories = readdirSync('./dist/interactions', { withFileTypes: true });
+		const directories = readdirSync('./dist/src/interactions', { withFileTypes: true });
 		for (const directory of directories) {
 			if (!directory.isDirectory()) continue;
-			const commands = readdirSync(`./dist/interactions/${directory.name}`, { withFileTypes: true });
+			const commands = readdirSync(`./dist/src/interactions/${directory.name}`, { withFileTypes: true });
 			for (const command of commands) {
 				if (!command.isFile() || !command.name.endsWith('.js')) continue;
-				const location = `../interactions/${directory.name}/${command.name}`;
+				const location = `./src/interactions/${directory.name}/${command.name}`;
 				// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 				const file = await import(location);
 				// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access

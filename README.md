@@ -26,7 +26,7 @@ A Typescript Discord.JS bot template, using 2 of my public packages
 
 > Clone, then Download this repo to a work directory of your choice.
 
-> Fill in the [Configuration Files](https://github.com/Deivu/Kongou/tree/master/ConfigurationTemplates) then drag them beside the index.js in your working directory
+> Fill in the [Configuration Files](https://github.com/Deivu/Kongou/tree/master/ConfigurationTemplates) then drag them beside the index.ts in your working directory
 
 > Do `npm i` in your working directory
  

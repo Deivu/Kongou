@@ -1,9 +1,9 @@
 import { GatewayIntentBits } from 'discord-api-types/v10';
 import { Partials, Options } from 'discord.js';
 
-import { Kongou } from './dist/Kongou.js';
-import { Manager } from './dist/Manager.js';
-import { Config } from './dist/Utils.js';
+import { Kongou } from './src/Kongou';
+import { Manager } from './src/Manager';
+import { Config } from './src/Utils';
 
 const { Guilds, GuildMembers, GuildVoiceStates } = GatewayIntentBits;
 
@@ -24,6 +24,7 @@ const options = {
 	token: Config.token
 };
 
+// @ts-expect-error: ok
 const manager = new Manager(options);
 
 manager.start();
